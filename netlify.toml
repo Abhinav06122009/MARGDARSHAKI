@@ -1,0 +1,17 @@
+# Netlify configuration file for your React (Vite) application.
+
+# Build settings:
+# - command: The command to run to build your site.
+# - publish: The directory that contains the built site.
+# Make sure these match your project's package.json scripts and build output directory.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Redirect rule for Single Page Applications (SPAs):
+# This rule ensures that all paths are redirected to index.html,
+# allowing React Router to handle client-side routing.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
