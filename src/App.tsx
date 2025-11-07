@@ -11,6 +11,9 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LandingPage from './pages/LandingPage';
 import ResetPasswordPage from './pages/reset-password';
+import AboutUsPage from './pages/AboutUsPage';
+import ContactUsPage from './pages/ContactUsPage';
+import SitemapPage from './pages/SitemapPage';
 import { CursorProvider } from '@/lib/CursorContext';
 import { Session } from '@supabase/supabase-js';
 
@@ -29,8 +32,8 @@ import Timetable from "@/components/timetable/Timetable";
 import CourseManagement from "@/components/courses/CourseManagement";
 import Syllabus from "@/components/syllabus/Syllabus";
 import Resources from "@/components/resources/Resources";
-import PrivacyPolicy from "@/components/legal/PrivacyPolicy";
-import TermsAndConditions from "@/components/legal/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
 
@@ -411,16 +414,19 @@ const AppContent = () => {
         />
 
         {/* Legal Pages */}
-        <Route path="/privacy" element={<PrivacyPolicy onBack={handleBackToDashboard} />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route
           path="/terms"
           element={
             <>
               <PageHelmet title="Terms and Conditions | MARGDARSHAK" description="Read the Terms and Conditions for using the MARGDARSHAK student portal and learning platform." />
-              <TermsAndConditions onBack={handleBackToDashboard} />
+              <TermsAndConditions />
             </>
           }
         />
+        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/contact" element={<ContactUsPage />} />
+        <Route path="/sitemap" element={<SitemapPage />} />
 
         {/* Settings Route */}
         <Route
@@ -451,10 +457,10 @@ const AppContent = () => {
               />
               <div className="glass-morphism rounded-2xl p-8 text-center max-w-md">
                 <h1 className="text-2xl font-bold text-white mb-4">💡 Help & Support</h1>
-                <p className="text-white/80 mb-6">Need assistance? Contact VSAV GYANTAPA support team.</p>
+                <p className="text-white/80 mb-6">Need assistance? Contact the MARGDARSHAK support team.</p>
                 <div className="space-y-4">
                   <a 
-                    href="mailto:abhinavjha393@gmail.com" 
+                    href="mailto:contact@margdarshak.com" 
                     className="block bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all"
                   >
                     📧 Email Support

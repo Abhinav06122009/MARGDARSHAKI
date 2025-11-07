@@ -315,8 +315,8 @@ export const About = () => (
     <div className="container mx-auto text-center max-w-4xl">
       <SectionHeader title="About MARGDARSHAK" subtitle="Our Mission to Revolutionize Learning" />
       <div className="text-lg md:text-xl text-gray-300 space-y-6">
-        <p>MARGDARSHAK is a revolutionary platform from <span className="font-bold text-emerald-400">VSAV GYANTAPA</span>, meticulously engineered to make learning more engaging, effective, and accessible for everyone.</p>
-        <p>Our mission is to empower students and educators with the tools they need to thrive in the digital age. We fuse a user-friendly, intuitive interface with powerful, zero-trust security to create a holistic academic ecosystem that you can rely on.</p>
+        <p>MARGDARSHAK is a revolutionary platform meticulously engineered to make learning more engaging, effective, and accessible for everyone.</p>
+        <p>Our mission is to empower students with the tools they need to thrive in the digital age. We fuse a user-friendly, intuitive interface with powerful, zero-trust security to create a holistic academic ecosystem that you can rely on.</p>
       </div>
     </div>
   </SectionWrapper>
@@ -333,7 +333,7 @@ export const Contact = () => {
     e.preventDefault();
     const subject = `Contact Form Submission from ${formData.name}`;
     const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-    window.location.href = `mailto:abhinavjha393@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:contact@margdarshak.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -424,15 +424,15 @@ export const Footer = () => (
           <h4 className="font-bold text-white mb-4">Support</h4>
           <ul className="space-y-2 text-gray-400">
             <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-            <li><a href="mailto:abhinavjha393@gmail.com" className="hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="mailto:contact@margdarshak.com" className="hover:text-white transition-colors">Contact Us</a></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm">
-        <p className="mb-4 sm:mb-0">&copy; {new Date().getFullYear()} VSAV GYANVEEDU. All rights reserved.</p>
+        <p className="mb-4 sm:mb-0">&copy; {new Date().getFullYear()} MARGDARSHAK. All rights reserved.</p>
         <div className="flex space-x-6">
-          <a href="https://x.com/gyantappas" aria-label="Twitter" className="text-gray-500 hover:text-white transition-colors"><Twitter /></a>
-          <a href="https://github.com/vsavgyantappas" aria-label="GitHub" className="text-gray-500 hover:text-white transition-colors"><Github /></a>
+          <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-white transition-colors"><Twitter /></a>
+          <a href="#" aria-label="GitHub" className="text-gray-500 hover:text-white transition-colors"><Github /></a>
           <a href="#" aria-label="LinkedIn" className="text-gray-500 hover:text-white transition-colors"><Linkedin /></a>
         </div>
       </div>
