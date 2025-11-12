@@ -27,3 +27,4 @@ dist-ssr
 supabase/functions/.env
 .env.local
 .env.env 
+"dist" 
