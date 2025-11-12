@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ContactUsPage: React.FC = () => {
-  return (
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+  
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      const subject = `Contact Form Submission from ${name}`;
+      const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      window.location.href = `mailto:support@margdarshan.tech?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+  
+    return (
     <div className="bg-gray-100 min-h-screen">
       <header className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-6">
@@ -12,7 +23,7 @@ const ContactUsPage: React.FC = () => {
       <main className="container mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Get in Touch</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                 Name
@@ -22,6 +33,9 @@ const ContactUsPage: React.FC = () => {
                 id="name"
                 type="text"
                 placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
             <div className="mb-4">
@@ -33,6 +47,9 @@ const ContactUsPage: React.FC = () => {
                 id="email"
                 type="email"
                 placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="mb-6">
@@ -44,12 +61,15 @@ const ContactUsPage: React.FC = () => {
                 id="message"
                 placeholder="Your message"
                 rows={6}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
               ></textarea>
             </div>
             <div className="flex items-center justify-between">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
+                type="submit"
               >
                 Send Message
               </button>
