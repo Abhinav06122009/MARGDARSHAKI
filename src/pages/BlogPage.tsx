@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link, Routes, Route, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, BookOpen, Clock, Calendar, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, ChevronRight } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
 
-// Mock Data for Blog Posts - In a real app, fetch this from Supabase
+// Mock Data for Blog Posts
 const BLOG_POSTS = [
   {
     id: 'study-techniques-2025',
