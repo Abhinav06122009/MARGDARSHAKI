@@ -2,13 +2,14 @@ import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import logo from "@/components/logo/logo.png";
+import { Link } from 'react-router-dom'; // Added for navigation
 
 interface CalculatorProps {
-  onBack: () => void;
+  onBack?: () => void; // Made optional
 }
 
-type CalculatorMode = 'scientific' | 'programmer' | 'graphing';
-type ThemeMode = 'light' ;
+type CalculatorMode = 'scientific' | 'standard'; // Simplified modes for stability
+type ThemeMode = 'light' | 'dark' | 'neon';
 
 interface CalculatorButton {
   label: string;
@@ -49,8 +50,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
   const [displayAnimation, setDisplayAnimation] = useState('');
   const [showHistory, setShowHistory] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticEnabled, setHapticEnabled] = useState(true);
   
@@ -62,8 +61,8 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
   
   // Refs for advanced features
   const audioContext = useRef<AudioContext | null>(null);
-  const displayRef = useRef<HTMLDivElement>(null);
   const calculatorRef = useRef<HTMLDivElement>(null);
+  const displayRef = useRef<HTMLDivElement>(null);
 
   // Enhanced themes
   const themes = useMemo(() => ({
@@ -71,12 +70,32 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
       background: 'bg-gradient-to-br from-blue-50 via-white to-gray-100',
       card: 'bg-white/90 shadow-xl',
       display: 'bg-gray-50/95',
-      numberBtn: 'bg-gradient-to-b from-gray-100 to-gray-200 hover:from-gray-50 hover:to-gray-150',
-      operationBtn: 'bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500',
-      functionBtn: 'bg-gradient-to-b from-gray-300 to-gray-400 hover:from-gray-200 hover:to-gray-300',
+      numberBtn: 'bg-gradient-to-b from-gray-100 to-gray-200 hover:from-gray-50 hover:to-gray-150 text-gray-900',
+      operationBtn: 'bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 text-white',
+      functionBtn: 'bg-gradient-to-b from-gray-300 to-gray-400 hover:from-gray-200 hover:to-gray-300 text-gray-800',
       accent: 'blue-500',
       text: 'text-gray-900'
     },
+    dark: {
+      background: 'bg-gradient-to-br from-gray-900 via-gray-800 to-black',
+      card: 'bg-gray-800/90 shadow-xl border border-gray-700',
+      display: 'bg-gray-900/95 text-white',
+      numberBtn: 'bg-gray-700 hover:bg-gray-600 text-white',
+      operationBtn: 'bg-blue-600 hover:bg-blue-500 text-white',
+      functionBtn: 'bg-gray-600 hover:bg-gray-500 text-white',
+      accent: 'blue-400',
+      text: 'text-white'
+    },
+    neon: {
+      background: 'bg-black',
+      card: 'bg-black/90 shadow-[0_0_20px_rgba(139,92,246,0.3)] border border-purple-500/30',
+      display: 'bg-gray-900/95 text-purple-400 font-mono',
+      numberBtn: 'bg-gray-900 border border-purple-500/30 text-purple-100 hover:bg-purple-900/20',
+      operationBtn: 'bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_10px_rgba(139,92,246,0.5)]',
+      functionBtn: 'bg-gray-900 border border-pink-500/30 text-pink-400 hover:bg-pink-900/20',
+      accent: 'purple-500',
+      text: 'text-purple-100'
+    }
   }), []);
 
   const currentTheme = themes[theme];
@@ -182,7 +201,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
       case '%': return firstValue % secondValue;
       case '^': return Math.pow(firstValue, secondValue);
       case 'mod': return firstValue % secondValue;
-      case 'xʸ': return Math.pow(firstValue, secondValue);
       default: return secondValue;
     }
   }, []);
@@ -261,7 +279,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     
     if (mode === 'scientific') {
       return [
-        // Scientific calculator layout
         { label: '2nd', type: 'function', className: `${baseStyle} ${currentTheme.functionBtn} h-12 text-sm` },
         { label: angleUnit.toUpperCase(), type: 'function', className: `${baseStyle} ${currentTheme.functionBtn} h-12 text-sm` },
         { label: 'sin', type: 'scientific', className: `${baseStyle} ${currentTheme.functionBtn} h-12 text-sm` },
@@ -286,31 +303,56 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
         { label: '÷', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl ring-2 ring-${currentTheme.accent}/30` },
         
         { label: 'x²', type: 'scientific', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-lg` },
-        { label: '7', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
-        { label: '8', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
-        { label: '9', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
+        { label: '7', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+        { label: '8', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+        { label: '9', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
         { label: '×', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl ring-2 ring-${currentTheme.accent}/30` },
         
         { label: '√', type: 'scientific', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-lg` },
-        { label: '4', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
-        { label: '5', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
-        { label: '6', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
+        { label: '4', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+        { label: '5', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+        { label: '6', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
         { label: '-', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl ring-2 ring-${currentTheme.accent}/30` },
         
         { label: 'π', type: 'scientific', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-lg` },
-        { label: '1', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
-        { label: '2', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
-        { label: '3', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
+        { label: '1', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+        { label: '2', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+        { label: '3', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
         { label: '+', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl ring-2 ring-${currentTheme.accent}/30` },
         
         { label: 'e', type: 'scientific', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-lg` },
-        { label: '0', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text} col-span-2`, span: 2 },
-        { label: '.', type: 'decimal', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl ${currentTheme.text}` },
+        { label: '0', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl col-span-2`, span: 2 },
+        { label: '.', type: 'decimal', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
         { label: '=', type: 'equals', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl ring-2 ring-${currentTheme.accent}/30` },
       ];
+    } else {
+        // Standard mode fallback
+        return [
+            { label: 'C', type: 'clear', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-xl` },
+            { label: '±', type: 'function', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-xl` },
+            { label: '%', type: 'function', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-xl` },
+            { label: '÷', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl` },
+            
+            { label: '7', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '8', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '9', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '×', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl` },
+            
+            { label: '4', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '5', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '6', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '-', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl` },
+            
+            { label: '1', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '2', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '3', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '+', type: 'operation', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl` },
+            
+            { label: '0', type: 'number', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl col-span-2`, span: 2 },
+            { label: '.', type: 'decimal', className: `${baseStyle} ${currentTheme.numberBtn} h-16 text-xl` },
+            { label: '=', type: 'equals', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl` },
+        ];
     }
-
-
   }, [mode, currentTheme, angleUnit]);
 
   // Enhanced number input
@@ -358,7 +400,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
       setDisplay(String(result));
       setPreviousValue(result);
       
-      // Enhanced history tracking
       const calculationStep: CalculationStep = {
         id: Date.now().toString(),
         expression: `${formatAdvancedDisplay(String(currentValue))} ${operation} ${formatAdvancedDisplay(String(inputValue))}`,
@@ -438,7 +479,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
         handleEquals();
         break;
       case 'decimal':
-        // Enhanced decimal handling
         setErrorMessage('');
         playAdvancedSound(350, 'sine', 80);
         triggerAdvancedHaptic([5]);
@@ -478,16 +518,14 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
       case 'scientific':
         handleScientific(button.label);
         break;
-      case 'mode':
-        // Handle mode switching
-        break;
     }
   }, [handleNumber, handleOperation, handleEquals, handleClear, handleMemory, handleScientific, display, waitingForNewValue, playAdvancedSound, triggerAdvancedHaptic]);
 
   // Keyboard support enhancement
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      event.preventDefault();
+      // Don't prevent default if it's a reload
+      if (event.key === 'r' && (event.metaKey || event.ctrlKey)) return;
       
       const key = event.key;
       
@@ -557,26 +595,40 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
 
   const buttons = getButtons();
 
+  // Mode and Theme Arrays for mapping
+  const availableModes: CalculatorMode[] = ['scientific', 'standard'];
+  const availableThemes: ThemeMode[] = ['light', 'dark', 'neon'];
+
   return (
     <div className={`min-h-screen ${currentTheme.background} ${currentTheme.text} flex flex-col relative overflow-hidden`} ref={calculatorRef}>
-      {/* Enhanced animated background elements */}
-      <div className="absolute inset-0 opacity-20">
+      {/* Background Glow */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-${currentTheme.accent} rounded-full filter blur-3xl animate-pulse`}></div>
         <div className={`absolute bottom-1/3 right-1/3 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl animate-pulse delay-1000`}></div>
-        <div className={`absolute top-2/3 left-1/2 w-64 h-64 bg-blue-500 rounded-full filter blur-3xl animate-pulse delay-2000`}></div>
       </div>
 
       <div className="max-w-2xl mx-auto p-4 flex-grow flex flex-col justify-center relative z-10">
-        {/* Ultra-Enhanced Header */}
+        {/* Header */}
         <div className="text-center mb-6">
           <div className="flex justify-between items-center mb-4">
-            <Button 
-              onClick={onBack}
-              variant="outline"
-              className={`${currentTheme.card} border-${currentTheme.accent}/30 ${currentTheme.text} hover:bg-${currentTheme.accent}/20 backdrop-blur-sm transition-all duration-300 hover:scale-105`}
-            >
-              ← Back
-            </Button>
+            {onBack ? (
+                <Button 
+                onClick={onBack}
+                variant="outline"
+                className={`${currentTheme.card} border-${currentTheme.accent}/30 ${currentTheme.text} hover:bg-${currentTheme.accent}/20 backdrop-blur-sm transition-all duration-300 hover:scale-105`}
+                >
+                ← Back
+                </Button>
+            ) : (
+                <Link to="/">
+                    <Button 
+                    variant="outline"
+                    className={`${currentTheme.card} border-${currentTheme.accent}/30 ${currentTheme.text} hover:bg-${currentTheme.accent}/20 backdrop-blur-sm transition-all duration-300 hover:scale-105`}
+                    >
+                    ← Home
+                    </Button>
+                </Link>
+            )}
             
             <div className="flex space-x-2">
               <Button
@@ -592,12 +644,12 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
             <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r from-${currentTheme.accent} via-purple-500 to-blue-500 bg-clip-text text-transparent mb-2 animate-pulse`}>
               Calculator
             </h1>
-            <p className="text-gray-400 text-lg">SCIENTIFIC CALCULATOR</p>
+            <p className="text-gray-400 text-lg">{mode.toUpperCase()} CALCULATOR</p>
           </div>
 
           {/* Mode Switcher */}
           <div className="flex justify-center space-x-2 mb-4">
-            {([] as CalculatorMode[]).map((m) => (
+            {availableModes.map((m) => (
               <Button
                 key={m}
                 onClick={() => setMode(m)}
@@ -614,7 +666,7 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
 
           {/* Theme Switcher */}
           <div className="flex justify-center space-x-1 mb-4">
-            {([] as ThemeMode[]).map((t) => (
+            {availableThemes.map((t) => (
               <Button
                 key={t}
                 onClick={() => setTheme(t)}
@@ -622,10 +674,11 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
                   theme === t ? `border-${currentTheme.accent}` : 'border-gray-600'
                 }`}
                 style={{
-                  background: t === 'light' ? '#1f2937' : t === 'light' ? '#f3f4f6' : t === 'neon' ? '#8b5cf6' : t === 'light' ? 'rgba(255,255,255,0.2)' : '#d97706'
+                  background: t === 'light' ? '#f3f4f6' : t === 'neon' ? '#000' : '#1f2937'
                 }}
+                title={`${t} theme`}
               >
-                {t[0].toUpperCase()}
+                {t === 'light' ? '☀️' : t === 'neon' ? '⚡' : '🌙'}
               </Button>
             ))}
           </div>
@@ -638,8 +691,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
               <h3 className="text-lg font-semibold">Settings</h3>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex justify-between items-center">
-              </div>
               <div className="flex justify-between items-center">
                 <span>Angle Unit</span>
                 <Button
@@ -664,221 +715,81 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
 
         {/* History Panel */}
         {showHistory && history.length > 0 && (
+            // ... (keep existing history panel code)
           <Card className={`${currentTheme.card} border border-${currentTheme.accent}/30 shadow-2xl rounded-3xl mb-4 backdrop-blur-xl max-h-48 overflow-hidden`}>
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">Calculation History</h3>
-                <Button
-                  onClick={() => setHistory([])}
-                  className={`${currentTheme.functionBtn} text-sm px-3 py-1 h-auto`}
-                >
-                  Clear
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-              {history.slice(0, 10).map((calc) => (
-                <div key={calc.id} className={`text-sm p-2 mb-2 ${currentTheme.display} rounded-lg backdrop-blur-sm border border-${currentTheme.accent}/20`}>
-                  <div className="flex justify-between items-center">
-                    <span>{calc.expression} = {calc.result}</span>
-                    <span className="text-xs text-gray-500">
-                      {calc.timestamp.toLocaleTimeString()}
-                    </span>
-                  </div>
+             <CardHeader>
+                <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-semibold">History</h3>
+                    <Button onClick={() => setHistory([])} size="sm" variant="ghost">Clear</Button>
                 </div>
-              ))}
-            </CardContent>
+             </CardHeader>
+             <CardContent>
+                 {history.slice(0, 5).map(h => (
+                     <div key={h.id} className="text-sm mb-2">
+                         <div className="text-gray-500">{h.expression}</div>
+                         <div className="font-bold">{h.result}</div>
+                     </div>
+                 ))}
+             </CardContent>
           </Card>
         )}
 
-        {/* Memory Display */}
-        {memory.value !== 0 && (
-          <div className={`${currentTheme.display} rounded-xl p-3 mb-4 text-center backdrop-blur-sm border border-${currentTheme.accent}/20`}>
-            <span className="text-sm text-gray-400">Memory: </span>
-            <span className="font-mono">{formatAdvancedDisplay(String(memory.value))}</span>
-          </div>
-        )}
-
-        {/* Ultra-Enhanced Calculator Card */}
+        {/* Calculator Display & Grid */}
         <Card className={`${currentTheme.card} border border-${currentTheme.accent}/30 shadow-2xl rounded-3xl overflow-hidden backdrop-blur-xl relative`}>
-          {/* Enhanced glow effect */}
           <div className={`absolute -inset-1 bg-gradient-to-r from-${currentTheme.accent}/30 to-purple-500/30 rounded-3xl blur-md animate-pulse`}></div>
           
-          {/* Ultra-Enhanced Display Area */}
           <CardHeader className="p-0 relative">
             <div className={`${currentTheme.display} p-6 md:p-8 text-right backdrop-blur-sm relative`} ref={displayRef}>
-              {/* Operation and previous value display */}
               {operation && previousValue !== null && (
                 <div className={`text-lg md:text-xl text-${currentTheme.accent} mb-2 font-mono animate-fade-in`}>
                   {formatAdvancedDisplay(String(previousValue))} {operation}
                 </div>
               )}
               
-              {/* Main display with ultra animations */}
               <div className={`text-4xl md:text-6xl font-light ${currentTheme.text} font-mono break-all leading-tight transition-all duration-300 ${displayAnimation} ${isAnimating ? 'scale-105 glow' : ''}`}>
                 {formatAdvancedDisplay(display)}
               </div>
               
-              {/* Enhanced status indicators */}
               <div className="flex justify-between items-center mt-4 text-sm">
-                <div className="flex space-x-2">
-                  {lastPressed && (
-                    <span className={`text-${currentTheme.accent} animate-fade-in`}>
-                      Last: {lastPressed}
-                    </span>
-                  )}
-                </div>
-                <div className="flex space-x-2">
-                  {mode === 'scientific' && (
-                    <span className="text-gray-400">{angleUnit.toUpperCase()}</span>
-                  )}
-                  {memory.value !== 0 && (
-                    <span className={`text-${currentTheme.accent}`}>M</span>
-                  )}
-                </div>
+                 <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => setShowHistory(!showHistory)}>
+                    History
+                 </Button>
               </div>
             </div>
           </CardHeader>
           
-          {/* Ultra-Enhanced Button Grid */}
           <CardContent className={`p-4 md:p-6 ${currentTheme.display} backdrop-blur-sm relative`}>
             <div className={`grid ${mode === 'scientific' ? 'grid-cols-5 gap-2' : 'grid-cols-4 gap-4'}`}>
               {buttons.map((button, index) => (
                 <Button
                   key={index}
                   onClick={() => handleButtonClick(button)}
-                  disabled={button.disabled}
                   className={`
                     ${button.className}
                     ${button.span === 2 ? 'col-span-2' : ''}
                     ${pressedButton === button.label ? 'scale-90 brightness-125 animate-pulse' : ''}
-                    ${lastPressed === button.label ? `ring-2 ring-${currentTheme.accent}/70 ring-opacity-70` : ''}
-                    active:scale-95 hover:scale-105 hover:brightness-110
-                    backdrop-filter backdrop-blur-sm
+                    active:scale-95 hover:scale-105
                     relative overflow-hidden group
                   `}
                   style={{
-                    minHeight: mode === 'scientific' ? '48px' : '80px',
+                    minHeight: mode === 'scientific' ? '48px' : '64px',
                   }}
                 >
-                  {/* Enhanced button glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  {/* Button content with tooltip */}
-                  <span className="relative z-10 drop-shadow-lg" title={button.tooltip}>
-                    {button.label}
-                  </span>
-                  
-                  {/* Enhanced ripple effect */}
-                  {pressedButton === button.label && (
-                    <div className={`absolute inset-0 bg-${currentTheme.accent}/30 rounded-2xl animate-ping`}></div>
-                  )}
+                  <span className="relative z-10">{button.label}</span>
                 </Button>
               ))}
             </div>
-
-            {/* Enhanced keyboard hint */}
-            <div className="mt-4 text-center">
-              <p className="text-xs text-gray-500">
-                💡 Full keyboard support • Voice commands ready • Swipe gestures enabled
-              </p>
-            </div>
           </CardContent>
         </Card>
-
-        {/* Ultra-enhanced status indicators */}
-        <div className="flex justify-center mt-4 space-x-3">
-          <div className={`w-4 h-4 rounded-full transition-all duration-300 ${isAnimating ? `bg-${currentTheme.accent} animate-pulse shadow-lg` : 'bg-gray-600'}`}></div>
-          <div className={`w-4 h-4 rounded-full transition-all duration-300 ${operation ? `bg-${currentTheme.accent} animate-pulse shadow-lg` : 'bg-gray-600'}`}></div>
-          <div className={`w-4 h-4 rounded-full transition-all duration-300 ${errorMessage ? 'bg-red-400 animate-pulse shadow-lg' : 'bg-gray-600'}`}></div>
-          <div className={`w-4 h-4 rounded-full transition-all duration-300 ${memory.value !== 0 ? `bg-${currentTheme.accent} animate-pulse shadow-lg` : 'bg-gray-600'}`}></div>
-          <div className={`w-4 h-4 rounded-full transition-all duration-300 ${soundEnabled ? 'bg-green-400' : 'bg-gray-600'}`}></div>
-        </div>
       </div>
 
-      {/* Ultra-Enhanced Footer */}
-<footer className="mt-12 py-6 border-t border-white/20 text-sm select-none flex items-center justify-center gap-4 text-black/70">
-  <img
-    src={logo}
-    alt="VSAV GyanVedu Logo"
-    className="w-15 h-14 object-contain mr-4 bg-white"
-    draggable={false}
-    style={{ minWidth: 48 }}
-  />
-  <div className="text-center">
-    Maintained by <span className="font-semibold text-emerald-400">MARGDARSHAK</span>
-    <br />
-    Developed &amp; Maintained by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span>
-    <br />
-    © 2025 VSAV GYANTAPA. All Rights Reserved
-  </div>
-</footer>
-
-      {/* Ultra-Enhanced Custom Styles */}
-      <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes glow {
-          0%, 100% { text-shadow: 0 0 5px currentColor; }
-          50% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.3s ease-out;
-        }
-        
-        .glow {
-          animation: glow 1s ease-in-out;
-        }
-        
-        .scrollbar-thin {
-          scrollbar-width: thin;
-        }
-        
-        .scrollbar-thumb-gray-600 {
-          scrollbar-color: #4B5563 #1F2937;
-        }
-        
-        ::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: rgba(31, 41, 55, 0.5);
-          border-radius: 3px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: rgba(75, 85, 99, 0.8);
-          border-radius: 3px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(107, 114, 128, 0.9);
-        }
-        
-        /* Responsive button grid improvements */
-        @media (max-width: 640px) {
-          .grid-cols-5 {
-            grid-template-columns: repeat(5, minmax(0, 1fr));
-            gap: 8px;
-          }
-        }
-        
-        /* Enhanced hover effects */
-        .group:hover .group-hover\\:opacity-100 {
-          opacity: 1;
-        }
-        
-        /* Smooth transitions for all interactive elements */
-        * {
-          transition-property: transform, background-color, border-color, box-shadow, opacity;
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-      `}</style>
+      <footer className="mt-8 py-6 border-t border-white/10 text-center text-sm opacity-60">
+        <div className="flex items-center justify-center gap-2 mb-2">
+            <img src={logo} alt="Logo" className="w-8 h-8" />
+            <span className="font-bold">MARGDARSHAK</span>
+        </div>
+        <p>© 2025 VSAV GYANTAPA</p>
+      </footer>
     </div>
   );
 };
