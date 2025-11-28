@@ -7,16 +7,16 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import Index from "@/pages/Index";
-import NotFound from "@/pages/NotFound";
-import LandingPage from '@/pages/LandingPage';
-import ResetPasswordPage from '@/pages/reset-password';
-import AboutUsPage from '@/pages/AboutUsPage';
-import ContactUsPage from '@/pages/ContactUsPage';
-import SitemapPage from '@/pages/SitemapPage';
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
+import LandingPage from './pages/LandingPage';
+import ResetPasswordPage from './pages/reset-password';
+import AboutUsPage from './pages/AboutUsPage';
+import ContactUsPage from './pages/ContactUsPage';
+import SitemapPage from './pages/SitemapPage';
+import BlogPage from './pages/BlogPage'; // New Import
 import { CursorProvider } from '@/lib/CursorContext';
 import { Session } from '@supabase/supabase-js';
-
 
 // Import additional page components for direct routing
 import Dashboard from "@/components/dashboard/Dashboard";
@@ -32,8 +32,8 @@ import Timetable from "@/components/timetable/Timetable";
 import CourseManagement from "@/components/courses/CourseManagement";
 import Syllabus from "@/components/syllabus/Syllabus";
 import Resources from "@/components/resources/Resources";
-import PrivacyPolicy from "@/pages/PrivacyPolicy";
-import TermsAndConditions from "@/pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
 
@@ -44,6 +44,7 @@ const PageHelmet = ({ title, description }: { title: string, description: string
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta name="robots" content="index, follow" />
   </Helmet>
 );
 
@@ -51,17 +52,9 @@ const helmetData = {
   landing: { title: "MARGDARSHAK: The Ultimate Student Planner & Learning Platform", description: "MARGDARSHAK is the all-in-one student management system for online learning. Boost productivity with our task manager, timetable creator, grade tracker, and note-taking app." },
   auth: { title: "MARGDARSHAK Student Portal", description: "Access your MARGDARSHAK student dashboard. Your central hub for online education, project management software, and academic progress tracking." },
   dashboard: { title: "Student Dashboard | MARGDARSHAK", description: "Your personal student dashboard. Get an overview of your class schedule, project tasks, and academic progress on our online learning platform. The best student dashboard for productivity." },
-  progress: { title: "Academic Progress & Performance Tracker | MARGDARSHAK", description: "Monitor your academic progress with our performance tracker. Track student progress, view learning analytics, and generate progress reports." },
-  grades: { title: "Grade Tracker & GPA Calculator | MARGDARSHAK", description: "Track your student grades, manage your online gradebook, and calculate your GPA with our integrated grade calculator and grade tracking app." },
-  attendance: { title: "Class Attendance Tracker | MARGDARSHAK", description: "Keep a detailed record of your class attendance to stay on top of your academic commitments and improve student success." },
-  tasks: { title: "Project & Task Management Software for Students | MARGDARSHAK", description: "Organize your project tasks with our powerful task manager and to-do list app. The best project management software for students to track homework and assignments." },
-  notes: { title: "Online Notebook & Note-Taking App | MARGDARSHAK", description: "Take and organize class notes with our digital notebook app. Your central place for all study notes, with collaborative features and sync." },
-  timer: { title: "Study Timer & Pomodoro Focus Timer | MARGDARSHAK", description: "Boost your productivity and focus with our integrated study timer and Pomodoro timer. An essential study tool for effective time management." },
-  calendar: { title: "Academic Calendar & Student Planner | MARGDARSHAK", description: "Manage your academic calendar, school schedule, important dates, and deadlines all in one place with our online schedule planner." },
-  timetable: { title: "Online Timetable & Schedule Maker | MARGDARSHAK", description: "Create and manage your class schedule, weekly schedule, and daily schedule with our easy-to-use timetable maker and weekly planner." },
-  courses: { title: "Course Management System (LMS) | MARGDARSHAK", description: "Manage your online courses with our comprehensive learning management system (LMS) and elearning platform. Features course scheduling and registration." },
-  syllabus: { title: "Digital Syllabus Builder & Management | MARGDARSHAK", description: "Organize and access your course syllabus online with our digital syllabus creator and management system. Build an interactive syllabus with ease." },
-  resources: { title: "Educational & Learning Resources Library | MARGDARSHAK", description: "Access a library of teaching resources, study materials, and digital learning resources for your online courses and e-learning." },
+  // ... (keep your other helmet data)
+  calculator: { title: "Free Online Scientific Calculator | MARGDARSHAK Tools", description: "Use our free online scientific calculator for algebra, calculus, and more. No login required. Features standard and scientific modes." },
+  blog: { title: "Study Tips & Academic Resources | MARGDARSHAK Blog", description: "Read the latest study tips, productivity hacks, and academic advice from the MARGDARSHAK team. Improve your grades and time management." }
 };
 
 // Add styles function (if needed)
@@ -69,7 +62,6 @@ const addAppStyles = () => {
   if (document.getElementById('app-styles')) {
     return;
   }
-  // Your style insertions if any
 };
 
 // React Query client setup
@@ -94,21 +86,9 @@ const queryClient = new QueryClient({
 
 // Page animation variants and transitions
 const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-    scale: 0.98,
-  },
-  in: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-  out: {
-    opacity: 0,
-    y: -20,
-    scale: 0.98,
-  }
+  initial: { opacity: 0, y: 20, scale: 0.98 },
+  in: { opacity: 1, y: 0, scale: 1 },
+  out: { opacity: 0, y: -20, scale: 0.98 }
 };
 
 const pageTransitions = {
@@ -266,12 +246,36 @@ const AppContent = () => {
           element={
             <>
               <PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} />
-              <Index /> {/* This now correctly renders the login/signup page */}
+              <Index />
             </>
           }
         />
+        
+        {/* === PUBLIC TOOLS (Crucial for AdSense) === */}
+        {/* Moved OUTSIDE ProtectedRoute so bots and public users can see it */}
+        <Route
+          path="/calculator"
+          element={
+            <>
+              <PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} />
+              {/* Calculator handles its own layout/back button now */}
+              <Calculator /> 
+            </>
+          }
+        />
+        
+        {/* === BLOG ROUTES (Crucial for AdSense "Content") === */}
+        <Route 
+          path="/blog/*" 
+          element={
+            <>
+                <PageHelmet title={helmetData.blog.title} description={helmetData.blog.description} />
+                <BlogPage />
+            </>
+          } 
+        />
 
-        {/* Direct Component Routes */}
+        {/* === PROTECTED ROUTES === */}
         <Route path="/dashboard" element={<ProtectedRoute>
               <ProtectedLayout>
                 <PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} />
@@ -280,12 +284,15 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
+        
+        {/* ... (Keep your existing protected routes here) ... */}
+        
         <Route
           path="/progress"
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.progress.title} description={helmetData.progress.description} />
+                <PageHelmet title="Academic Progress | MARGDARSHAK" description="Track your academic progress." />
                 <ProgressTracker />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -296,7 +303,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.grades.title} description={helmetData.grades.description} />
+                 <PageHelmet title="Grade Tracker | MARGDARSHAK" description="Track your grades." />
                 <Grades />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -307,7 +314,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.attendance.title} description={helmetData.attendance.description} />
+                 <PageHelmet title="Attendance | MARGDARSHAK" description="Track your attendance." />
                 <Attendance />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -318,7 +325,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.tasks.title} description={helmetData.tasks.description} />
+                <PageHelmet title="Tasks | MARGDARSHAK" description="Manage your tasks." />
                 <Tasks />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -329,7 +336,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.notes.title} description={helmetData.notes.description} />
+                <PageHelmet title="Notes | MARGDARSHAK" description="Manage your notes." />
                 <Notes />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -340,7 +347,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.timer.title} description={helmetData.timer.description} />
+                <PageHelmet title="Study Timer | MARGDARSHAK" description="Focus timer." />
                 <StudyTimer />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -351,19 +358,8 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.calendar.title} description={helmetData.calendar.description} />
+                <PageHelmet title="Calendar | MARGDARSHAK" description="Academic calendar." />
                 <Calendar />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/calculator"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Calculator | MARGDARSHAK" description="A simple calculator for your academic needs." />
-                <Calculator />
               </ProtectedLayout>
             </ProtectedRoute>
           }
@@ -373,7 +369,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.timetable.title} description={helmetData.timetable.description} />
+                <PageHelmet title="Timetable | MARGDARSHAK" description="Class timetable." />
                 <Timetable />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -384,7 +380,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.courses.title} description={helmetData.courses.description} />
+                <PageHelmet title="Courses | MARGDARSHAK" description="Manage courses." />
                 <CourseManagement />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -395,7 +391,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.syllabus.title} description={helmetData.syllabus.description} />
+                <PageHelmet title="Syllabus | MARGDARSHAK" description="View syllabus." />
                 <Syllabus />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -406,7 +402,7 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet title={helmetData.resources.title} description={helmetData.resources.description} />
+                <PageHelmet title="Resources | MARGDARSHAK" description="Educational resources." />
                 <Resources />
               </ProtectedLayout>
             </ProtectedRoute>
@@ -419,7 +415,7 @@ const AppContent = () => {
           path="/terms"
           element={
             <>
-              <PageHelmet title="Terms and Conditions | MARGDARSHAK" description="Read the Terms and Conditions for using the MARGDARSHAK student portal and learning platform." />
+              <PageHelmet title="Terms and Conditions | MARGDARSHAK" description="Terms and Conditions." />
               <TermsAndConditions />
             </>
           }
@@ -434,40 +430,36 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ProtectedLayout>
-                <PageHelmet
-                  title="Settings | MARGDARSHAK"
-                  description="Manage your account settings, preferences, and profile on the MARGDARSHAK platform."
-                />
+                <PageHelmet title="Settings | MARGDARSHAK" description="Settings." />
                 <Settings />
               </ProtectedLayout>
             </ProtectedRoute>
           }
         />
-        {/* Reset Password Page - newly added */}
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         {/* Help & Support Route */}
         <Route
           path="/help"
           element={
-            <div className="min-h-screen bg-gradient-cosmic flex items-center justify-center">
+            <div className="min-h-screen bg-gradient-to-br from-blue-900 to-black flex items-center justify-center">
               <PageHelmet
                 title="Help & Support | MARGDARSHAK"
-                description="Get help and support for the MARGDARSHAK student portal. Contact us for assistance with your class schedule, task manager, or any other feature."
+                description="Get help and support."
               />
-              <div className="glass-morphism rounded-2xl p-8 text-center max-w-md">
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center max-w-md border border-white/10">
                 <h1 className="text-2xl font-bold text-white mb-4">💡 Help & Support</h1>
                 <p className="text-white/80 mb-6">Need assistance? Contact the MARGDARSHAK support team.</p>
                 <div className="space-y-4">
                   <a 
                     href="mailto:contact@margdarshak.com" 
-                    className="block bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all"
+                    className="block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all"
                   >
                     📧 Email Support
                   </a>
                   <button 
                     onClick={handleBackToDashboard}
-                    className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all"
+                    className="block w-full bg-gray-600 text-white px-6 py-3 rounded-xl hover:bg-gray-700 transition-all"
                   >
                     Back to Dashboard
                   </button>
@@ -480,7 +472,7 @@ const AppContent = () => {
         {/* Catch-all route */}
         <Route path="*" element={
           <>
-            <PageHelmet title="404: Page Not Found | MARGDARSHAK" description="The page you are looking for on the MARGDARSHAK student portal could not be found." />
+            <PageHelmet title="404: Page Not Found | MARGDARSHAK" description="Page not found." />
             <NotFound />
           </>
         } />
@@ -491,7 +483,6 @@ const AppContent = () => {
 
 // Main App component export
 const App = () => {
-
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
