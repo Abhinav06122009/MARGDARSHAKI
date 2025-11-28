@@ -18,7 +18,7 @@ const BLOG_POSTS = [
     date: 'Oct 24, 2025',
     readTime: '8 min read',
     category: 'Study Hacks',
-    author: 'Dr. Sarah Chen',
+    author: 'ABHINAV JHA',
     content: `
       <p class="lead text-xl text-gray-300 mb-6">We've all been there: staring at a textbook for hours, highlighting every other sentence, only to forget everything the next day. The problem isn't your brain; it's your method. Here are the top 5 scientifically proven study techniques for 2025.</p>
 
@@ -60,7 +60,7 @@ const BLOG_POSTS = [
     date: 'Oct 20, 2025',
     readTime: '6 min read',
     category: 'Mental Health',
-    author: 'Rahul Verma',
+    author: 'ABHINAV JHA',
     content: `
       <p class="lead text-xl text-gray-300 mb-6">A little stress keeps you alert, but too much stress shuts down your prefrontal cortex—the part of your brain responsible for logic and memory. Here is how to keep your cool during exam season.</p>
 
@@ -92,7 +92,7 @@ const BLOG_POSTS = [
     date: 'Oct 15, 2025',
     readTime: '5 min read',
     category: 'Tech & Gear',
-    author: 'Tech Team',
+    author: 'ABHINAV JHA',
     content: `
       <p class="lead text-xl text-gray-300 mb-6">The debate continues: iPad or Notebook? Notion or loose-leaf paper? Research from Princeton University suggests the answer isn't as simple as "digital is better."</p>
 
@@ -149,7 +149,7 @@ const BLOG_POSTS = [
     date: 'Oct 05, 2025',
     readTime: '4 min read',
     category: 'Academic Success',
-    author: 'Sarah Chen',
+    author: 'ABHINAV JHA',
     content: `
       <p class="lead text-xl text-gray-300 mb-6">Many students are afraid to look at their grades until the report card arrives. By then, it's too late. Proactive grade tracking is the strategic advantage of top students.</p>
 
