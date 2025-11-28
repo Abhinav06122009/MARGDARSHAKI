@@ -124,7 +124,7 @@ const BLOG_POSTS = [
     date: 'Oct 10, 2025',
     readTime: '7 min read',
     category: 'Productivity',
-    author: 'Alex Rivera',
+    author: 'ABHINAV JHA',
     content: `
       <p class="lead text-xl text-gray-300 mb-6">Most study schedules fail because they are designed for robots, not humans. If you plan every minute of your day, one delay ruins everything. Here is a better way.</p>
 
