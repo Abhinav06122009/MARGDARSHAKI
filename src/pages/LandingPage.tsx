@@ -2,24 +2,16 @@ import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { motion, useAnimation, useSpring, useTransform, useMotionValue, useScroll } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
-// Consolidated imports
-import { 
-  BarChart, BookOpen, Calendar, CheckSquare, Cpu, Shield, Zap, Star, 
-  MessageSquare, ArrowRight, Twitter, Linkedin, Github, Users, Award, TrendingUp 
-} from 'lucide-react';
+import { Users, Award, TrendingUp, Zap, ArrowRight } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
 
-// Lazy load sections from the sections file
+// Lazy load heavy sections
 const Features = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Features })));
 const Testimonials = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Testimonials })));
 const About = lazy(() => import('./LandingPageSections').then(module => ({ default: module.About })));
 const Pricing = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Pricing })));
 const CTA = lazy(() => import('./LandingPageSections').then(module => ({ default: module.CTA })));
 const Footer = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Footer })));
-
-// ====================================================================================
-// ANIMATED COMPONENTS
-// ====================================================================================
 
 const AnimatedGradientText = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => {
   return (
@@ -50,20 +42,15 @@ const MagneticButton = ({ children, className = '', ...props }: any) => {
         const deltaY = e.pageY - centerY;
         
         const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
-        const maxDistance = 100;
-        const strength = 0.4;
-
-        if (distance < maxDistance) {
-          const factor = 1 - distance / maxDistance;
-          x.set(deltaX * factor * strength);
-          y.set(deltaY * factor * strength);
+        if (distance < 100) {
+          x.set(deltaX * 0.4);
+          y.set(deltaY * 0.4);
         } else {
           x.set(0);
           y.set(0);
         }
       }
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isHovering, x, y]);
@@ -99,33 +86,38 @@ const Header = () => {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`text-white sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? 'py-3 bg-black/70 backdrop-blur-xl border-white/10' : 'py-4 bg-transparent border-transparent'}`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="MARGDARSHAK Logo" className="h-10 w-10 rounded-lg" />
-          <h1 className="text-2xl font-bold tracking-wider text-white">MARGDARSHAK</h1>
-        </div>
+        <Link to="/" className="flex items-center gap-3">
+            <img src={logo} alt="MARGDARSHAK Logo" className="h-10 w-10 rounded-lg" />
+            <h1 className="text-2xl font-bold tracking-wider text-white">MARGDARSHAK</h1>
+        </Link>
+        
         <ul className="hidden md:flex items-center space-x-8">
-          {['home', 'features', 'testimonials', 'about'].map(item => (
+            {/* Added "Tools" to help with Public Content discovery */}
+            <li>
+                <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors">Tools</Link>
+            </li>
+            {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
-              <a href={`#${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
+                <a href={`#${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
-              </a>
+                </a>
             </li>
-          ))}
+            ))}
         </ul>
+
         <div className="flex gap-4">
-          <Link to="/auth" className="text-white font-medium py-3 px-4 hover:text-emerald-400 transition-colors">
-            Login
-          </Link>
-          <MagneticButton>
-            <Link to="/auth" className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:shadow-lg hover:shadow-emerald-500/40 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 button-interactive button-glow relative overflow-hidden shimmer-effect button-nova">
-              Get Started
+            <Link to="/auth" className="text-white font-medium py-3 px-4 hover:text-emerald-400 transition-colors">
+                Login
             </Link>
-          </MagneticButton>
+            <MagneticButton>
+                <Link to="/auth" className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:shadow-lg hover:shadow-emerald-500/40 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300">
+                Get Started
+                </Link>
+            </MagneticButton>
         </div>
       </div>
     </motion.nav>
@@ -145,35 +137,41 @@ const Hero = () => {
     >
       <div className="absolute inset-0 bg-grid-white/[0.07] z-0"></div>
       <div className="relative z-10 max-w-6xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6"
-        >
-          <AnimatedGradientText>Unlock Your Academic Potential</AnimatedGradientText>
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10"
-        >
-          MARGDARSHAK is the all-in-one, AI-powered student management system designed to streamline your studies. Use our task manager, schedule maker, and grade tracker to boost productivity and secure your academic journey.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.6, type: 'spring', stiffness: 150 }}
-        >
-          <MagneticButton>
-            <Link to="/auth" className="inline-flex items-center gap-3 bg-white text-gray-900 font-bold py-4 px-10 rounded-xl text-lg shadow-2xl shadow-emerald-500/30 button-interactive relative overflow-hidden shimmer-effect button-nova group">
-              Start Learning Now <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </MagneticButton>
-        </motion.div>
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6"
+      >
+        <AnimatedGradientText>Unlock Your Academic Potential</AnimatedGradientText>
+      </motion.h1>
+      <motion.p 
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10"
+      >
+        MARGDARSHAK is the all-in-one, AI-powered student management system designed to streamline your studies.
+      </motion.p>
+      
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="flex flex-col sm:flex-row gap-4 justify-center"
+      >
+        <MagneticButton>
+          <Link to="/auth" className="inline-flex items-center gap-3 bg-white text-gray-900 font-bold py-4 px-10 rounded-xl text-lg shadow-2xl shadow-emerald-500/30 group hover:bg-emerald-50 transition-colors">
+            Start Learning Now <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </MagneticButton>
+        
+        {/* Link to public tools for "Publisher Content" */}
+        <Link to="/calculator" className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md text-white font-bold py-4 px-10 rounded-xl text-lg border border-white/20 hover:bg-white/20 transition-all">
+            Try Calculator
+        </Link>
+      </motion.div>
 
-        {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -200,22 +198,6 @@ const Hero = () => {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2"
-          >
-            <motion.div animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-1 h-2 bg-white rounded-full" />
-          </motion.div>
-        </motion.div>
       </div>
     </motion.section>
   );
@@ -227,7 +209,6 @@ const ParticleBackground = React.memo(() => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -235,8 +216,7 @@ const ParticleBackground = React.memo(() => {
     canvas.height = window.innerHeight;
 
     const particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; }> = [];
-
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 50; i++) { // Reduced count for better performance
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -246,71 +226,27 @@ const ParticleBackground = React.memo(() => {
       });
     }
 
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle) => {
-        const dxMouse = mouseX - particle.x;
-        const dyMouse = mouseY - particle.y;
-        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-        const maxDist = 150;
-
-        if (distMouse < maxDist) {
-          const force = (maxDist - distMouse) / maxDist;
-          particle.vx -= (dxMouse / distMouse) * force * 0.1;
-          particle.vy -= (dyMouse / distMouse) * force * 0.1;
-        }
-
-        particle.vx *= 0.99; // friction
-        particle.vy *= 0.99; // friction
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+      ctx.fillStyle = 'rgba(147, 197, 253, 0.5)';
+      
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(147, 197, 253, 0.5)';
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
-
-        particles.forEach((otherParticle) => {
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 100) {
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(147, 197, 253, ${0.2 * (1 - distance / 100)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        });
       });
-
       requestAnimationFrame(animate);
     };
-
     animate();
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden bg-[#0A0A0A]">
+    <div className="fixed top-0 left-0 w-full h-full -z-10 bg-[#0A0A0A]">
       <canvas ref={canvasRef} className="absolute inset-0 opacity-50" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.1),rgba(255,255,255,0))]"></div>
     </div>
@@ -324,7 +260,7 @@ const LandingPage = () => {
       <Header />
       <main className="relative z-10">
         <Hero />
-        <Suspense fallback={<div className="h-screen bg-[#0A0A0A]" />}>
+        <Suspense fallback={<div className="h-20" />}>
           <Features />
           <Testimonials />
           <About />
