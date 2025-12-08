@@ -99,6 +99,10 @@ const Header = () => {
             <li>
                 <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors">Tools</Link>
             </li>
+            {/* Added "Blog" to help with Public Content discovery */}
+            <li>
+                <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
+            </li>
             {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
                 <a href={`#${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
