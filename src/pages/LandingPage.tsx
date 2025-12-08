@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
-import { motion, useAnimation, useSpring, useTransform, useMotionValue, useScroll } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import React, { useState, useEffect, useRef } from 'react'; // Removed Suspense/lazy imports
+import { motion, useSpring, useTransform, useMotionValue, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Users, Award, TrendingUp, Zap, ArrowRight } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
 
-// Lazy load heavy sections
-const Features = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Features })));
-const Testimonials = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Testimonials })));
-const About = lazy(() => import('./LandingPageSections').then(module => ({ default: module.About })));
-const Pricing = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Pricing })));
-const CTA = lazy(() => import('./LandingPageSections').then(module => ({ default: module.CTA })));
-const Footer = lazy(() => import('./LandingPageSections').then(module => ({ default: module.Footer })));
+// DIRECT IMPORTS (Fixes the "Failed to fetch dynamically imported module" error)
+// We assume LandingPageSections.tsx exports these components as named exports
+import { 
+  Features, 
+  Testimonials, 
+  About, 
+  Pricing, 
+  CTA, 
+  Footer 
+} from './LandingPageSections';
 
 const AnimatedGradientText = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => {
   return (
@@ -95,11 +97,9 @@ const Header = () => {
         </Link>
         
         <ul className="hidden md:flex items-center space-x-8">
-            {/* Added "Tools" to help with Public Content discovery */}
             <li>
                 <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors">Tools</Link>
             </li>
-            {/* Added "Blog" to help with Public Content discovery */}
             <li>
                 <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
             </li>
@@ -170,7 +170,6 @@ const Hero = () => {
           </Link>
         </MagneticButton>
         
-        {/* Link to public tools for "Publisher Content" */}
         <Link to="/calculator" className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md text-white font-bold py-4 px-10 rounded-xl text-lg border border-white/20 hover:bg-white/20 transition-all">
             Try Calculator
         </Link>
@@ -220,7 +219,7 @@ const ParticleBackground = React.memo(() => {
     canvas.height = window.innerHeight;
 
     const particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; }> = [];
-    for (let i = 0; i < 50; i++) { // Reduced count for better performance
+    for (let i = 0; i < 50; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -264,17 +263,14 @@ const LandingPage = () => {
       <Header />
       <main className="relative z-10">
         <Hero />
-        <Suspense fallback={<div className="h-20" />}>
-          <Features />
-          <Testimonials />
-          <About />
-          <Pricing />
-          <CTA />
-        </Suspense>
+        {/* Removed Suspense wrapper as components are now direct imports */}
+        <Features />
+        <Testimonials />
+        <About />
+        <Pricing />
+        <CTA />
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
   );
 };
