@@ -13,7 +13,7 @@ import LandingPage from './pages/LandingPage';
 import ResetPasswordPage from './pages/reset-password';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
-import SitemapPage from './pages/SitemapPage';
+import SitemapPage from './pages/SitemapPage'; // Ensure this matches filename exactly
 import BlogPage from './pages/BlogPage';
 import { CursorProvider } from '@/lib/CursorContext';
 import { Session } from '@supabase/supabase-js';
