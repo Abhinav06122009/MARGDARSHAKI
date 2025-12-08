@@ -14,7 +14,7 @@ import ResetPasswordPage from './pages/reset-password';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
 import SitemapPage from './pages/SitemapPage';
-import BlogPage from './pages/BlogPage'; // New Import
+import BlogPage from './pages/BlogPage';
 import { CursorProvider } from '@/lib/CursorContext';
 import { Session } from '@supabase/supabase-js';
 
@@ -36,6 +36,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
+import AdSenseScript from "@/components/AdSenseScript"; // IMPORANT: New Import
 
 // SEO Component for dynamic head tags
 const PageHelmet = ({ title, description }: { title: string, description: string }) => (
@@ -52,7 +53,6 @@ const helmetData = {
   landing: { title: "MARGDARSHAK: The Ultimate Student Planner & Learning Platform", description: "MARGDARSHAK is the all-in-one student management system for online learning. Boost productivity with our task manager, timetable creator, grade tracker, and note-taking app." },
   auth: { title: "MARGDARSHAK Student Portal", description: "Access your MARGDARSHAK student dashboard. Your central hub for online education, project management software, and academic progress tracking." },
   dashboard: { title: "Student Dashboard | MARGDARSHAK", description: "Your personal student dashboard. Get an overview of your class schedule, project tasks, and academic progress on our online learning platform. The best student dashboard for productivity." },
-  // ... (keep your other helmet data)
   calculator: { title: "Free Online Scientific Calculator | MARGDARSHAK Tools", description: "Use our free online scientific calculator for algebra, calculus, and more. No login required. Features standard and scientific modes." },
   blog: { title: "Study Tips & Academic Resources | MARGDARSHAK Blog", description: "Read the latest study tips, productivity hacks, and academic advice from the MARGDARSHAK team. Improve your grades and time management." }
 };
@@ -236,6 +236,7 @@ const AppContent = () => {
           path="/"
           element={
             <>
+              <AdSenseScript /> {/* Load ads on public Landing Page */}
               <PageHelmet title={helmetData.landing.title} description={helmetData.landing.description} />
               <LandingPage />
             </>
@@ -245,6 +246,7 @@ const AppContent = () => {
           path="/auth"
           element={
             <>
+              {/* No AdSenseScript here - Login page must be ad-free */}
               <PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} />
               <Index />
             </>
@@ -252,13 +254,12 @@ const AppContent = () => {
         />
         
         {/* === PUBLIC TOOLS (Crucial for AdSense) === */}
-        {/* Moved OUTSIDE ProtectedRoute so bots and public users can see it */}
         <Route
           path="/calculator"
           element={
             <>
+              <AdSenseScript /> {/* Load ads on Calculator */}
               <PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} />
-              {/* Calculator handles its own layout/back button now */}
               <Calculator /> 
             </>
           }
@@ -269,13 +270,14 @@ const AppContent = () => {
           path="/blog/*" 
           element={
             <>
+                <AdSenseScript /> {/* Load ads on Blog */}
                 <PageHelmet title={helmetData.blog.title} description={helmetData.blog.description} />
                 <BlogPage />
             </>
           } 
         />
 
-        {/* === PROTECTED ROUTES === */}
+        {/* === PROTECTED ROUTES (No Ads here) === */}
         <Route path="/dashboard" element={<ProtectedRoute>
               <ProtectedLayout>
                 <PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} />
@@ -284,8 +286,6 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
-        
-        {/* ... (Keep your existing protected routes here) ... */}
         
         <Route
           path="/progress"
