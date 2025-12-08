@@ -1,11 +1,9 @@
 import React from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Link, useNavigate } from 'react-router-dom';
-import { BarChart, BookOpen, Calendar, CheckSquare, Cpu, Shield, Zap, Star, MessageSquare, Twitter, Linkedin, Github, CheckCircle2, Clock, Target, TrendingUp, Users, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { BarChart, BookOpen, Calendar, CheckCircle2, Cpu, Shield, Zap, Star, MessageSquare, Twitter, Linkedin, Github, Clock, Target, TrendingUp, Users } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
 
 const SectionWrapper = ({ children, id, className = '' }: { children: React.ReactNode, id: string, className?: string }) => {
   const controls = useAnimation();
@@ -65,7 +63,7 @@ const TiltCard = ({ icon, title, description }: { icon: React.ReactNode, title: 
     const y = e.clientY - card.top;
     const centerX = card.width / 2;
     const centerY = card.height / 2;
-    const rotX = ((y - centerY) / centerY) * -8; // Reduced rotation
+    const rotX = ((y - centerY) / centerY) * -8; 
     const rotY = ((x - centerX) / centerX) * 8;
     setRotateX(rotX);
     setRotateY(rotY);
@@ -415,16 +413,15 @@ export const Footer = () => (
         <div>
           <h4 className="font-bold text-white mb-4">Company</h4>
           <ul className="space-y-2 text-gray-400">
-            <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+            <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
           </ul>
         </div>
         <div className="md:ml-auto">
           <h4 className="font-bold text-white mb-4">Support</h4>
           <ul className="space-y-2 text-gray-400">
-            <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-            <li><a href="mailto:contact@margdarshak.com" className="hover:text-white transition-colors">Contact Us</a></li>
+            <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
+            <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
           </ul>
         </div>
       </div>
