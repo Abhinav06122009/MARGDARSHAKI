@@ -2,13 +2,13 @@ import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import logo from "@/components/logo/logo.png";
-import { Link } from 'react-router-dom'; // Added for navigation
+import { Link } from 'react-router-dom';
 
 interface CalculatorProps {
-  onBack?: () => void; // Made optional
+  onBack?: () => void;
 }
 
-type CalculatorMode = 'scientific' | 'standard'; // Simplified modes for stability
+type CalculatorMode = 'scientific' | 'standard';
 type ThemeMode = 'light' | 'dark' | 'neon';
 
 interface CalculatorButton {
@@ -34,7 +34,6 @@ interface MemoryState {
 }
 
 const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
-  // Enhanced state management
   const [display, setDisplay] = useState('0');
   const [previousValue, setPreviousValue] = useState<number | null>(null);
   const [operation, setOperation] = useState<string | null>(null);
@@ -53,18 +52,15 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [hapticEnabled, setHapticEnabled] = useState(true);
   
-  // Advanced features state
   const [angleUnit, setAngleUnit] = useState<'deg' | 'rad'>('deg');
   const [precision, setPrecision] = useState(10);
   const [scientificNotation, setScientificNotation] = useState(false);
   const [autoSave, setAutoSave] = useState(true);
   
-  // Refs for advanced features
   const audioContext = useRef<AudioContext | null>(null);
   const calculatorRef = useRef<HTMLDivElement>(null);
   const displayRef = useRef<HTMLDivElement>(null);
 
-  // Enhanced themes
   const themes = useMemo(() => ({
     light: {
       background: 'bg-gradient-to-br from-blue-50 via-white to-gray-100',
@@ -100,7 +96,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
 
   const currentTheme = themes[theme];
 
-  // Enhanced audio system
   const playAdvancedSound = useCallback((frequency: number, type: 'sine' | 'square' | 'triangle' = 'sine', duration: number = 100) => {
     if (!soundEnabled) return;
     
@@ -128,7 +123,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, [soundEnabled]);
 
-  // Enhanced haptic feedback
   const triggerAdvancedHaptic = useCallback((pattern: number[] = [10]) => {
     if (!hapticEnabled) return;
     
@@ -136,19 +130,16 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
       navigator.vibrate(pattern);
     }
     
-    // Visual haptic feedback
     setIsAnimating(true);
     setTimeout(() => setIsAnimating(false), 150);
   }, [hapticEnabled]);
 
-  // Advanced number formatting
   const formatAdvancedDisplay = useCallback((value: string): string => {
     if (errorMessage) return errorMessage;
     
     const num = parseFloat(value.replace(/,/g, ''));
     if (isNaN(num)) return value;
     
-    // Handle different number formats
     if (scientificNotation && (Math.abs(num) >= 1000000 || (Math.abs(num) < 0.001 && num !== 0))) {
       return num.toExponential(precision);
     }
@@ -164,7 +155,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     return formatted;
   }, [errorMessage, scientificNotation, precision]);
 
-  // Scientific calculator functions
   const scientificFunctions = {
     sin: (x: number) => angleUnit === 'deg' ? Math.sin(x * Math.PI / 180) : Math.sin(x),
     cos: (x: number) => angleUnit === 'deg' ? Math.cos(x * Math.PI / 180) : Math.cos(x),
@@ -186,7 +176,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     e: () => Math.E
   };
 
-  // Enhanced calculation engine
   const calculateAdvanced = useCallback((firstValue: number, secondValue: number, operation: string): number => {
     switch (operation) {
       case '+': return firstValue + secondValue;
@@ -205,7 +194,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, []);
 
-  // Memory operations
   const handleMemory = useCallback((operation: 'MS' | 'MR' | 'MC' | 'M+' | 'M-') => {
     const currentValue = parseFloat(display.replace(/,/g, ''));
     
@@ -241,7 +229,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     playAdvancedSound(800, 'triangle', 150);
   }, [display, memory.value, triggerAdvancedHaptic, playAdvancedSound]);
 
-  // Scientific operations
   const handleScientific = useCallback((func: string) => {
     const currentValue = parseFloat(display.replace(/,/g, ''));
     let result: number;
@@ -273,7 +260,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     playAdvancedSound(1000, 'sine', 200);
   }, [display, angleUnit]);
 
-  // Enhanced button configurations for different modes
   const getButtons = useCallback((): CalculatorButton[] => {
     const baseStyle = 'font-semibold rounded-2xl border-0 transition-all duration-300 transform relative overflow-hidden shadow-lg hover:shadow-xl';
     
@@ -326,7 +312,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
         { label: '=', type: 'equals', className: `${baseStyle} ${currentTheme.operationBtn} h-16 text-xl ring-2 ring-${currentTheme.accent}/30` },
       ];
     } else {
-        // Standard mode fallback
         return [
             { label: 'C', type: 'clear', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-xl` },
             { label: '±', type: 'function', className: `${baseStyle} ${currentTheme.functionBtn} h-16 text-xl` },
@@ -355,7 +340,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, [mode, currentTheme, angleUnit]);
 
-  // Enhanced number input
   const handleNumber = useCallback((num: string) => {
     setErrorMessage('');
     playAdvancedSound(400 + parseInt(num) * 50, 'sine', 80);
@@ -377,7 +361,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, [display, waitingForNewValue, playAdvancedSound, triggerAdvancedHaptic]);
 
-  // Enhanced operation handling
   const handleOperation = useCallback((nextOperation: string) => {
     setErrorMessage('');
     playAdvancedSound(600, 'square', 120);
@@ -414,7 +397,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     setOperation(nextOperation);
   }, [display, previousValue, operation, waitingForNewValue, playAdvancedSound, triggerAdvancedHaptic, calculateAdvanced, formatAdvancedDisplay]);
 
-  // Enhanced equals handling
   const handleEquals = useCallback(() => {
     playAdvancedSound(800, 'triangle', 200);
     triggerAdvancedHaptic([15, 10, 15, 10, 15]);
@@ -449,7 +431,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, [display, previousValue, operation, calculateAdvanced, playAdvancedSound, triggerAdvancedHaptic, formatAdvancedDisplay]);
 
-  // Enhanced clear functionality
   const handleClear = useCallback(() => {
     playAdvancedSound(200, 'square', 150);
     triggerAdvancedHaptic([20, 10, 20]);
@@ -463,7 +444,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     setTimeout(() => setDisplayAnimation(''), 300);
   }, [playAdvancedSound, triggerAdvancedHaptic]);
 
-  // Enhanced button click handler
   const handleButtonClick = useCallback((button: CalculatorButton) => {
     setPressedButton(button.label);
     setTimeout(() => setPressedButton(''), 150);
@@ -521,10 +501,8 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, [handleNumber, handleOperation, handleEquals, handleClear, handleMemory, handleScientific, display, waitingForNewValue, playAdvancedSound, triggerAdvancedHaptic]);
 
-  // Keyboard support enhancement
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      // Don't prevent default if it's a reload
       if (event.key === 'r' && (event.metaKey || event.ctrlKey)) return;
       
       const key = event.key;
@@ -554,7 +532,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [handleNumber, handleOperation, handleEquals, handleClear, handleButtonClick]);
 
-  // Auto-save functionality
   useEffect(() => {
     if (autoSave) {
       const saveData = {
@@ -569,7 +546,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
     }
   }, [display, history, memory, mode, theme, angleUnit, precision, scientificNotation, soundEnabled, hapticEnabled, autoSave]);
 
-  // Load saved data on mount
   useEffect(() => {
     const savedData = localStorage.getItem('calculatorState');
     if (savedData) {
@@ -594,21 +570,17 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
   }, []);
 
   const buttons = getButtons();
-
-  // Mode and Theme Arrays for mapping
   const availableModes: CalculatorMode[] = ['scientific', 'standard'];
   const availableThemes: ThemeMode[] = ['light', 'dark', 'neon'];
 
   return (
     <div className={`min-h-screen ${currentTheme.background} ${currentTheme.text} flex flex-col relative overflow-hidden`} ref={calculatorRef}>
-      {/* Background Glow */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-${currentTheme.accent} rounded-full filter blur-3xl animate-pulse`}></div>
         <div className={`absolute bottom-1/3 right-1/3 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl animate-pulse delay-1000`}></div>
       </div>
 
       <div className="max-w-2xl mx-auto p-4 flex-grow flex flex-col justify-center relative z-10">
-        {/* Header */}
         <div className="text-center mb-6">
           <div className="flex justify-between items-center mb-4">
             {onBack ? (
@@ -647,7 +619,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
             <p className="text-gray-400 text-lg">{mode.toUpperCase()} CALCULATOR</p>
           </div>
 
-          {/* Mode Switcher */}
           <div className="flex justify-center space-x-2 mb-4">
             {availableModes.map((m) => (
               <Button
@@ -664,7 +635,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
             ))}
           </div>
 
-          {/* Theme Switcher */}
           <div className="flex justify-center space-x-1 mb-4">
             {availableThemes.map((t) => (
               <Button
@@ -684,7 +654,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
           </div>
         </div>
 
-        {/* Settings Panel */}
         {showSettings && (
           <Card className={`${currentTheme.card} border border-${currentTheme.accent}/30 shadow-2xl rounded-3xl mb-4 backdrop-blur-xl`}>
             <CardHeader>
@@ -713,9 +682,7 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
           </Card>
         )}
 
-        {/* History Panel */}
         {showHistory && history.length > 0 && (
-            // ... (keep existing history panel code)
           <Card className={`${currentTheme.card} border border-${currentTheme.accent}/30 shadow-2xl rounded-3xl mb-4 backdrop-blur-xl max-h-48 overflow-hidden`}>
              <CardHeader>
                 <div className="flex justify-between items-center">
@@ -734,7 +701,6 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
           </Card>
         )}
 
-        {/* Calculator Display & Grid */}
         <Card className={`${currentTheme.card} border border-${currentTheme.accent}/30 shadow-2xl rounded-3xl overflow-hidden backdrop-blur-xl relative`}>
           <div className={`absolute -inset-1 bg-gradient-to-r from-${currentTheme.accent}/30 to-purple-500/30 rounded-3xl blur-md animate-pulse`}></div>
           
@@ -781,6 +747,26 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
             </div>
           </CardContent>
         </Card>
+      </div>
+      
+      {/* ADD THIS SEO TEXT SECTION FOR ADSENSE */}
+      <div className="max-w-3xl mx-auto mt-12 mb-8 px-6 text-gray-300 space-y-6">
+        <h2 className={`text-2xl font-bold text-${currentTheme.accent}`}>Scientific Calculator Features</h2>
+        <p>
+          Welcome to the MARGDARSHAK free online scientific calculator. This tool is designed to help students and professionals perform complex mathematical calculations directly in the browser. Whether you are solving algebra problems, working on calculus homework, or need a quick standard calculation, our tool is optimized for accuracy and speed.
+        </p>
+        
+        <h3 className="text-xl font-semibold text-white">How to Use</h3>
+        <ul className="list-disc pl-5 space-y-2">
+            <li><strong>Standard Mode:</strong> Ideal for basic arithmetic like addition, subtraction, multiplication, and division.</li>
+            <li><strong>Scientific Mode:</strong> Access advanced functions including Trigonometry (Sin, Cos, Tan), Logarithms (Log, Ln), and Exponents.</li>
+            <li><strong>Memory Functions:</strong> Use M+, M-, and MR to store and recall numbers during long calculations.</li>
+        </ul>
+
+        <h3 className="text-xl font-semibold text-white">Why use an Online Calculator?</h3>
+        <p>
+            Unlike physical calculators, the MARGDARSHAK web calculator is always accessible on your laptop or phone. It saves your calculation history automatically, allowing you to double-check your work without re-typing.
+        </p>
       </div>
 
       <footer className="mt-8 py-6 border-t border-white/10 text-center text-sm opacity-60">
