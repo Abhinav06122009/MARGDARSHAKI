@@ -36,7 +36,10 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
-import AdSenseScript from "@/components/AdSenseScript"; // IMPORANT: New Import
+
+// --- NEW IMPORTS FOR ADSENSE COMPLIANCE ---
+import AdSenseScript from "@/components/AdSenseScript";
+import CookieConsent from "@/components/CookieConsent";
 
 // SEO Component for dynamic head tags
 const PageHelmet = ({ title, description }: { title: string, description: string }) => (
@@ -230,254 +233,259 @@ const AppContent = () => {
     navigate('/dashboard');
   };
   return (
-    <AnimatedRoute>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <AdSenseScript /> {/* Load ads on public Landing Page */}
-              <PageHelmet title={helmetData.landing.title} description={helmetData.landing.description} />
-              <LandingPage />
-            </>
-          }
-        />
-        <Route
-          path="/auth"
-          element={
-            <>
-              {/* No AdSenseScript here - Login page must be ad-free */}
-              <PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} />
-              <Index />
-            </>
-          }
-        />
-        
-        {/* === PUBLIC TOOLS (Crucial for AdSense) === */}
-        <Route
-          path="/calculator"
-          element={
-            <>
-              <AdSenseScript /> {/* Load ads on Calculator */}
-              <PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} />
-              <Calculator /> 
-            </>
-          }
-        />
-        
-        {/* === BLOG ROUTES (Crucial for AdSense "Content") === */}
-        <Route 
-          path="/blog/*" 
-          element={
-            <>
-                <AdSenseScript /> {/* Load ads on Blog */}
-                <PageHelmet title={helmetData.blog.title} description={helmetData.blog.description} />
-                <BlogPage />
-            </>
-          } 
-        />
+    <>
+      <AnimatedRoute>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <AdSenseScript /> {/* Load ads on public Landing Page */}
+                <PageHelmet title={helmetData.landing.title} description={helmetData.landing.description} />
+                <LandingPage />
+              </>
+            }
+          />
+          <Route
+            path="/auth"
+            element={
+              <>
+                {/* No AdSenseScript here - Login page must be ad-free */}
+                <PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} />
+                <Index />
+              </>
+            }
+          />
+          
+          {/* === PUBLIC TOOLS (Crucial for AdSense) === */}
+          <Route
+            path="/calculator"
+            element={
+              <>
+                <AdSenseScript /> {/* Load ads on Calculator */}
+                <PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} />
+                <Calculator /> 
+              </>
+            }
+          />
+          
+          {/* === BLOG ROUTES (Crucial for AdSense "Content") === */}
+          <Route 
+            path="/blog/*" 
+            element={
+              <>
+                  <AdSenseScript /> {/* Load ads on Blog */}
+                  <PageHelmet title={helmetData.blog.title} description={helmetData.blog.description} />
+                  <BlogPage />
+              </>
+            } 
+          />
 
-        {/* === PROTECTED ROUTES (No Ads here) === */}
-        <Route path="/dashboard" element={<ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} />
-                <Dashboard onNavigate={handleNavigate} />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/progress"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Academic Progress | MARGDARSHAK" description="Track your academic progress." />
-                <ProgressTracker />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/grades"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                 <PageHelmet title="Grade Tracker | MARGDARSHAK" description="Track your grades." />
-                <Grades />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/attendance"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                 <PageHelmet title="Attendance | MARGDARSHAK" description="Track your attendance." />
-                <Attendance />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tasks"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Tasks | MARGDARSHAK" description="Manage your tasks." />
-                <Tasks />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/notes"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Notes | MARGDARSHAK" description="Manage your notes." />
-                <Notes />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/timer"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Study Timer | MARGDARSHAK" description="Focus timer." />
-                <StudyTimer />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Calendar | MARGDARSHAK" description="Academic calendar." />
-                <Calendar />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/timetable"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Timetable | MARGDARSHAK" description="Class timetable." />
-                <Timetable />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/courses"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Courses | MARGDARSHAK" description="Manage courses." />
-                <CourseManagement />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/syllabus"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Syllabus | MARGDARSHAK" description="View syllabus." />
-                <Syllabus />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/resources"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Resources | MARGDARSHAK" description="Educational resources." />
-                <Resources />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
+          {/* === PROTECTED ROUTES (No Ads here) === */}
+          <Route path="/dashboard" element={<ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} />
+                  <Dashboard onNavigate={handleNavigate} />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/progress"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Academic Progress | MARGDARSHAK" description="Track your academic progress." />
+                  <ProgressTracker />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/grades"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Grade Tracker | MARGDARSHAK" description="Track your grades." />
+                  <Grades />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/attendance"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Attendance | MARGDARSHAK" description="Track your attendance." />
+                  <Attendance />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tasks"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Tasks | MARGDARSHAK" description="Manage your tasks." />
+                  <Tasks />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/notes"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Notes | MARGDARSHAK" description="Manage your notes." />
+                  <Notes />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/timer"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Study Timer | MARGDARSHAK" description="Focus timer." />
+                  <StudyTimer />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/calendar"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Calendar | MARGDARSHAK" description="Academic calendar." />
+                  <Calendar />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/timetable"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Timetable | MARGDARSHAK" description="Class timetable." />
+                  <Timetable />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/courses"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Courses | MARGDARSHAK" description="Manage courses." />
+                  <CourseManagement />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/syllabus"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Syllabus | MARGDARSHAK" description="View syllabus." />
+                  <Syllabus />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/resources"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Resources | MARGDARSHAK" description="Educational resources." />
+                  <Resources />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Legal Pages */}
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route
-          path="/terms"
-          element={
-            <>
-              <PageHelmet title="Terms and Conditions | MARGDARSHAK" description="Terms and Conditions." />
-              <TermsAndConditions />
-            </>
-          }
-        />
-        <Route path="/about" element={<AboutUsPage />} />
-        <Route path="/contact" element={<ContactUsPage />} />
-        <Route path="/sitemap" element={<SitemapPage />} />
+          {/* Legal Pages */}
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route
+            path="/terms"
+            element={
+              <>
+                <PageHelmet title="Terms and Conditions | MARGDARSHAK" description="Terms and Conditions." />
+                <TermsAndConditions />
+              </>
+            }
+          />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/sitemap" element={<SitemapPage />} />
 
-        {/* Settings Route */}
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title="Settings | MARGDARSHAK" description="Settings." />
-                <Settings />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+          {/* Settings Route */}
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout>
+                  <PageHelmet title="Settings | MARGDARSHAK" description="Settings." />
+                  <Settings />
+                </ProtectedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* Help & Support Route */}
-        <Route
-          path="/help"
-          element={
-            <div className="min-h-screen bg-gradient-to-br from-blue-900 to-black flex items-center justify-center">
-              <PageHelmet
-                title="Help & Support | MARGDARSHAK"
-                description="Get help and support."
-              />
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center max-w-md border border-white/10">
-                <h1 className="text-2xl font-bold text-white mb-4">💡 Help & Support</h1>
-                <p className="text-white/80 mb-6">Need assistance? Contact the MARGDARSHAK support team.</p>
-                <div className="space-y-4">
-                  <a 
-                    href="mailto:contact@margdarshak.com" 
-                    className="block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all"
-                  >
-                    📧 Email Support
-                  </a>
-                  <button 
-                    onClick={handleBackToDashboard}
-                    className="block w-full bg-gray-600 text-white px-6 py-3 rounded-xl hover:bg-gray-700 transition-all"
-                  >
-                    Back to Dashboard
-                  </button>
+          {/* Help & Support Route */}
+          <Route
+            path="/help"
+            element={
+              <div className="min-h-screen bg-gradient-to-br from-blue-900 to-black flex items-center justify-center">
+                <PageHelmet
+                  title="Help & Support | MARGDARSHAK"
+                  description="Get help and support."
+                />
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center max-w-md border border-white/10">
+                  <h1 className="text-2xl font-bold text-white mb-4">💡 Help & Support</h1>
+                  <p className="text-white/80 mb-6">Need assistance? Contact the MARGDARSHAK support team.</p>
+                  <div className="space-y-4">
+                    <a 
+                      href="mailto:contact@margdarshak.com" 
+                      className="block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all"
+                    >
+                      📧 Email Support
+                    </a>
+                    <button 
+                      onClick={handleBackToDashboard}
+                      className="block w-full bg-gray-600 text-white px-6 py-3 rounded-xl hover:bg-gray-700 transition-all"
+                    >
+                      Back to Dashboard
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
 
-        {/* Catch-all route */}
-        <Route path="*" element={
-          <>
-            <PageHelmet title="404: Page Not Found | MARGDARSHAK" description="Page not found." />
-            <NotFound />
-          </>
-        } />
-      </Routes>
-    </AnimatedRoute>
+          {/* Catch-all route */}
+          <Route path="*" element={
+            <>
+              <PageHelmet title="404: Page Not Found | MARGDARSHAK" description="Page not found." />
+              <NotFound />
+            </>
+          } />
+        </Routes>
+      </AnimatedRoute>
+      
+      {/* Cookie Consent Banner placed outside AnimatedRoute to prevent re-rendering on page changes */}
+      <CookieConsent />
+    </>
   );
 };
 
