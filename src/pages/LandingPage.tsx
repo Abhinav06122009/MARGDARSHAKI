@@ -86,11 +86,6 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <motion.section 
-      id="home" 
-      style={{ scale, opacity }}
-      className="relative text-white text-center px-6 overflow-hidden h-screen flex items-center justify-center"
-    >
       <div className="absolute inset-0 bg-grid-white/[0.07] z-0"></div>
       <div className="relative z-10 max-w-6xl mx-auto">
       <motion.h1
