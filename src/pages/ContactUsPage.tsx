@@ -1,10 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, MessageSquare, ArrowLeft } from 'lucide-react';
+import { Mail, MapPin, Phone, MessageSquare, ArrowLeft, Send, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { toast } from "sonner"; // Using Sonner for toasts
+import { supabase } from '@/integrations/supabase/client'; // Import Supabase client
 
 const ContactUsPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic Validation
+    if (!formData.email || !formData.message) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // 1. Attempt to save to Supabase
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: formData.email,
+            message: formData.message,
+          }
+        ]);
+
+      if (error) throw error;
+
+      // 2. Success Feedback
+      toast.success("Message sent successfully!", {
+        description: "We'll get back to you shortly.",
+      });
+
+      // 3. Reset Form
+      setFormData({ firstName: '', lastName: '', email: '', message: '' });
+
+    } catch (error: any) {
+      console.error('Error submitting form:', error);
+      
+      // Fallback: If Supabase fails (e.g. table missing), open mail client
+      const mailtoLink = `mailto:abhinavjha393@gmail.com?subject=Contact from ${formData.firstName}&body=${encodeURIComponent(formData.message)}`;
+      window.location.href = mailtoLink;
+
+      toast.error("Database connection failed. Opening email client instead.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans">
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
@@ -78,37 +143,78 @@ const ContactUsPage = () => {
               </div>
             </motion.div>
 
-            {/* Contact Form Mockup */}
+            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
               className="bg-white/5 p-8 rounded-2xl border border-white/10"
             >
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-300">First Name</label>
-                    <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors" />
+                    <input 
+                      type="text" 
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors text-white"
+                      placeholder="John"
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-300">Last Name</label>
-                    <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors" />
+                    <input 
+                      type="text" 
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors text-white"
+                      placeholder="Doe"
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-300">Email</label>
-                  <input type="email" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors" />
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors text-white"
+                    placeholder="john@example.com"
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-300">Message</label>
-                  <textarea rows={4} className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors"></textarea>
+                  <textarea 
+                    rows={4} 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-black/50 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-emerald-500 transition-colors text-white"
+                    placeholder="How can we help you?"
+                  ></textarea>
                 </div>
 
-                <Button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-6 text-lg">
-                  Send Message
+                <Button 
+                  disabled={isSubmitting}
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-6 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <Loader2 className="w-5 h-5 animate-spin" /> Sending...
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      Send Message <Send className="w-4 h-4" />
+                    </span>
+                  )}
                 </Button>
               </form>
             </motion.div>
