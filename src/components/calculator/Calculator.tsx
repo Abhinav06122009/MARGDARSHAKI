@@ -614,9 +614,9 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
           
           <div className="relative mb-4">
             <h1 className={`text-4xl md:text-5xl font-bold bg-gradient-to-r from-${currentTheme.accent} via-purple-500 to-blue-500 bg-clip-text text-transparent mb-2 animate-pulse`}>
-              Calculator
+              Scientific Calculator
             </h1>
-            <p className="text-gray-400 text-lg">{mode.toUpperCase()} CALCULATOR</p>
+            <p className="text-gray-400 text-lg">Free Online {mode.toUpperCase()} Tool</p>
           </div>
 
           <div className="flex justify-center space-x-2 mb-4">
@@ -749,32 +749,43 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
         </Card>
       </div>
       
-      {/* ADD THIS SEO TEXT SECTION FOR ADSENSE */}
-      <div className="max-w-3xl mx-auto mt-12 mb-8 px-6 text-gray-300 space-y-6">
-        <h2 className={`text-2xl font-bold text-${currentTheme.accent}`}>Scientific Calculator Features</h2>
-        <p>
-          Welcome to the MARGDARSHAK free online scientific calculator. This tool is designed to help students and professionals perform complex mathematical calculations directly in the browser. Whether you are solving algebra problems, working on calculus homework, or need a quick standard calculation, our tool is optimized for accuracy and speed.
-        </p>
-        
-        <h3 className="text-xl font-semibold text-white">How to Use</h3>
-        <ul className="list-disc pl-5 space-y-2">
-            <li><strong>Standard Mode:</strong> Ideal for basic arithmetic like addition, subtraction, multiplication, and division.</li>
-            <li><strong>Scientific Mode:</strong> Access advanced functions including Trigonometry (Sin, Cos, Tan), Logarithms (Log, Ln), and Exponents.</li>
-            <li><strong>Memory Functions:</strong> Use M+, M-, and MR to store and recall numbers during long calculations.</li>
-        </ul>
+      {/* ---------------------------------------------------------------------------------- */}
+      {/* REQUIRED FOR ADSENSE: Substantial Content Section */}
+      {/* ---------------------------------------------------------------------------------- */}
+      <div className="max-w-3xl mx-auto mt-12 mb-20 px-6 text-slate-600 dark:text-slate-400">
+        <article className="prose dark:prose-invert lg:prose-lg mx-auto">
+          <h2 className={`text-3xl font-bold mb-6 text-${currentTheme.accent}`}>Master Mathematics with Our Free Scientific Calculator</h2>
+          
+          <p className="mb-4">
+            Welcome to the MARGDARSHAK Online Scientific Calculator, a powerful tool designed to assist students, engineers, and professionals with complex mathematical computations. Unlike a basic calculator, our tool supports advanced functions essential for algebra, trigonometry, calculus, and statistics.
+          </p>
 
-        <h3 className="text-xl font-semibold text-white">Why use an Online Calculator?</h3>
-        <p>
-            Unlike physical calculators, the MARGDARSHAK web calculator is always accessible on your laptop or phone. It saves your calculation history automatically, allowing you to double-check your work without re-typing.
-        </p>
+          <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Key Features of This Calculator</h3>
+          <ul className="list-disc pl-5 space-y-2 mb-6">
+            <li><strong>Trigonometric Functions:</strong> Easily calculate Sine (sin), Cosine (cos), and Tangent (tan) in both Degrees and Radians. Perfect for geometry and physics problems.</li>
+            <li><strong>Logarithms & Exponents:</strong> Perform natural logs (ln), base-10 logs (log), powers (^), and square roots (√) with precision.</li>
+            <li><strong>Factorials & Constants:</strong> Access factorial (x!) calculations and mathematical constants like Pi (π) and Euler's number (e).</li>
+            <li><strong>Memory Operations:</strong> Store and recall intermediate results using Memory Store (MS), Recall (MR), and Clear (MC) buttons to streamline long equations.</li>
+          </ul>
+
+          <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">Why Use an Online Scientific Calculator?</h3>
+          <p className="mb-4">
+            In the modern academic landscape, having immediate access to reliable calculation tools is vital. Whether you are solving a quadratic equation, calculating the area of a circle, or working on engineering derivatives, this browser-based tool is accessible from any device—laptop, tablet, or smartphone—without the need to install heavy applications.
+          </p>
+
+          <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground">How to switch modes?</h3>
+          <p>
+            Use the toggle at the top of the interface to switch between <strong>Standard Mode</strong> for basic arithmetic and <strong>Scientific Mode</strong> for advanced functions. You can also customize the visual theme to Dark, Light, or Neon mode to reduce eye strain during late-night study sessions.
+          </p>
+        </article>
       </div>
 
-      <footer className="mt-8 py-6 border-t border-white/10 text-center text-sm opacity-60">
+      <footer className="py-6 border-t border-white/10 text-center text-sm opacity-60">
         <div className="flex items-center justify-center gap-2 mb-2">
             <img src={logo} alt="Logo" className="w-8 h-8" />
             <span className="font-bold">MARGDARSHAK</span>
         </div>
-        <p>© 2025 VSAV GYANTAPA</p>
+        <p>© 2025 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
