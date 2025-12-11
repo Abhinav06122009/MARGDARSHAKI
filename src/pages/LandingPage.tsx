@@ -10,7 +10,8 @@ import {
   Features, 
   Testimonials, 
   About, 
-  Pricing, 
+  Pricing,
+  timer,
   CTA, 
   Footer 
 } from './LandingPageSections';
@@ -265,6 +266,7 @@ const LandingPage = () => {
         <Hero />
         {/* Removed Suspense wrapper as components are now direct imports */}
         <Features />
+        <timer>
         <Testimonials />
         <About />
         <Pricing />
