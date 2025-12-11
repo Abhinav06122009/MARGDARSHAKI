@@ -12,8 +12,7 @@ const SitemapPage = () => {
       items: [
         { name: "Home", path: "/" },
         { name: "Login / Signup", path: "/auth" },
-        { name: "Pricing Plans", path: "/#pricing" },
-        { name: "Features Overview", path: "/#features" }
+        { name: "Features Overview", path: "/features" }
       ]
     },
     {
@@ -21,9 +20,7 @@ const SitemapPage = () => {
       icon: CalcIcon,
       items: [
         { name: "Scientific Calculator", path: "/calculator" },
-        { name: "Resource Library", path: "/resources" },
-        { name: "Interview Prep", path: "/interview" },
-        { name: "Career Pathways", path: "/career" }
+        { name: "Resource Library", path: "/resources" }
       ]
     },
     {
@@ -32,8 +29,7 @@ const SitemapPage = () => {
       items: [
         { name: "Student Blog", path: "/blog" },
         { name: "Study Techniques", path: "/blog/scientific-study-techniques-2025" },
-        { name: "Exam Stress", path: "/blog/manage-exam-stress-guide" },
-        { name: "Help Center", path: "/help" }
+        { name: "Exam Stress", path: "/blog/manage-exam-stress-guide" }
       ]
     },
     {
