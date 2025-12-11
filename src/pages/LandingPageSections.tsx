@@ -440,7 +440,7 @@ export const Footer = () => (
         </div>
       </div>
       <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm">
-        <p className="mb-4 sm:mb-0">&copy; {new Date().getFullYear()} MARGDARSHAK. All rights reserved.</p>
+        <p className="mb-4 sm:mb-0">&copy; {new Date().getFullYear()} VSAV GYANTAPA. All rights reserved.</p>
         <div className="flex space-x-6">
           <a href="https://x.com/gyantappas" aria-label="Twitter" className="text-gray-500 hover:text-white transition-colors"><Twitter /></a>
           <a href="https://www.facebook.com/profile.php?id=61584618795158" aria-label="Facebook" className="text-gray-500 hover:text-white transition-colors"><Facebook /></a>
