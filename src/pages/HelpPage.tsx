@@ -190,7 +190,7 @@ const HelpPage = () => {
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm bg-black/30">
-        <p>© 2025 MARGDARSHAK. All rights reserved.</p>
+        <p>© 2025 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
