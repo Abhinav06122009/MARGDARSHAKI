@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from 'react-router-dom';
 
 type Mode = "focus" | "short" | "long";
 
@@ -214,6 +215,13 @@ function TimerInner({ initial, size = 260 }: TimerProps) {
 
   return (
     <div style={styles.page}>
+        {/* Added Navigation for Public User */}
+        <div style={{ position: 'absolute', top: 20, left: 20 }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <button style={styles.secondaryBtn}>← Home</button>
+            </Link>
+        </div>
+
       <div style={styles.card}>
         <div style={styles.header}>
           <Title mode={mode} />
@@ -288,6 +296,38 @@ function TimerInner({ initial, size = 260 }: TimerProps) {
           </div>
         </div>
       )}
+
+      {/* ---------------------------------------------------------------------------------- */}
+      {/* REQUIRED FOR ADSENSE: Substantial Content Section */}
+      {/* ---------------------------------------------------------------------------------- */}
+      <div style={{ maxWidth: '800px', margin: '60px auto 20px', color: '#ccc', lineHeight: '1.6' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#fff' }}>Free Online Pomodoro Study Timer</h1>
+        
+        <p style={{ marginBottom: '1rem' }}>
+          Maximize your productivity with our free online study timer, designed around the proven Pomodoro Technique. 
+          Whether you are a high school student preparing for exams or a university student working on a thesis, 
+          managing your time effectively is the key to academic success.
+        </p>
+
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginTop: '2rem', marginBottom: '1rem', color: '#fff' }}>How to Use the Pomodoro Technique</h2>
+        <p style={{ marginBottom: '1rem' }}>
+            The Pomodoro Technique breaks work into focused intervals separated by short breaks. 
+            Here is the standard workflow used by millions of successful students:
+        </p>
+        <ol style={{ paddingLeft: '20px', marginBottom: '1.5rem' }}>
+            <li><strong>Set the Focus Timer:</strong> The default is 25 minutes. Work on a single task with zero distractions.</li>
+            <li><strong>Take a Short Break:</strong> When the alarm rings, take a 5-minute break. Stretch, drink water, or walk around.</li>
+            <li><strong>Repeat:</strong> Complete 4 focus sessions (known as "pomodoros").</li>
+            <li><strong>Long Break:</strong> After 4 sessions, take a longer restorative break (15-30 minutes).</li>
+        </ol>
+
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginTop: '2rem', marginBottom: '1rem', color: '#fff' }}>Benefits of Using a Study Timer</h2>
+        <p>
+           Using a digital timer helps prevent burnout and cognitive fatigue. By externalizing the time-tracking process, 
+           you free up mental energy to focus entirely on the material. Consistent use of this tool can improve your 
+           attention span and help you track exactly how much time you spend on different subjects.
+        </p>
+      </div>
     </div>
   );
 }
@@ -301,6 +341,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#f3f3f3",
     fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI",
     padding: 20,
+    position: 'relative'
   },
   card: {
     width: 360,
