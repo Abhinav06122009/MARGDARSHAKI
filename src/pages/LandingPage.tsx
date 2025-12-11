@@ -105,7 +105,7 @@ const Header = () => {
             </li>
             {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
-                <a href={`#${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
+                <a href={`${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
                 </a>
