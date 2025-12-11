@@ -215,7 +215,8 @@ const LandingPage = () => {
       {/* Ensure you are importing the Header correctly or defining it in this file */}
       {/* If Header is imported from ./LandingPage/Header, uncomment the import above and remove the inline Header definition if it exists in your local file */}
       <Header /> 
-      <main className="relative z-10">        
+      <main className="relative z-10">
+        <Hero />
         <Features />
         {/* Removed StudyTimer section */}
         <Testimonials />
