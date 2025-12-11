@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react'; // Removed Suspense/lazy imports
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useSpring, useTransform, useMotionValue, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Users, Award, TrendingUp, Zap, ArrowRight } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
+import StudyTimer from "@/components/timer/StudyTimer"; // Imported the actual Timer component
 
-// DIRECT IMPORTS (Fixes the "Failed to fetch dynamically imported module" error)
-// We assume LandingPageSections.tsx exports these components as named exports
+// DIRECT IMPORTS
 import { 
   Features, 
   Testimonials, 
   About, 
-  Pricing,
-  timer,
+  Pricing, 
   CTA, 
   Footer 
 } from './LandingPageSections';
@@ -102,11 +101,14 @@ const Header = () => {
                 <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors">Tools</Link>
             </li>
             <li>
+                <Link to="/timer" className="text-gray-300 hover:text-white transition-colors">Timer</Link>
+            </li>
+            <li>
                 <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>
             </li>
             {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
-                <a href={`${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
+                <a href={`#${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
                 </a>
@@ -264,9 +266,11 @@ const LandingPage = () => {
       <Header />
       <main className="relative z-10">
         <Hero />
-        {/* Removed Suspense wrapper as components are now direct imports */}
         <Features />
-        <timer>
+        {/* Render the full StudyTimer component as a feature preview */}
+        <section className="relative overflow-hidden py-20">
+             <StudyTimer />
+        </section>
         <Testimonials />
         <About />
         <Pricing />
