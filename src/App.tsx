@@ -16,6 +16,7 @@ import ContactUsPage from '@/pages/ContactUsPage';
 import SitemapPage from '@/pages/SitemapPage';
 import FeaturesPage from '@/pages/FeaturesPage';
 import TestimonialsPage from '@/pages/TestimonialsPage';
+import BlogPage from '@/pages/BlogPage'; // IMPORT BLOG PAGE
 import { CursorProvider } from '@/lib/CursorContext';
 import { Session } from '@supabase/supabase-js';
 
@@ -37,7 +38,7 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
-import AdSenseScript from '@/components/AdSenseScript'; // Ensure this is imported
+import AdSenseScript from '@/components/AdSenseScript';
 
 // SEO Component
 const PageHelmet = ({ title, description }: { title: string, description: string }) => (
@@ -53,7 +54,6 @@ const helmetData = {
   landing: { title: "MARGDARSHAK: The Ultimate Student Planner & Learning Platform", description: "MARGDARSHAK is the all-in-one student management system. Boost productivity with our task manager, timetable creator, and grade tracker." },
   auth: { title: "MARGDARSHAK Student Portal", description: "Access your MARGDARSHAK student dashboard. Your central hub for online education." },
   dashboard: { title: "Student Dashboard | MARGDARSHAK", description: "Your personal student dashboard. Get an overview of your class schedule and academic progress." },
-  // ... (keep existing helmet data)
   calculator: { title: "Free Online Scientific Calculator | MARGDARSHAK", description: "Use our free online scientific calculator for students. Supports trigonometry, logarithms, and advanced math functions." },
   timer: { title: "Free Pomodoro Study Timer | MARGDARSHAK", description: "Boost focus with our free online Pomodoro study timer. Custom intervals for effective learning." },
 };
@@ -158,7 +158,6 @@ const Navbar = () => {
           <Button variant="ghost" onClick={() => navigate('/settings')}>Settings</Button>
           <Button variant="destructive" onClick={handleLogout} className="ml-4">Logout</Button>
         </div>
-        {/* Mobile menu code... */}
       </div>
     </nav>
   );
@@ -193,7 +192,11 @@ const AppContent = () => {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           
-          {/* --- PUBLIC TOOLS (Moved from Protected) --- */}
+          {/* --- BLOG ROUTE (NEW - ESSENTIAL FOR ADSENSE) --- */}
+          {/* Note the use of "/*" to match sub-routes defined in BlogPage.tsx */}
+          <Route path="/blog/*" element={<BlogPage />} />
+
+          {/* --- PUBLIC TOOLS --- */}
           <Route path="/calculator" element={
             <>
               <PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} />
@@ -207,7 +210,7 @@ const AppContent = () => {
             </>
           } />
 
-          {/* --- PROTECTED ROUTES (Dashboard & Personal Data) --- */}
+          {/* --- PROTECTED ROUTES --- */}
           <Route path="/dashboard" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} /><Dashboard onNavigate={handleNavigate} /></ProtectedLayout></ProtectedRoute>} />
           <Route path="/progress" element={<ProtectedRoute><ProtectedLayout><ProgressTracker /></ProtectedLayout></ProtectedRoute>} />
           <Route path="/grades" element={<ProtectedRoute><ProtectedLayout><Grades /></ProtectedLayout></ProtectedRoute>} />
