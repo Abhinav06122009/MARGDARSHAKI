@@ -24,27 +24,57 @@ const Header = () => {
       className={`text-white sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? 'py-3 bg-black/70 backdrop-blur-xl border-white/10' : 'py-4 bg-transparent border-transparent'}`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="MARGDARSHAK Logo" className="h-10 w-10 rounded-lg" />
           <h1 className="text-2xl font-bold tracking-wider text-white">MARGDARSHAK</h1>
-        </div>
+        </Link>
+
+        {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center space-x-8">
-          {['home', 'features', 'testimonials', 'about'].map(item => (
+          {/* Public Tools & Resources */}
+          <li>
+            <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors relative group">
+              Tools
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/timer" className="text-gray-300 hover:text-white transition-colors relative group">
+              Timer
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/blog" className="text-gray-300 hover:text-white transition-colors relative group">
+              Blog
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
+            </Link>
+          </li>
+          
+          {/* Landing Page Sections (Home removed) */}
+          {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
-              <a href={`${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
+              <Link to={`/${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300" />
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
-        <div className="hidden md:block">
+
+        {/* Auth Buttons */}
+        <div className="hidden md:flex items-center gap-4">
+          <Link to="/auth" className="text-white font-medium hover:text-emerald-400 transition-colors">
+            Login
+          </Link>
           <MagneticButton>
             <Link to="/auth" className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:shadow-lg hover:shadow-emerald-500/40 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 button-interactive button-glow relative overflow-hidden shimmer-effect button-nova">
               Get Started
             </Link>
           </MagneticButton>
         </div>
+
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -53,19 +83,27 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 px-6 pb-4">
-          <ul className="flex flex-col items-center space-y-4">
-            {['home', 'features', 'testimonials', 'about'].map(item => (
+        <div className="md:hidden mt-4 px-6 pb-4 bg-black/90 backdrop-blur-xl border-t border-white/10">
+          <ul className="flex flex-col items-center space-y-4 pt-4">
+            <li><Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">Tools</Link></li>
+            <li><Link to="/timer" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">Timer</Link></li>
+            <li><Link to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">Blog</Link></li>
+            
+            {/* Sections (Home removed) */}
+            {['features', 'testimonials', 'about'].map(item => (
               <li key={item}>
-                <a href={`${item}`} onClick={() => setIsMobileMenuOpen(false)} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
+                <Link to={`/${item}`} onClick={() => setIsMobileMenuOpen(false)} className="capitalize text-gray-300 hover:text-white transition-colors">
                   {item}
-                </a>
+                </Link>
               </li>
             ))}
+            <li><Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="text-white font-medium">Login</Link></li>
           </ul>
-          <div className="mt-4 text-center">
-            <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="bg-gradient-to-r from-emerald-500 to-blue-600 hover:shadow-lg hover:shadow-emerald-500/40 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 button-interactive button-glow relative overflow-hidden shimmer-effect button-nova">
+          <div className="mt-4 text-center pb-4">
+            <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} className="inline-block bg-gradient-to-r from-emerald-500 to-blue-600 hover:shadow-lg hover:shadow-emerald-500/40 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 button-interactive button-glow relative overflow-hidden shimmer-effect button-nova">
               Get Started
             </Link>
           </div>
