@@ -5,7 +5,6 @@ const CookieConsent = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted
     const consent = localStorage.getItem('margdarshak_cookie_consent');
     if (!consent) {
       setShow(true);
@@ -30,21 +29,8 @@ const CookieConsent = () => {
           </p>
         </div>
         <div className="flex gap-3 shrink-0">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={() => setShow(false)}
-            className="border-white/20 text-white hover:bg-white/10"
-          >
-            Decline
-          </Button>
-          <Button 
-            size="sm" 
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg shadow-emerald-900/20" 
-            onClick={accept}
-          >
-            Accept Cookies
-          </Button>
+          <Button variant="outline" size="sm" onClick={() => setShow(false)} className="border-white/20 text-white hover:bg-white/10">Decline</Button>
+          <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg shadow-emerald-900/20" onClick={accept}>Accept Cookies</Button>
         </div>
       </div>
     </div>
