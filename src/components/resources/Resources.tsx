@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Search, Download, FileText, BookOpen, Target, Code, Shield, Filter, Star, Briefcase } from 'lucide-react';
-import logo from "@/components/logo/logo.png";
+import { Search, Download, FileText, BookOpen, Target, Code, Star, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from "@/components/logo/logo.png";
 
 interface ResourcesProps {
   onBack: () => void;
@@ -13,7 +13,6 @@ interface ResourcesProps {
 const Resources: React.FC<ResourcesProps> = ({ onBack }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Sample Public Resources (To show content to crawlers even without DB connection)
   const publicResources = [
     { id: 1, title: "Algebra Formula Sheet", category: "Math", type: "PDF", downloads: 1200 },
     { id: 2, title: "Physics: Laws of Motion", category: "Science", type: "PDF", downloads: 850 },
@@ -64,7 +63,7 @@ const Resources: React.FC<ResourcesProps> = ({ onBack }) => {
         {/* Featured Categories */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             {[
-                { name: "Mathematics", icon: Calculator, color: "text-blue-400", bg: "bg-blue-400/10" },
+                { name: "Mathematics", icon: Target, color: "text-blue-400", bg: "bg-blue-400/10" },
                 { name: "Science", icon: Target, color: "text-green-400", bg: "bg-green-400/10" },
                 { name: "Languages", icon: BookOpen, color: "text-purple-400", bg: "bg-purple-400/10" },
                 { name: "Coding", icon: Code, color: "text-orange-400", bg: "bg-orange-400/10" },
@@ -104,7 +103,7 @@ const Resources: React.FC<ResourcesProps> = ({ onBack }) => {
             </div>
         </div>
 
-        {/* --- SEO CONTENT SECTION (CRITICAL FOR ADSENSE) --- */}
+        {/* --- SEO CONTENT SECTION --- */}
         <div className="max-w-5xl mx-auto text-gray-400 space-y-12 border-t border-white/10 pt-16">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold text-white">Why Use the MARGDARSHAK Resource Library?</h2>
@@ -141,23 +140,6 @@ const Resources: React.FC<ResourcesProps> = ({ onBack }) => {
                         These materials are designed to prepare you for future career opportunities and internships.
                     </p>
                 </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-emerald-900/20 to-blue-900/20 rounded-3xl p-8 border border-white/10">
-                <h3 className="text-2xl font-bold text-white mb-4">How to Contribute</h3>
-                <p className="mb-4">
-                    MARGDARSHAK is a community-driven platform. If you have created high-quality notes or have access to helpful study materials, 
-                    you can contribute to our library.
-                </p>
-                <ul className="list-disc pl-5 space-y-2 mb-6">
-                    <li>Create an account or Login to your dashboard.</li>
-                    <li>Navigate to the "Upload" section.</li>
-                    <li>Select your file (PDF, DOCX, PPT) and add relevant tags (e.g., #Physics #Class12).</li>
-                    <li>Once approved, your resource will help thousands of other students!</li>
-                </ul>
-                <Link to="/auth">
-                    <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">Join the Community</Button>
-                </Link>
             </div>
         </div>
 
