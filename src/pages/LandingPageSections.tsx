@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 import { BarChart, BookOpen, Calendar, Cpu, Shield, Zap, Star, MessageSquare, Twitter, Linkedin, Github, CheckCircle2, Clock, Target, TrendingUp, Users } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
 
-// ... (Keep existing components: SectionWrapper, cardVariants, TiltCard, SectionHeader) ...
-// For brevity, assuming you have the helper components above. If you copy-paste, ensure they are present.
-
+// Helper components inside the same file for easier import
 const SectionWrapper = ({ children, id, className = '' }: { children: React.ReactNode, id: string, className?: string }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -29,8 +27,6 @@ const SectionHeader = ({ title, subtitle }: any) => (
         <p className="text-gray-400 max-w-2xl mx-auto">{subtitle}</p>
     </div>
 );
-
-// --- SECTIONS ---
 
 export const Features = () => (
   <SectionWrapper id="features" className="bg-black/20">
@@ -166,7 +162,6 @@ export const Footer = () => (
           <ul className="space-y-3 text-sm">
             <li><Link to="/privacy" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</Link></li>
-            <li><Link to="/terms" className="hover:text-emerald-400 transition-colors">Cookie Policy</Link></li>
           </ul>
         </div>
       </div>
