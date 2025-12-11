@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 import { 
   BarChart, BookOpen, Calendar, Cpu, Shield, Zap, Star, 
-  MessageSquare, Twitter, Linkedin, Github, CheckCircle2, 
+  MessageSquare, Twitter, Linkedin, Facebook, Instagram, CheckCircle2, 
   Clock, Target, TrendingUp, Users 
 } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
@@ -442,9 +442,9 @@ export const Footer = () => (
       <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center text-sm">
         <p className="mb-4 sm:mb-0">&copy; {new Date().getFullYear()} MARGDARSHAK. All rights reserved.</p>
         <div className="flex space-x-6">
-          <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-white transition-colors"><Twitter /></a>
-          <a href="#" aria-label="GitHub" className="text-gray-500 hover:text-white transition-colors"><Github /></a>
-          <a href="#" aria-label="LinkedIn" className="text-gray-500 hover:text-white transition-colors"><Linkedin /></a>
+          <a href="https://x.com/gyantappas" aria-label="Twitter" className="text-gray-500 hover:text-white transition-colors"><Twitter /></a>
+          <a href="https://www.facebook.com/profile.php?id=61584618795158" aria-label="Facebook" className="text-gray-500 hover:text-white transition-colors"><Facebook /></a>
+          <a href="https://www.linkedin.com/in/vsav-gyantapa-33893a399/" aria-label="LinkedIn" className="text-gray-500 hover:text-white transition-colors"><Linkedin /></a>
         </div>
       </div>
     </div>
