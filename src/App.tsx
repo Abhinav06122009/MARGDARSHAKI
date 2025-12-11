@@ -14,6 +14,10 @@ import ResetPasswordPage from '@/pages/reset-password';
 import AboutUsPage from '@/pages/AboutUsPage';
 import ContactUsPage from '@/pages/ContactUsPage';
 import SitemapPage from '@/pages/SitemapPage';
+// --- NEW IMPORTS START ---
+import FeaturesPage from '@/pages/FeaturesPage';
+import TestimonialsPage from '@/pages/TestimonialsPage';
+// --- NEW IMPORTS END ---
 import { CursorProvider } from '@/lib/CursorContext';
 import { Session } from '@supabase/supabase-js';
 
@@ -62,6 +66,9 @@ const helmetData = {
   courses: { title: "Course Management System (LMS) | MARGDARSHAK", description: "Manage your online courses with our comprehensive learning management system (LMS) and elearning platform. Features course scheduling and registration." },
   syllabus: { title: "Digital Syllabus Builder & Management | MARGDARSHAK", description: "Organize and access your course syllabus online with our digital syllabus creator and management system. Build an interactive syllabus with ease." },
   resources: { title: "Educational & Learning Resources Library | MARGDARSHAK", description: "Access a library of teaching resources, study materials, and digital learning resources for your online courses and e-learning." },
+  // --- NEW HELMET DATA ---
+  features: { title: "Platform Features & Tools | MARGDARSHAK", description: "Explore the powerful features of MARGDARSHAK: Task Manager, Grade Tracker, Timetable Builder, and more." },
+  testimonials: { title: "Student Success Stories | MARGDARSHAK", description: "Read reviews and success stories from students using MARGDARSHAK to achieve academic excellence." },
 };
 
 // Add styles function (if needed)
@@ -270,6 +277,27 @@ const AppContent = () => {
             </>
           }
         />
+
+        {/* --- NEW PUBLIC ROUTES START --- */}
+        <Route 
+          path="/features" 
+          element={
+            <>
+                <PageHelmet title={helmetData.features.title} description={helmetData.features.description} />
+                <FeaturesPage />
+            </>
+          } 
+        />
+        <Route 
+          path="/testimonials" 
+          element={
+            <>
+                <PageHelmet title={helmetData.testimonials.title} description={helmetData.testimonials.description} />
+                <TestimonialsPage />
+            </>
+          } 
+        />
+        {/* --- NEW PUBLIC ROUTES END --- */}
 
         {/* Direct Component Routes */}
         <Route path="/dashboard" element={<ProtectedRoute>
