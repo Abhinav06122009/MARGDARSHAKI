@@ -1,10 +1,12 @@
-# Netlify configuration file for your React (Vite) application.
-
 [build]
   command = "npm run build"
   publish = "dist"
 
-# Security Headers to Fix "Poor Security" Score
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -12,11 +14,4 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # Basic CSP to allow Google Ads, Analytics, and your scripts
     Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https:;"
-
-# Redirect rule for Single Page Applications (SPAs):
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
