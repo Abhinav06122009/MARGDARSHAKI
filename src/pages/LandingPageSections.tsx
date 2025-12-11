@@ -434,7 +434,6 @@ export const Footer = () => (
         <div className="md:ml-auto">
           <h4 className="font-bold text-white mb-4">Support</h4>
           <ul className="space-y-2 text-gray-400">
-            <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
             <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
           </ul>
         </div>
