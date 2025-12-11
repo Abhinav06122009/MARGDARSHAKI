@@ -10,13 +10,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Session } from '@supabase/supabase-js';
 
 // --- PAGE IMPORTS ---
-import Index from "@/pages/Index"; // Login/Auth Page
+import Index from "@/pages/Index"; 
 import NotFound from "@/pages/NotFound";
 import LandingPage from '@/pages/LandingPage';
 import ResetPasswordPage from '@/pages/reset-password';
 import AboutUsPage from '@/pages/AboutUsPage';
 import ContactUsPage from '@/pages/ContactUsPage';
-import HelpPage from "@/pages/HelpPage"; // New Help Page
+import HelpPage from "@/pages/HelpPage";
 import SitemapPage from '@/pages/SitemapPage';
 import FeaturesPage from '@/pages/FeaturesPage';
 import TestimonialsPage from '@/pages/TestimonialsPage';
@@ -44,15 +44,22 @@ import { Button } from '@/components/ui/button';
 import AdSenseScript from '@/components/AdSenseScript';
 import { CursorProvider } from '@/lib/CursorContext';
 
-// --- SEO COMPONENT ---
-const PageHelmet = ({ title, description }: { title: string, description: string }) => (
-  <Helmet>
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-  </Helmet>
-);
+// --- SEO COMPONENT (UPDATED WITH CANONICAL TAGS) ---
+const PageHelmet = ({ title, description }: { title: string, description: string }) => {
+  const location = useLocation();
+  const canonicalUrl = `https://margdarshan.tech${location.pathname}`;
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={canonicalUrl} />
+      <link rel="canonical" href={canonicalUrl} />
+    </Helmet>
+  );
+};
 
 const helmetData = {
   landing: { title: "MARGDARSHAK: The Ultimate Student Planner & Learning Platform", description: "MARGDARSHAK is the all-in-one student management system. Boost productivity with our task manager, timetable creator, and grade tracker." },
