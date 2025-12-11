@@ -464,7 +464,7 @@ const BlogList = () => {
           <img src={logo} alt="Logo" className="h-6 w-6 grayscale" />
           <span className="font-bold">MARGDARSHAK</span>
         </div>
-        <p>© 2025 MARGDARSHAK. All rights reserved.</p>
+        <p>© 2025 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
