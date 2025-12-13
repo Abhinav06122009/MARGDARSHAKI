@@ -24,6 +24,7 @@ const Header = () => {
       className={`text-white sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? 'py-3 bg-black/70 backdrop-blur-xl border-white/10' : 'py-4 bg-transparent border-transparent'}`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
+        {/* Logo (Acts as Home Link) */}
         <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="MARGDARSHAK Logo" className="h-10 w-10 rounded-lg" />
           <h1 className="text-2xl font-bold tracking-wider text-white">MARGDARSHAK</h1>
@@ -31,6 +32,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center space-x-8">
+          {/* Tools Dropdown / Links */}
           <li>
             <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors relative group">
               Tools
@@ -50,6 +52,7 @@ const Header = () => {
             </Link>
           </li>
           
+          {/* Other Sections */}
           {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
               <Link to={`/${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
@@ -72,7 +75,7 @@ const Header = () => {
           </MagneticButton>
         </div>
 
-        {/* Mobile Menu Button - FIXED ACCESSIBILITY */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
