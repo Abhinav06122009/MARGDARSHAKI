@@ -6,47 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <title>MARGDARSHAK: The Ultimate Student Learning Platform</title>
-    <meta name="description" content="MARGDARSHAK is an all-in-one student management system. Manage tasks, track grades, create timetables, and boost productivity with our free tools." />
+    <meta name="description" content="MARGDARSHAK is the all-in-one student management system. Manage tasks, track grades, create timetables, and boost productivity with our free tools." />
     <meta name="keywords" content="student planner, grade tracker, study timer, pomodoro timer, scientific calculator, online timetable maker, student dashboard" />
     <meta name="author" content="ABHINAV JHA" />
     
+    <link rel="preload" href="/logo.png" as="image" />
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3982840732098678" crossorigin="anonymous"></script>
+
+    <style>
+      body { margin: 0; background-color: #0A0A0A; color: white; font-family: system-ui, -apple-system, sans-serif; }
+      .static-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+      .static-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #333; }
+      .static-logo { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 1.5rem; }
+      .static-nav a { color: #ccc; text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+      .static-hero { text-align: center; padding: 80px 20px; }
+      .static-h1 { font-size: 3.5rem; font-weight: 800; background: linear-gradient(to right, #34d399, #3b82f6); -webkit-background-clip: text; color: transparent; margin-bottom: 20px; line-height: 1.1; }
+      .static-p { font-size: 1.25rem; color: #9ca3af; max-width: 700px; margin: 0 auto 40px; line-height: 1.6; }
+      .static-btn { background: #10b981; color: white; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; }
+      .static-content { max-width: 800px; margin: 60px auto; text-align: left; color: #d1d5db; line-height: 1.8; }
+      .static-links ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+      .static-links a { color: #6b7280; text-decoration: none; font-size: 0.9rem; }
+      /* Hide from screen readers if React loads, but visible to bots */
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="static-container">
+        <header class="static-header">
+          <div class="static-logo">
+            <img src="/logo.png" alt="MARGDARSHAK" width="40" height="40" />
+            <span>MARGDARSHAK</span>
+          </div>
+          <nav class="static-nav">
+            <a href="/calculator">Tools</a>
+            <a href="/blog">Blog</a>
+            <a href="/auth">Login</a>
+          </nav>
+        </header>
+
+        <main class="static-hero">
+          <h1 class="static-h1">MARGDARSHAK: The Ultimate Student Learning Platform</h1>
+          <p class="static-p">
+            MARGDARSHAK is the all-in-one, AI-powered student management system designed to streamline your studies. 
+            Unlock your academic potential with tools that help you manage time, track grades, and stay organized.
+          </p>
+          <a href="/auth" class="static-btn">Get Started</a>
+        </main>
+
+        <article class="static-content">
+          <h2>Why Use a Student Management System?</h2>
+          <p>
+            In the modern academic environment, students face increasing pressure to manage assignments, exams, and extracurricular activities. 
+            MARGDARSHAK provides a centralized dashboard to handle these challenges efficiently.
+          </p>
+
+          <h3>Core Features</h3>
+          <ul>
+            <li><strong>Scientific Calculator:</strong> Perform complex calculations for trigonometry, calculus, and algebra directly in your browser.</li>
+            <li><strong>Pomodoro Timer:</strong> Use the proven 25-minute work/break cycle to maintain focus and prevent burnout.</li>
+            <li><strong>Grade Tracker:</strong> Input your assignment scores to calculate your GPA and identify areas for improvement.</li>
+            <li><strong>Task Management:</strong> A robust to-do list system that helps you prioritize homework deadlines.</li>
+          </ul>
+
+          <h3>Educational Resources</h3>
+          <p>
+            Visit our <a href="/blog" style="color: #34d399;">Student Blog</a> for expert advice on:
+          </p>
+          <ul>
+            <li><a href="/blog/scientific-study-techniques-2025" style="color: #9ca3af;">Scientific Study Techniques</a></li>
+            <li><a href="/blog/manage-exam-stress-guide" style="color: #9ca3af;">Managing Exam Stress</a></li>
+            <li><a href="/blog/digital-vs-paper-notes" style="color: #9ca3af;">Digital vs Paper Notes</a></li>
+          </ul>
+        </article>
+
+        <footer style="text-align: center; margin-top: 80px; padding-bottom: 40px; border-top: 1px solid #333; padding-top: 20px;">
+          <div class="static-links">
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/terms">Terms & Conditions</a></li>
+              <li><a href="/sitemap">Sitemap</a></li>
+            </ul>
+          </div>
+          <p style="color: #4b5563; font-size: 0.8rem; margin-top: 20px;">&copy; 2025 MARGDARSHAK. All rights reserved.</p>
+        </footer>
+      </div>
+    </div>
     
-    <noscript>
-      <header>
-        <h1>MARGDARSHAK: Student Learning Platform</h1>
-        <p>MARGDARSHAK is the ultimate student productivity tool featuring a Grade Tracker, Task Manager, and Study Timer.</p>
-      </header>
-      
-      <main>
-        <h2>Free Student Tools</h2>
-        <ul>
-          <li><a href="/calculator">Scientific Calculator</a>: Online trigonometry and algebra calculator.</li>
-          <li><a href="/timer">Pomodoro Timer</a>: Customizable study timer for deep work.</li>
-          <li><a href="/dashboard">Student Dashboard</a>: Manage your academic life.</li>
-        </ul>
-
-        <h2>Resources</h2>
-        <ul>
-          <li><a href="/blog">Student Productivity Blog</a>: Tips for exams and studying.</li>
-          <li><a href="/blog/scientific-study-techniques-2025">Scientific Study Techniques</a></li>
-          <li><a href="/blog/manage-exam-stress-guide">Exam Stress Guide</a></li>
-          <li><a href="/features">All Features</a></li>
-          <li><a href="/contact">Contact Support</a></li>
-          <li><a href="/help">Help Center</a></li>
-        </ul>
-
-        <h2>Legal</h2>
-        <ul>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms and Conditions</a></li>
-        </ul>
-      </main>
-    </noscript>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
