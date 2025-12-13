@@ -1,17 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-// FIXED: Use default import for the plugin
-import vitePrerender from 'vite-plugin-prerender';
-// FIXED: Import the renderer class directly from the package you installed
+import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+
+// --- FIX 1: DEFINE __dirname MANUALLY (Required for Vite ESM) ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// --- FIX 2: LOAD PLUGIN VIA REQUIRE (Bypasses the broken .mjs file) ---
+const require = createRequire(import.meta.url);
+// We load the CommonJS version which works correctly
+const vitePrerenderPkg = require('vite-plugin-prerender');
+const vitePrerender = vitePrerenderPkg.default || vitePrerenderPkg;
+
+// Import the renderer standardly (this one is usually fine)
 import PuppeteerRenderer from '@prerenderer/renderer-puppeteer';
 
 export default defineConfig(async ({ mode }) => {
   const plugins = [
     react(),
     vitePrerender({
-      // FIXED: explicit staticDir is required by this plugin
-      staticDir: path.resolve(__dirname, 'dist'),
+      // Explicitly point to the output folder
+      staticDir: path.join(__dirname, 'dist'),
       
       routes: [
         '/',
@@ -30,16 +41,17 @@ export default defineConfig(async ({ mode }) => {
         '/blog/sleep-hygiene-students',
       ],
       
-      // FIXED: Instantiate the renderer with options
       renderer: new PuppeteerRenderer({
-        // Limit concurrency to prevent crashing Netlify's build memory
+        // Prevent memory overload on Netlify
         maxConcurrentRoutes: 1,
-        // Wait for dynamic content (like your blog text) to load
-        renderAfterTime: 2000, 
+        // Wait 2s for React to render the blog content
+        renderAfterTime: 2000,
+        // Optional: Run in headless mode (default, but good to be explicit)
+        headless: true
       }),
 
       postProcess(context) {
-        // Fix: Replace local URLs with your real domain for SEO
+        // Fix: Replace localhost URLs with your real domain for SEO
         if (context.html) {
           context.html = context.html.replace(
             /http:\/\/localhost:\d+/g,
