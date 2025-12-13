@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Session } from '@supabase/supabase-js';
 
 // --- PAGE IMPORTS ---
-import Index from "@/pages/Index"; // Login/Auth Page
+import Index from "@/pages/Index"; 
 import NotFound from "@/pages/NotFound";
 import LandingPage from '@/pages/LandingPage';
 import ResetPasswordPage from '@/pages/reset-password';
@@ -42,6 +42,7 @@ import Resources from "@/components/resources/Resources";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
 import AdSenseScript from '@/components/AdSenseScript';
+import CookieConsent from '@/components/CookieConsent'; // <--- IMPORT HERE
 import { CursorProvider } from '@/lib/CursorContext';
 
 // --- SEO COMPONENT ---
@@ -319,6 +320,7 @@ const App = () => {
                 <AppContent />
                 <Toaster />
                 <Sonner />
+                <CookieConsent /> {/* <--- COOKIE CONSENT ADDED HERE */}
               </AuthProvider>
             </BrowserRouter>
           </CursorProvider>
