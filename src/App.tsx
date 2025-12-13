@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Session } from '@supabase/supabase-js';
 
 // --- PAGE IMPORTS ---
-import Index from "@/pages/Index"; 
+import Index from "@/pages/Index"; // Login/Auth Page
 import NotFound from "@/pages/NotFound";
 import LandingPage from '@/pages/LandingPage';
 import ResetPasswordPage from '@/pages/reset-password';
@@ -44,10 +44,10 @@ import { Button } from '@/components/ui/button';
 import AdSenseScript from '@/components/AdSenseScript';
 import { CursorProvider } from '@/lib/CursorContext';
 
-// --- SEO COMPONENT (UPDATED WITH CANONICAL TAGS) ---
+// --- SEO COMPONENT ---
 const PageHelmet = ({ title, description }: { title: string, description: string }) => {
   const location = useLocation();
-  const canonicalUrl = `https://margdarshan.tech${location.pathname}`;
+  const canonicalUrl = `https://margdarshan.tech${location.pathname === '/' ? '' : location.pathname}`;
 
   return (
     <Helmet>
@@ -80,6 +80,8 @@ const helmetData = {
   courses: { title: "Course Management", description: "Overview of your enrolled courses." },
   syllabus: { title: "Syllabus Tracker", description: "Track your syllabus coverage." },
   resources: { title: "Study Resources", description: "Access educational materials." },
+  features: { title: "Features | MARGDARSHAK", description: "Explore the powerful features of MARGDARSHAK." },
+  testimonials: { title: "Testimonials | MARGDARSHAK", description: "See what other students are saying about us." },
 };
 
 // --- UTILS ---
@@ -194,7 +196,11 @@ const Navbar = () => {
           <Button variant="destructive" onClick={handleLogout} className="ml-4 bg-red-600/20 text-red-400 hover:bg-red-600/30">Logout</Button>
         </div>
         <div className="md:hidden">
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle dashboard menu"
+            className="text-white p-2"
+          >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
           </button>
         </div>
@@ -237,8 +243,8 @@ const AppContent = () => {
           <Route path="/auth" element={<><PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} /><Index /></>} />
           
           {/* Static Pages */}
-          <Route path="/features" element={<><PageHelmet title="Features | MARGDARSHAK" description="Explore our student tools." /><FeaturesPage /></>} />
-          <Route path="/testimonials" element={<><PageHelmet title="Success Stories | MARGDARSHAK" description="Student reviews." /><TestimonialsPage /></>} />
+          <Route path="/features" element={<><PageHelmet title={helmetData.features.title} description={helmetData.features.description} /><FeaturesPage /></>} />
+          <Route path="/testimonials" element={<><PageHelmet title={helmetData.testimonials.title} description={helmetData.testimonials.description} /><TestimonialsPage /></>} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/contact" element={<><PageHelmet title={helmetData.contact.title} description={helmetData.contact.description} /><ContactUsPage /></>} />
           <Route path="/help" element={<><PageHelmet title={helmetData.help.title} description={helmetData.help.description} /><HelpPage /></>} />
