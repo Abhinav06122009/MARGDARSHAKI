@@ -1,37 +1,52 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { prerender } from 'vite-plugin-prerender';
+// FIXED: Use default import for the plugin
+import vitePrerender from 'vite-plugin-prerender';
+// FIXED: Import the renderer class directly from the package you installed
+import PuppeteerRenderer from '@prerenderer/renderer-puppeteer';
 
 export default defineConfig(async ({ mode }) => {
   const plugins = [
     react(),
-    // ADD THIS BLOCK
-    prerender({
+    vitePrerender({
+      // FIXED: explicit staticDir is required by this plugin
+      staticDir: path.resolve(__dirname, 'dist'),
+      
       routes: [
         '/',
         '/about',
         '/contact',
         '/features',
         '/blog',
-        // You MUST list your blog post URLs here for them to be indexed properly
+        // Blog Posts
         '/blog/scientific-study-techniques-2025',
         '/blog/manage-exam-stress-guide',
         '/blog/digital-vs-paper-notes',
-        // ... add all other blog IDs here
+        '/blog/how-to-create-study-schedule',
+        '/blog/grade-tracking-benefits',
+        '/blog/deep-work-for-students',
+        '/blog/stop-procrastination-2-minute-rule',
+        '/blog/sleep-hygiene-students',
       ],
-      renderer: '@prerenderer/renderer-puppeteer',
-      rendererOptions: {
+      
+      // FIXED: Instantiate the renderer with options
+      renderer: new PuppeteerRenderer({
+        // Limit concurrency to prevent crashing Netlify's build memory
         maxConcurrentRoutes: 1,
-        renderAfterTime: 500, // Wait for content to load
-      },
-      postProcess(renderedRoute) {
-        // Fix local paths to production URL
-        renderedRoute.html = renderedRoute.html.replace(
-          /http:\/\/localhost:\d+/g,
-          'https://margdarshan.tech'
-        );
-        return renderedRoute;
+        // Wait for dynamic content (like your blog text) to load
+        renderAfterTime: 2000, 
+      }),
+
+      postProcess(context) {
+        // Fix: Replace local URLs with your real domain for SEO
+        if (context.html) {
+          context.html = context.html.replace(
+            /http:\/\/localhost:\d+/g,
+            'https://margdarshan.tech'
+          );
+        }
+        return context;
       },
     }),
   ];
