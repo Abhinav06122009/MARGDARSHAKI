@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link, Routes, Route, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, BookOpen, Clock, Calendar, ChevronRight, User, Tag } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, ChevronRight, Tag } from 'lucide-react';
 import logo from "@/components/logo/logo.png";
 import { Helmet } from "react-helmet-async";
 import AdUnit from '@/components/AdUnit';
 
 // ==================================================================================
-// 20 HIGH-QUALITY BLOG POSTS FOR ADSENSE APPROVAL
+// 8 HIGH-QUALITY, LONG-FORM BLOG POSTS (OPTIMIZED FOR ADSENSE)
 // ==================================================================================
 
 const BLOG_POSTS = [
@@ -22,13 +22,37 @@ const BLOG_POSTS = [
     category: 'Study Hacks',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">We've all been there: staring at a textbook for hours, highlighting every other sentence, only to forget everything the next day. The problem isn't your brain; it's your method.</p>
-      <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">1. Active Recall</h2>
-      <p class="mb-4">Most students study passively. Active recall involves retrieving information from your brain without looking at the answer. It strengthens neural pathways.</p>
+      <p class="lead text-xl text-gray-300 mb-6">We've all been there: staring at a textbook for hours, highlighting every other sentence, only to forget everything the next day. The problem isn't your brain; it's your method. Traditional studying methods like re-reading and highlighting are scientifically proven to be the least effective ways to learn.</p>
+      
+      <p class="mb-6">In 2025, successful students aren't studying harder; they are studying smarter using cognitive psychology. Here are the 5 methods backed by neuroscience that will revolutionize your GPA.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">1. Active Recall: The Gold Standard</h2>
+      <p class="mb-4">Most students study passively. They let information "wash over" them. Active recall involves retrieving information from your brain without looking at the answer. It strengthens neural pathways.</p>
+      <p class="mb-4"><strong>How to apply it:</strong> Instead of reading your textbook chapter again, close the book and write down everything you remember. Then, open the book to fill in the gaps. This struggle to "retrieve" the memory is actually what encodes it into long-term storage.</p>
+
       <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">2. Spaced Repetition</h2>
-      <p class="mb-4">Reviewing material at increasing intervals (1 day, 3 days, 1 week) combats the forgetting curve effectively.</p>
+      <p class="mb-4">The "Forgetting Curve," discovered by Hermann Ebbinghaus, shows that we forget 50% of what we learn within an hour. Spaced Repetition Systems (SRS) combat this by forcing you to review material at the exact moment you are about to forget it.</p>
+      <p class="mb-4"><strong>The Schedule:</strong> Review new material after 1 day, then 3 days, then 1 week, then 1 month. Apps like Anki automate this process, ensuring you never waste time studying what you already know.</p>
+
       <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">3. The Feynman Technique</h2>
-      <p class="mb-4">If you can't explain it simply to a child, you don't understand it. This technique forces you to simplify complex concepts.</p>
+      <p class="mb-4">Named after Nobel prize-winning physicist Richard Feynman, this technique creates deep understanding. The core principle is simple: If you can't explain it simply to a child, you don't understand it.</p>
+      <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-300">
+        <li><strong>Step 1:</strong> Write the concept name at the top of a page.</li>
+        <li><strong>Step 2:</strong> Explain it in your own words as if teaching a 12-year-old. Avoid jargon.</li>
+        <li><strong>Step 3:</strong> Identify gaps in your explanation and go back to the source material.</li>
+        <li><strong>Step 4:</strong> Simplify and create analogies (e.g., describing "Voltage" as "water pressure").</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">4. Interleaved Practice</h2>
+      <p class="mb-4">Blocked practice (doing 50 multiplication problems, then 50 division problems) feels productive but is deceptive. Interleaving involves mixing different types of problems.</p>
+      <p class="mb-4">By mixing subjects or problem types, your brain has to constantly "reload" the strategy for each question. This cognitive effort feels harder but results in far superior test performance because it mimics the randomness of real exams.</p>
+
+      <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">5. The Pomodoro Technique 2.0</h2>
+      <p class="mb-4">Focus is a finite resource. The classic Pomodoro technique (25 minutes work, 5 minutes break) prevents mental fatigue.</p>
+      <p class="mb-4"><strong>The 2025 Update:</strong> Recent studies suggest longer deep work sessions might be better for complex tasks. Try the 50/10 split: 50 minutes of intense, distraction-free work, followed by a 10-minute break where you <em>must</em> move your body (no scrolling social media).</p>
+
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Conclusion</h3>
+      <p class="mb-4">Adopting these techniques requires effort. Active Recall feels harder than highlighting. Interleaving feels more confusing than blocked practice. But that "difficulty" is exactly what you need. Embrace the cognitive load, and your grades will follow.</p>
     `
   },
   {
@@ -41,11 +65,33 @@ const BLOG_POSTS = [
     category: 'Mental Health',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">A little stress keeps you alert, but too much stress shuts down your prefrontal cortex.</p>
-      <h2 class="text-2xl font-bold text-blue-400 mt-8 mb-4">Box Breathing</h2>
-      <p class="mb-4">Inhale for 4 seconds, hold for 4, exhale for 4, hold for 4. This Navy SEAL technique physically lowers cortisol.</p>
+      <p class="lead text-xl text-gray-300 mb-6">Your hands are sweating. Your heart is racing. You stare at the first question, and your mind goes blank. This is the "Fight or Flight" response, and while it was great for running from tigers, it's terrible for Calculus exams.</p>
+      
+      <p class="mb-6">Stress shuts down the prefrontal cortex—the logical part of your brain responsible for memory and problem-solving. However, stress is also a biological tool. Here is how to harness it.</p>
+
+      <h2 class="text-2xl font-bold text-blue-400 mt-8 mb-4">Physiological Hacks: Control the Body First</h2>
+      <p class="mb-4">You cannot "think" your way out of a panic attack. You must use your body to signal safety to your brain.</p>
+      
+      <h3 class="text-lg font-bold text-white mt-4 mb-2">1. Box Breathing</h3>
+      <p class="mb-4">Used by Navy SEALs to stay calm in combat, this technique resets your nervous system.</p>
+      <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-300">
+        <li>Inhale for 4 seconds.</li>
+        <li>Hold your breath for 4 seconds.</li>
+        <li>Exhale for 4 seconds.</li>
+        <li>Hold empty for 4 seconds.</li>
+      </ul>
+      <p class="mb-4">Repeat this cycle 4 times. It physically lowers cortisol levels within minutes.</p>
+
+      <h2 class="text-2xl font-bold text-blue-400 mt-8 mb-4">Cognitive Reframing: Anxiety vs. Excitement</h2>
+      <p class="mb-4">Did you know that the physiological symptoms of anxiety (racing heart, high energy) are identical to excitement? The only difference is your interpretation.</p>
+      <p class="mb-4">Instead of saying "I am so nervous," tell yourself "I am excited to show what I know." This technique, called <em>anxiety reappraisal</em>, helps you channel that nervous energy into focus rather than fear.</p>
+
       <h2 class="text-2xl font-bold text-blue-400 mt-8 mb-4">Simulate the Environment</h2>
-      <p class="mb-4">Take practice tests in conditions that mimic the real exam hall. Silence, no phone, timed conditions.</p>
+      <p class="mb-4">Context-dependent memory is real. If you study in your bed with music playing and snacks available, you will struggle to recall that information in a silent, cold exam hall.</p>
+      <p class="mb-4"><strong>The Solution:</strong> Take at least one full practice exam under "Game Day" conditions. No phone. No music. Hard chair. Silence. This desensitizes your brain to the environment, so the only thing you have to worry about is the content.</p>
+
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Final Thoughts</h3>
+      <p class="mb-4">Your worth is not defined by a test score. Paradoxically, truly accepting this fact is the best way to lower the stakes and perform better. Prepare hard, breathe deep, and trust your brain.</p>
     `
   },
   {
@@ -58,9 +104,24 @@ const BLOG_POSTS = [
     category: 'Tech & Gear',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">Handwriting notes forces your brain to synthesize information, leading to better retention. Typing allows for speed and searchability.</p>
-      <h2 class="text-2xl font-bold text-purple-400 mt-8 mb-4">The Hybrid Approach</h2>
-      <p class="mb-4">Take rough notes by hand during class to maximize understanding. Then, transcribe them into a digital system like Notion or Obsidian later for organization.</p>
+      <p class="lead text-xl text-gray-300 mb-6">The debate is endless: iPad or Notebook? Notion or Moleskine? While digital notes offer convenience, research suggests paper might still be king for learning.</p>
+
+      <h2 class="text-2xl font-bold text-purple-400 mt-8 mb-4">The Case for Paper: Cognitive Processing</h2>
+      <p class="mb-4">A landmark study titled "The Pen Is Mightier Than the Keyboard" found that students who took notes by hand performed significantly better on conceptual questions than those who typed.</p>
+      <p class="mb-4"><strong>Why?</strong> Typing is too fast. When you type, you tend to transcribe the lecture verbatim without thinking. Handwriting is slow, which forces your brain to summarize and synthesize information <em>in real-time</em>. This synthesis is where learning happens.</p>
+
+      <h2 class="text-2xl font-bold text-purple-400 mt-8 mb-4">The Case for Digital: Organization & Search</h2>
+      <p class="mb-4">Paper notes have a major flaw: they are unsearchable. Six months later, finding that one specific formula in a stack of notebooks is impossible. Digital notes (using apps like Notion, Obsidian, or OneNote) are indexed, tagged, and backed up.</p>
+
+      <h2 class="text-2xl font-bold text-purple-400 mt-8 mb-4">The Verdict: The Hybrid Method</h2>
+      <p class="mb-4">You don't have to choose. The most successful students use a hybrid workflow:</p>
+      <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-300">
+        <li><strong>During Class (Capture):</strong> Use paper. Prioritize understanding the concept and drawing diagrams. Don't worry about neatness.</li>
+        <li><strong>After Class (Review & Storage):</strong> Transcribe your paper notes into your digital system. This acts as your first "Spaced Repetition" session and creates a permanent, searchable database of your knowledge.</li>
+      </ul>
+
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Tools Recommendation</h3>
+      <p class="mb-4">If you want the best of both worlds, consider a tablet with a stylus. Apps like GoodNotes allow you to handwrite (gaining the cognitive benefit) while keeping your notes digital and organized.</p>
     `
   },
   {
@@ -73,9 +134,27 @@ const BLOG_POSTS = [
     category: 'Productivity',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">Most schedules fail because they assume you are a robot. You need breaks, buffer times, and flexibility.</p>
-      <h2 class="text-2xl font-bold text-orange-400 mt-8 mb-4">The 80/20 Rule</h2>
-      <p class="mb-4">Plan for only 80% of your day. Leave 20% open for the unexpected—an assignment taking longer than expected or a surprise errand.</p>
+      <p class="lead text-xl text-gray-300 mb-6">We have all made that schedule: "8:00 AM - Study Math. 9:00 AM - Study History. 10:00 AM - Write Essay." By 10:30 AM, you are behind, discouraged, and giving up. The problem isn't your discipline; it's your planning.</p>
+
+      <h2 class="text-2xl font-bold text-orange-400 mt-8 mb-4">The Fallacy of Idealism</h2>
+      <p class="mb-4">Most students plan for their "ideal self"—the robot who never gets tired, never gets hungry, and never gets interrupted. But you are human. A robust schedule accounts for chaos.</p>
+
+      <h2 class="text-2xl font-bold text-orange-400 mt-8 mb-4">Core Principle 1: Time Blocking</h2>
+      <p class="mb-4">Don't write a to-do list; put it on the calendar. A task without a time slot is just a wish. Assign every task a specific window of time. If it doesn't fit on the calendar, it won't get done.</p>
+
+      <h2 class="text-2xl font-bold text-orange-400 mt-8 mb-4">Core Principle 2: The Buffer Zone</h2>
+      <p class="mb-4">This is the secret sauce. For every 3 hours of work, schedule 1 hour of "Buffer Time."</p>
+      <p class="mb-4"><strong>What is a Buffer?</strong> It is empty time reserved for the unexpected. Did the math assignment take twice as long? Use the buffer. Did your roommate need help? Use the buffer. If nothing goes wrong, congratulations—you have free time.</p>
+
+      <h2 class="text-2xl font-bold text-orange-400 mt-8 mb-4">Core Principle 3: Energy Management</h2>
+      <p class="mb-4">Not all hours are created equal. An hour of study at 9 AM is worth three hours of study at 11 PM.</p>
+      <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-300">
+        <li><strong>Deep Work (High Energy):</strong> Schedule your hardest classes for your peak energy times (usually morning).</li>
+        <li><strong>Shallow Work (Low Energy):</strong> Schedule emails, organizing notes, and errands for your energy slumps (usually mid-afternoon).</li>
+      </ul>
+
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">The MARGDARSHAK Way</h3>
+      <p class="mb-4">Use the MARGDARSHAK calendar tool to color-code these blocks. Seeing your week visually helps you identify if you are overcommitting before the week even starts.</p>
     `
   },
   {
@@ -88,9 +167,26 @@ const BLOG_POSTS = [
     category: 'Academic Success',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">Don't wait for the report card. Calculating your current standing helps you decide where to focus your energy.</p>
-      <h2 class="text-2xl font-bold text-pink-400 mt-8 mb-4">Strategic Prioritization</h2>
-      <p class="mb-4">If you have an A in Math but a C in History, you know exactly which homework to prioritize tonight. Use the MARGDARSHAK Grade Tracker to visualize this data.</p>
+      <p class="lead text-xl text-gray-300 mb-6">Many students are afraid to look at their grades. They treat it like a bank account with a low balance—ignoring it and hoping for the best. This "Ostrich Strategy" is a recipe for disaster.</p>
+
+      <h2 class="text-2xl font-bold text-pink-400 mt-8 mb-4">Data-Driven Decision Making</h2>
+      <p class="mb-4">You have limited time. You cannot give 100% effort to every single assignment. Tracking your grades allows you to practice <strong>Strategic Allocation of Effort</strong>.</p>
+      
+      <p class="mb-4"><strong>Scenario:</strong> You have a Math test and a History paper due tomorrow.</p>
+      <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-300">
+        <li><strong>Math Grade:</strong> 98% (A)</li>
+        <li><strong>History Grade:</strong> 89% (B+)</li>
+      </ul>
+      <p class="mb-4">Without data, you might split your time 50/50. With data, you see that you have a "safety buffer" in Math but are on the borderline in History. The smart move is to spend 80% of your time on History to secure the A, while doing just enough maintenance in Math.</p>
+
+      <h2 class="text-2xl font-bold text-pink-400 mt-8 mb-4">Catching Errors Early</h2>
+      <p class="mb-4">Professors make mistakes. TAs enter grades wrong. If you aren't tracking your own grades in a system like MARGDARSHAK, you won't notice that your "Final Project" was recorded as a 0 instead of a 100 until it is too late to fix it.</p>
+
+      <h2 class="text-2xl font-bold text-pink-400 mt-8 mb-4">Motivation and Gamification</h2>
+      <p class="mb-4">Seeing your GPA tick up from a 3.6 to a 3.7 provides a dopamine hit. It turns the abstract concept of "doing well" into a concrete metric you can influence. It gamifies your education.</p>
+
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Start Today</h3>
+      <p class="mb-4">You don't need a complex spreadsheet. Use the MARGDARSHAK Grades module to input your syllabus weights and current scores. Knowledge is power.</p>
     `
   },
   {
@@ -103,9 +199,24 @@ const BLOG_POSTS = [
     category: 'Productivity',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">Deep Work is the ability to focus without distraction on a cognitively demanding task.</p>
-      <h2 class="text-2xl font-bold text-indigo-400 mt-8 mb-4">The Equation</h2>
-      <p class="mb-4"><strong>Work Produced = (Time Spent) x (Intensity of Focus)</strong>. If your intensity is low (checking phone every 5 mins), you have to spend huge amounts of time to get results. Increase intensity to decrease time.</p>
+      <p class="lead text-xl text-gray-300 mb-6">In the age of TikTok and instant notifications, the ability to focus without distraction is becoming a superpower. This is what Cal Newport calls "Deep Work."</p>
+
+      <h2 class="text-2xl font-bold text-indigo-400 mt-8 mb-4">The Productivity Equation</h2>
+      <p class="mb-4">Newport proposes a simple formula:</p>
+      <p class="text-xl font-mono bg-white/10 p-4 rounded text-center my-4">Work Produced = (Time Spent) x (Intensity of Focus)</p>
+      <p class="mb-4">Most students have very low intensity. They study with their phone on the desk, checking notifications every 10 minutes. Because Intensity is low, Time Spent must be huge to get the work done.</p>
+      <p class="mb-4">If you increase Intensity (by removing distractions), you can drastically reduce Time Spent. This is how some students get 4.0 GPAs while still partying on weekends.</p>
+
+      <h2 class="text-2xl font-bold text-indigo-400 mt-8 mb-4">Attention Residue</h2>
+      <p class="mb-4">When you switch from your essay to your phone and back, your brain doesn't switch instantly. A part of your attention remains "stuck" on the previous task (that funny meme you just saw). This is called Attention Residue.</p>
+      <p class="mb-4">Even a quick check of your phone reduces your cognitive capacity for the next 20 minutes. To perform at an elite level, you must eliminate these "quick checks."</p>
+
+      <h2 class="text-2xl font-bold text-indigo-400 mt-8 mb-4">How to Enter Deep Work</h2>
+      <ul class="list-disc pl-6 space-y-2 mb-6 text-gray-300">
+        <li><strong>Ritualize It:</strong> Have a specific spot (library carrel) and a specific cue (noise-canceling headphones).</li>
+        <li><strong>The Phone Jail:</strong> Your phone should not be in the same room. If it's visible, it drains willpower.</li>
+        <li><strong>Embrace Boredom:</strong> Train your brain to be okay with lack of stimulation. Don't pull out your phone the second you are waiting in line for coffee.</li>
+      </ul>
     `
   },
   {
@@ -118,27 +229,21 @@ const BLOG_POSTS = [
     category: 'Psychology',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">The hardest part of any task is starting. The 2-Minute Rule states: "If it takes less than 2 minutes, do it now."</p>
-      <h2 class="text-2xl font-bold text-red-400 mt-8 mb-4">For Bigger Tasks</h2>
-      <p class="mb-4">Scale it down. Don't say "Write Essay." Say "Write the first sentence." Once you start, the momentum usually carries you forward.</p>
-    `
-  },
-  {
-    id: 'brain-food-snacks',
-    title: '10 Healthy Snacks for Maximum Brain Power',
-    excerpt: 'Your brain consumes 20% of your body’s energy. Fuel it right with these snacks designed for sustained focus during exam season.',
-    image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 25, 2025',
-    readTime: '5 min read',
-    category: 'Health',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Sugar crashes kill productivity. Swap the candy bar for these alternatives.</p>
-      <ul class="list-disc pl-6 space-y-2 text-gray-300">
-        <li><strong>Blueberries:</strong> High in antioxidants that improve communication between brain cells.</li>
-        <li><strong>Dark Chocolate:</strong> Contains caffeine and antioxidants for a quick focus boost.</li>
-        <li><strong>Walnuts:</strong> Packed with DHA, a type of Omega-3 fatty acid crucial for brain performance.</li>
-      </ul>
+      <p class="lead text-xl text-gray-300 mb-6">Procrastination isn't about laziness; it's about emotional regulation. We avoid tasks that make us feel anxious or incompetent. The solution is to lower the barrier to entry.</p>
+
+      <h2 class="text-2xl font-bold text-red-400 mt-8 mb-4">The Physics of Productivity</h2>
+      <p class="mb-4">Sir Isaac Newton taught us that an object at rest stays at rest. The hardest part of any workout is putting on your shoes. The hardest part of any essay is opening the document.</p>
+      <p class="mb-4">Once you are in motion, staying in motion is easy. The goal, therefore, is simply to start.</p>
+
+      <h2 class="text-2xl font-bold text-red-400 mt-8 mb-4">The 2-Minute Rule</h2>
+      <p class="mb-4">The rule is simple: <strong>"If a task takes less than 2 minutes, do it right now."</strong></p>
+      <p class="mb-4">But for students, there is a second version: <strong>"When starting a big habit, it should take less than 2 minutes to do."</strong></p>
+      
+      <p class="mb-4">Don't tell yourself "I need to study for 3 hours." That is scary. Tell yourself "I will open my textbook and read one page." That is easy. Anyone can do that.</p>
+      <p class="mb-4">Usually, once you read that one page, the anxiety dissipates, and you naturally keep going. But you must give yourself permission to stop after 2 minutes. This removes the pressure.</p>
+
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Implementation Strategy</h3>
+      <p class="mb-4">Next time you are procrastinating on a paper, set a timer for 120 seconds. Your only goal is to write <em>something</em>—even if it's garbage—before the timer goes off. You'll be surprised how often you keep writing.</p>
     `
   },
   {
@@ -151,199 +256,22 @@ const BLOG_POSTS = [
     category: 'Health',
     author: 'ABHINAV JHA',
     content: `
-      <p class="lead text-xl text-gray-300 mb-6">Pulling all-nighters destroys the hippocampus function—the part of the brain responsible for creating new memories.</p>
+      <p class="lead text-xl text-gray-300 mb-6">The "all-nighter" is a badge of honor in college culture. It shouldn't be. Neuroscience tells us that pulling an all-nighter is essentially deleting the work you did the previous day.</p>
+
+      <h2 class="text-2xl font-bold text-teal-400 mt-8 mb-4">The Role of the Hippocampus</h2>
+      <p class="mb-4">Think of your hippocampus as a USB stick. It temporarily holds the information you learned today. During deep sleep, your brain transfers this data to the cortex (the hard drive) for long-term storage.</p>
+      <p class="mb-4">If you don't sleep, the transfer never happens. The data is overwritten the next day. You literally cannot learn without sleep.</p>
+
       <h2 class="text-2xl font-bold text-teal-400 mt-8 mb-4">The 90-Minute Cycle</h2>
-      <p class="mb-4">Sleep happens in 90-minute cycles. Waking up in the middle of deep sleep causes grogginess. Try to sleep in multiples of 90 minutes (6 hours, 7.5 hours, or 9 hours).</p>
-    `
-  },
-  {
-    id: 'email-professors-guide',
-    title: 'How to Email Your Professor (Templates Included)',
-    excerpt: 'Need an extension? Want to ask for a recommendation letter? Use these professional templates to get a "Yes."',
-    image: 'https://images.unsplash.com/photo-1555421689-d68471e189f2?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 15, 2025',
-    readTime: '4 min read',
-    category: 'Career',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Professional communication is a superpower. Here is the golden rule: Be brief, be polite, and identify yourself clearly.</p>
-      <h2 class="text-2xl font-bold text-cyan-400 mt-8 mb-4">The Subject Line</h2>
-      <p class="mb-4">Bad: "Question." <br/>Good: "Question about Midterm - [Course Name] - [Your Name]"</p>
-      <h2 class="text-2xl font-bold text-cyan-400 mt-8 mb-4">Asking for an Extension</h2>
-      <p class="mb-4">"Dear Professor X, I am writing to respectfully request a 24-hour extension on the paper due Tuesday. I have been managing a personal health issue..."</p>
-    `
-  },
-  {
-    id: 'budgeting-101-students',
-    title: 'Budgeting 101: Managing Money in College',
-    excerpt: 'Textbooks, food, and social life add up fast. Learn the 50/30/20 rule to manage your finances without living on just ramen.',
-    image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 10, 2025',
-    readTime: '7 min read',
-    category: 'Finance',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Financial stress is a huge distraction from studies. The 50/30/20 rule is a simple way to budget.</p>
-      <ul class="list-disc pl-6 space-y-2 text-gray-300">
-        <li><strong>50% Needs:</strong> Rent, tuition, groceries.</li>
-        <li><strong>30% Wants:</strong> Dining out, Netflix, hobbies.</li>
-        <li><strong>20% Savings:</strong> Emergency fund and future goals.</li>
-      </ul>
-    `
-  },
-  {
-    id: 'best-apps-students-2025',
-    title: 'Top 10 Apps Every Student Needs in 2025',
-    excerpt: 'Beyond MARGDARSHAK: From citation generators to focus blockers, these tools will build your ultimate productivity tech stack.',
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 05, 2025',
-    readTime: '8 min read',
-    category: 'Tech & Gear',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Technology can be a distraction or a superpower. Here are the essential apps.</p>
-      <h2 class="text-2xl font-bold text-violet-400 mt-8 mb-4">1. Forest</h2>
-      <p class="mb-4">Gamifies staying off your phone. Plant a virtual tree; if you leave the app, the tree dies.</p>
-      <h2 class="text-2xl font-bold text-violet-400 mt-8 mb-4">2. Anki</h2>
-      <p class="mb-4">The gold standard for flashcards using spaced repetition algorithms.</p>
-      <h2 class="text-2xl font-bold text-violet-400 mt-8 mb-4">3. Wolfram Alpha</h2>
-      <p class="mb-4">More than a calculator—it's a computational knowledge engine for math and science majors.</p>
-    `
-  },
-  {
-    id: 'morning-routines-success',
-    title: 'The Morning Routines of Straight-A Students',
-    excerpt: 'How you start your day determines how you finish it. We analyzed the habits of top performers to find the common threads.',
-    image: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 01, 2025',
-    readTime: '5 min read',
-    category: 'Productivity',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Success leaves clues. Here is what productive students do before 8 AM.</p>
-      <ol class="list-decimal pl-6 space-y-2 text-gray-300">
-        <li><strong>Hydrate Immediately:</strong> Your brain is dehydrated after sleep.</li>
-        <li><strong>Review, Don't Study:</strong> Spend 10 minutes reviewing yesterday's notes to prime your brain.</li>
-        <li><strong>Eat Protein:</strong> A carb-heavy breakfast leads to a mid-morning crash. Eggs or yogurt are better than sugary cereal.</li>
-      </ol>
-    `
-  },
-  {
-    id: 'group-projects-leadership',
-    title: 'How to Survive Group Projects (Without Doing All the Work)',
-    excerpt: 'Group projects can be a nightmare. Learn leadership skills to delegate tasks effectively and deal with "social loafing."',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 28, 2025',
-    readTime: '6 min read',
-    category: 'Soft Skills',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">The "freeloader" problem is real. Here is how to handle it professionally.</p>
-      <h2 class="text-2xl font-bold text-yellow-400 mt-8 mb-4">Set Expectations Early</h2>
-      <p class="mb-4">In the first meeting, create a written contract. "Who does what by when." If someone misses a deadline, refer to the agreement.</p>
-      <h2 class="text-2xl font-bold text-yellow-400 mt-8 mb-4">Play to Strengths</h2>
-      <p class="mb-4">Don't assign tasks randomly. The design student should do the slides; the English major should edit the text.</p>
-    `
-  },
-  {
-    id: 'coding-for-non-cs',
-    title: 'Why Every Student Should Learn Basic Coding (Even Arts Majors)',
-    excerpt: 'Python isn’t just for engineers. Automating boring tasks can save you hours of research and formatting time.',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 25, 2025',
-    readTime: '5 min read',
-    category: 'Skills',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Coding is the new literacy. You don't need to build apps, but knowing how to script can save your life.</p>
-      <h2 class="text-2xl font-bold text-green-400 mt-8 mb-4">Automate Excel</h2>
-      <p class="mb-4">Business majors can use Python to clean data instantly instead of manually editing thousands of rows.</p>
-      <h2 class="text-2xl font-bold text-green-400 mt-8 mb-4">Logical Thinking</h2>
-      <p class="mb-4">Programming teaches you how to break big problems into small, solvable steps—a skill useful in Philosophy, Law, and History too.</p>
-    `
-  },
-  {
-    id: 'internship-guide-2025',
-    title: 'The Comprehensive Guide to Landing Your First Internship',
-    excerpt: 'GPA isn’t everything. Recruiters care about projects and initiative. Here is how to build a resume with no experience.',
-    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 20, 2025',
-    readTime: '9 min read',
-    category: 'Career',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">The "experience paradox": you need experience to get a job, but you need a job to get experience.</p>
-      <h2 class="text-2xl font-bold text-blue-500 mt-8 mb-4">Build Personal Projects</h2>
-      <p class="mb-4">If you are a CS student, build a website. If you are a Marketing student, grow a social media page. Show, don't just tell.</p>
-      <h2 class="text-2xl font-bold text-blue-500 mt-8 mb-4">Networking > Applying</h2>
-      <p class="mb-4">80% of jobs aren't posted online. Reach out to alumni from your school on LinkedIn for a "virtual coffee chat."</p>
-    `
-  },
-  {
-    id: 'sq3r-reading-method',
-    title: 'How to Read Textbooks: The SQ3R Method',
-    excerpt: 'Stop highlighting everything. Use Survey, Question, Read, Recite, Review to actually retain complex academic texts.',
-    image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 15, 2025',
-    readTime: '6 min read',
-    category: 'Study Hacks',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Textbooks are dense. SQ3R is a framework to extract information efficiently.</p>
-      <ul class="list-disc pl-6 space-y-2 text-gray-300">
-        <li><strong>Survey:</strong> Skim headings and summaries first.</li>
-        <li><strong>Question:</strong> Turn headings into questions (e.g., "What are the causes of WWI?").</li>
-        <li><strong>Read:</strong> Read to find the answers to your questions.</li>
-        <li><strong>Recite:</strong> Say the answer out loud.</li>
-        <li><strong>Review:</strong> Go over your notes the next day.</li>
-      </ul>
-    `
-  },
-  {
-    id: 'failure-growth-mindset',
-    title: 'Why Failure is Part of the Process: Embracing Growth Mindset',
-    excerpt: 'A failed test isn’t the end. It’s data. Learn how to analyze your mistakes to prevent them from happening again.',
-    image: 'https://images.unsplash.com/photo-1518655048521-f130df041f66?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 10, 2025',
-    readTime: '5 min read',
-    category: 'Mental Health',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Carol Dweck's research shows that believing intelligence can be developed is the biggest predictor of success.</p>
-      <h2 class="text-2xl font-bold text-rose-400 mt-8 mb-4">The "Not Yet" Philosophy</h2>
-      <p class="mb-4">You didn't fail; you just haven't mastered it <em>yet</em>. Analyze your test paper. Did you fail because of a concept error, a calculation error, or reading the question wrong? Each requires a different fix.</p>
-    `
-  },
-  {
-    id: 'library-vs-cafe-study',
-    title: 'Library vs. Cafe: Where Should You Study?',
-    excerpt: 'Does background noise help or hurt? We look at the science of ambient noise and "coffee shop effect" on creativity vs. focus.',
-    image: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 05, 2025',
-    readTime: '4 min read',
-    category: 'Environment',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Your environment dictates your focus. The ideal spot depends on the task.</p>
-      <h2 class="text-2xl font-bold text-amber-400 mt-8 mb-4">Cafe: For Creativity</h2>
-      <p class="mb-4">Moderate ambient noise (70 decibels) enhances abstract thinking. Good for writing essays or brainstorming projects.</p>
-      <h2 class="text-2xl font-bold text-amber-400 mt-8 mb-4">Library: For Deep Focus</h2>
-      <p class="mb-4">For memorization or solving complex math problems, silence is golden. Any speech distraction disrupts your working memory.</p>
-    `
-  },
-  {
-    id: 'importance-of-extracurriculars',
-    title: 'Why Extracurriculars Matter More Than You Think',
-    excerpt: 'Colleges and employers want well-rounded humans, not just grade bots. How to choose activities that show leadership.',
-    image: 'https://images.unsplash.com/photo-1526634338573-06900a8972ca?auto=format&fit=crop&q=80&w=1000',
-    date: 'Aug 01, 2025',
-    readTime: '6 min read',
-    category: 'Career',
-    author: 'ABHINAV JHA',
-    content: `
-      <p class="lead text-xl text-gray-300 mb-6">Being captain of the chess club shows dedication, strategy, and leadership.</p>
-      <h2 class="text-2xl font-bold text-lime-400 mt-8 mb-4">Quality Over Quantity</h2>
-      <p class="mb-4">It is better to have a leadership role in one club for 3 years than to be a passive member of 10 clubs. Show impact: "Raised $500" or "Organized an event for 50 people."</p>
+      <p class="mb-4">Sleep happens in cycles of roughly 90 minutes, moving from Light Sleep to Deep Sleep to REM and back. If you wake up in the middle of Deep Sleep (Stage 3), you will feel "sleep inertia"—that groggy, hit-by-a-truck feeling.</p>
+      <p class="mb-4"><strong>The Hack:</strong> Try to sleep in multiples of 90 minutes. 
+      <br/>- 6 Hours (4 cycles)
+      <br/>- 7.5 Hours (5 cycles - Ideal for most)
+      <br/>- 9 Hours (6 cycles)</p>
+
+      <h2 class="text-2xl font-bold text-teal-400 mt-8 mb-4">Blue Light and Melatonin</h2>
+      <p class="mb-4">Your screens emit blue light, which mimics the sun. This tricks your brain into thinking it's noon, suppressing melatonin production. Using your phone in bed literally prevents your brain from preparing for sleep.</p>
+      <p class="mb-4"><strong>Solution:</strong> Use "Night Shift" mode on all devices after sunset, or better yet, ban screens from the bedroom entirely. Read a physical book for 30 minutes before sleep to signal to your body that the day is over.</p>
     `
   }
 ];
@@ -499,7 +427,7 @@ const BlogPost = () => {
       "name": "MARGDARSHAK",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://margdarshak.com/logo.png"
+        "url": "https://margdarshan.tech/logo.png"
       }
     },
     "datePublished": post.date,
