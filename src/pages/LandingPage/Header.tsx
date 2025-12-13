@@ -31,7 +31,6 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center space-x-8">
-          {/* Public Tools & Resources */}
           <li>
             <Link to="/calculator" className="text-gray-300 hover:text-white transition-colors relative group">
               Tools
@@ -51,7 +50,6 @@ const Header = () => {
             </Link>
           </li>
           
-          {/* Landing Page Sections (Home removed) */}
           {['features', 'testimonials', 'about'].map(item => (
             <li key={item}>
               <Link to={`/${item}`} className="capitalize text-gray-300 hover:text-white transition-colors relative group">
@@ -74,9 +72,13 @@ const Header = () => {
           </MagneticButton>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - FIXED ACCESSIBILITY */}
         <div className="md:hidden">
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            className="p-2 text-white focus:outline-none"
+          >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
@@ -92,7 +94,6 @@ const Header = () => {
             <li><Link to="/timer" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">Timer</Link></li>
             <li><Link to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-300 hover:text-white">Blog</Link></li>
             
-            {/* Sections (Home removed) */}
             {['features', 'testimonials', 'about'].map(item => (
               <li key={item}>
                 <Link to={`/${item}`} onClick={() => setIsMobileMenuOpen(false)} className="capitalize text-gray-300 hover:text-white transition-colors">
