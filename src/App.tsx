@@ -10,20 +10,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Session } from '@supabase/supabase-js';
 
 // --- PAGE IMPORTS ---
-import Index from "@/pages/Index"; 
+import Index from "@/pages/Index"; // Login
 import NotFound from "@/pages/NotFound";
 import LandingPage from '@/pages/LandingPage';
 import ResetPasswordPage from '@/pages/reset-password';
 import AboutUsPage from '@/pages/AboutUsPage';
 import ContactUsPage from '@/pages/ContactUsPage';
-import HelpPage from "@/pages/HelpPage";
 import SitemapPage from '@/pages/SitemapPage';
 import FeaturesPage from '@/pages/FeaturesPage';
 import TestimonialsPage from '@/pages/TestimonialsPage';
-import BlogPage from '@/pages/BlogPage';
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
-import AdminMessages from "@/pages/AdminMessages"; 
+import BlogPage from "@/pages/BlogPage"; // Restore Blog
+import HelpPage from "@/pages/HelpPage"; // Restore Help
+import AdminMessages from "@/pages/AdminMessages"; // Restore Admin
 
 // --- COMPONENT IMPORTS ---
 import Dashboard from "@/components/dashboard/Dashboard";
@@ -42,12 +42,13 @@ import Resources from "@/components/resources/Resources";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
 import AdSenseScript from '@/components/AdSenseScript';
-import CookieConsent from '@/components/CookieConsent'; // <--- IMPORT HERE
+import CookieConsent from '@/components/CookieConsent'; // IMPORT COOKIE CONSENT
 import { CursorProvider } from '@/lib/CursorContext';
 
 // --- SEO COMPONENT ---
 const PageHelmet = ({ title, description }: { title: string, description: string }) => {
   const location = useLocation();
+  // Canonical tag prevents "Duplicate Content" errors
   const canonicalUrl = `https://margdarshan.tech${location.pathname === '/' ? '' : location.pathname}`;
 
   return (
@@ -81,14 +82,9 @@ const helmetData = {
   courses: { title: "Course Management", description: "Overview of your enrolled courses." },
   syllabus: { title: "Syllabus Tracker", description: "Track your syllabus coverage." },
   resources: { title: "Study Resources", description: "Access educational materials." },
-  features: { title: "Features | MARGDARSHAK", description: "Explore the powerful features of MARGDARSHAK." },
-  testimonials: { title: "Testimonials | MARGDARSHAK", description: "See what other students are saying about us." },
 };
 
-// --- UTILS ---
-const addAppStyles = () => {
-  if (document.getElementById('app-styles')) return;
-};
+const addAppStyles = () => { if (document.getElementById('app-styles')) return; };
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -100,7 +96,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// --- ANIMATIONS ---
 const pageVariants = {
   initial: { opacity: 0, y: 20, scale: 0.98 },
   in: { opacity: 1, y: 0, scale: 1 },
@@ -129,7 +124,6 @@ const AnimatedRoute = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// --- AUTH CONTEXT ---
 const AuthContext = React.createContext<{ session: Session | null; loading: boolean }>({ session: null, loading: true });
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -158,7 +152,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 const useAuth = () => React.useContext(AuthContext);
 
-// --- PROTECTED ROUTES WRAPPER ---
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { session, loading } = useAuth();
   const navigate = useNavigate();
@@ -173,7 +166,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return session ? <>{children}</> : null;
 };
 
-// --- NAVBAR FOR DASHBOARD ---
 const Navbar = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -197,11 +189,7 @@ const Navbar = () => {
           <Button variant="destructive" onClick={handleLogout} className="ml-4 bg-red-600/20 text-red-400 hover:bg-red-600/30">Logout</Button>
         </div>
         <div className="md:hidden">
-          <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle dashboard menu"
-            className="text-white p-2"
-          >
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2" aria-label="Menu">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
           </button>
         </div>
@@ -209,9 +197,8 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden mt-4 bg-gray-900 p-4 rounded-lg border border-gray-800">
           <Button variant="ghost" className="block w-full text-left mb-2" onClick={() => { navigate('/dashboard'); setIsMobileMenuOpen(false); }}>Dashboard</Button>
-          <Button variant="ghost" className="block w-full text-left mb-2" onClick={() => { navigate('/courses'); setIsMobileMenuOpen(false); }}>Courses</Button>
-          <Button variant="ghost" className="block w-full text-left mb-2" onClick={() => { navigate('/tasks'); setIsMobileMenuOpen(false); }}>Tasks</Button>
           <Button variant="ghost" className="block w-full text-left mb-2" onClick={() => { navigate('/admin/messages'); setIsMobileMenuOpen(false); }}>Inbox</Button>
+          <Button variant="ghost" className="block w-full text-left mb-2" onClick={() => { navigate('/courses'); setIsMobileMenuOpen(false); }}>Courses</Button>
           <Button variant="ghost" className="block w-full text-left mb-2" onClick={() => { navigate('/settings'); setIsMobileMenuOpen(false); }}>Settings</Button>
           <Button variant="destructive" className="block w-full text-left mt-4" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>Logout</Button>
         </div>
@@ -229,7 +216,6 @@ const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// --- MAIN CONTENT ---
 const AppContent = () => {
   const navigate = useNavigate();
   const handleNavigate = (page: string) => navigate(`/${page}`);
@@ -239,68 +225,42 @@ const AppContent = () => {
       <AdSenseScript />
       <AnimatedRoute>
         <Routes>
-          {/* ================= PUBLIC ROUTES (AdSense Friendly) ================= */}
+          {/* ================= PUBLIC ROUTES (AdSense & Bots Must See These) ================= */}
           <Route path="/" element={<><PageHelmet title={helmetData.landing.title} description={helmetData.landing.description} /><LandingPage /></>} />
           <Route path="/auth" element={<><PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} /><Index /></>} />
           
-          {/* Static Pages */}
-          <Route path="/features" element={<><PageHelmet title={helmetData.features.title} description={helmetData.features.description} /><FeaturesPage /></>} />
-          <Route path="/testimonials" element={<><PageHelmet title={helmetData.testimonials.title} description={helmetData.testimonials.description} /><TestimonialsPage /></>} />
+          <Route path="/features" element={<><PageHelmet title="Features | MARGDARSHAK" description="Explore our student tools." /><FeaturesPage /></>} />
+          <Route path="/testimonials" element={<><PageHelmet title="Success Stories | MARGDARSHAK" description="Student reviews." /><TestimonialsPage /></>} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/contact" element={<><PageHelmet title={helmetData.contact.title} description={helmetData.contact.description} /><ContactUsPage /></>} />
           <Route path="/help" element={<><PageHelmet title={helmetData.help.title} description={helmetData.help.description} /><HelpPage /></>} />
           
-          {/* Legal */}
           <Route path="/sitemap" element={<SitemapPage />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           
-          {/* Blog (Handles /* for sub-routes) */}
           <Route path="/blog/*" element={<BlogPage />} />
 
-          {/* Tools */}
-          <Route path="/calculator" element={
-            <>
-              <PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} />
-              <Calculator />
-            </>
-          } />
-          <Route path="/timer" element={
-            <>
-              <PageHelmet title={helmetData.timer.title} description={helmetData.timer.description} />
-              <StudyTimer />
-            </>
-          } />
+          {/* Tools MUST be public for AdSense */}
+          <Route path="/calculator" element={<><PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} /><Calculator /></>} />
+          <Route path="/timer" element={<><PageHelmet title={helmetData.timer.title} description={helmetData.timer.description} /><StudyTimer /></>} />
 
           {/* ================= PROTECTED ROUTES (Dashboard) ================= */}
-          {/* Admin Routes */}
-          <Route path="/admin/messages" element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <PageHelmet title={helmetData.admin.title} description={helmetData.admin.description} />
-                <AdminMessages />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          } />
+          <Route path="/admin/messages" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.admin.title} description={helmetData.admin.description} /><AdminMessages /></ProtectedLayout></ProtectedRoute>} />
 
-          {/* User Routes */}
           <Route path="/dashboard" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} /><Dashboard onNavigate={handleNavigate} /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/progress" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.progress.title} description={helmetData.progress.description} /><ProgressTracker /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/grades" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.grades.title} description={helmetData.grades.description} /><Grades /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/attendance" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.attendance.title} description={helmetData.attendance.description} /><Attendance /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/tasks" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.tasks.title} description={helmetData.tasks.description} /><Tasks /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/notes" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.notes.title} description={helmetData.notes.description} /><Notes /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/calendar" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.calendar.title} description={helmetData.calendar.description} /><Calendar /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/timetable" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.timetable.title} description={helmetData.timetable.description} /><Timetable /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/courses" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.courses.title} description={helmetData.courses.description} /><CourseManagement /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/syllabus" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.syllabus.title} description={helmetData.syllabus.description} /><Syllabus /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/resources" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.resources.title} description={helmetData.resources.description} /><Resources /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/progress" element={<ProtectedRoute><ProtectedLayout><ProgressTracker /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/grades" element={<ProtectedRoute><ProtectedLayout><Grades /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/attendance" element={<ProtectedRoute><ProtectedLayout><Attendance /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/tasks" element={<ProtectedRoute><ProtectedLayout><Tasks /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/notes" element={<ProtectedRoute><ProtectedLayout><Notes /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/calendar" element={<ProtectedRoute><ProtectedLayout><Calendar /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/timetable" element={<ProtectedRoute><ProtectedLayout><Timetable /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/courses" element={<ProtectedRoute><ProtectedLayout><CourseManagement /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/syllabus" element={<ProtectedRoute><ProtectedLayout><Syllabus /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/resources" element={<ProtectedRoute><ProtectedLayout><Resources /></ProtectedLayout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><ProtectedLayout><Settings /></ProtectedLayout></ProtectedRoute>} />
-          
-          {/* Auth Utilities */}
           <Route path="/reset-password" element={<ResetPasswordPage />} />
-          
-          {/* 404 */}
           <Route path="*" element={<><PageHelmet title="404 Not Found" description="Page not found" /><NotFound /></>} />
         </Routes>
       </AnimatedRoute>
@@ -308,7 +268,6 @@ const AppContent = () => {
   );
 };
 
-// --- APP ENTRY POINT ---
 const App = () => {
   return (
     <HelmetProvider>
@@ -320,7 +279,7 @@ const App = () => {
                 <AppContent />
                 <Toaster />
                 <Sonner />
-                <CookieConsent /> {/* <--- COOKIE CONSENT ADDED HERE */}
+                <CookieConsent /> {/* <<< THIS FIXES PRIVACY SCORE >>> */}
               </AuthProvider>
             </BrowserRouter>
           </CursorProvider>
