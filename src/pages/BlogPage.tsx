@@ -325,8 +325,11 @@ const BlogList = () => {
 
       {/* Grid */}
       <div className="container mx-auto px-6 pb-24">
-        {/* Placeholder for In-Feed Ad */}
-        <AdUnit slot="9876543210" className="mb-12" /> 
+        
+        {/* ========================================================================= */}
+        {/* ⚠️ ACTION REQUIRED: REPLACE 'YOUR_FEED_SLOT_ID' WITH REAL ID FROM ADSENSE */}
+        {/* ========================================================================= */}
+        <AdUnit slot="YOUR_FEED_SLOT_ID" className="mb-12" /> 
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {BLOG_POSTS.map((post, index) => (
@@ -493,8 +496,10 @@ const BlogPost = () => {
           <img src={post.image} alt={post.title} className="w-full h-auto object-cover" />
         </div>
 
-        {/* --- AD UNIT: Top of Article --- */}
-        <AdUnit slot="9876543210" className="my-8" />
+        {/* ========================================================================= */}
+        {/* ⚠️ ACTION REQUIRED: REPLACE 'YOUR_TOP_SLOT_ID' WITH REAL ID FROM ADSENSE */}
+        {/* ========================================================================= */}
+        <AdUnit slot="YOUR_TOP_SLOT_ID" className="my-8" />
 
         {/* Article Body */}
         <div 
@@ -506,8 +511,10 @@ const BlogPost = () => {
             dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        {/* --- AD UNIT: Bottom of Article --- */}
-        <AdUnit slot="1122334455" className="mt-16" />
+        {/* ============================================================================ */}
+        {/* ⚠️ ACTION REQUIRED: REPLACE 'YOUR_BOTTOM_SLOT_ID' WITH REAL ID FROM ADSENSE */}
+        {/* ============================================================================ */}
+        <AdUnit slot="YOUR_BOTTOM_SLOT_ID" className="mt-16" />
 
         {/* CTA Bottom */}
         <div className="mt-12 pt-12 border-t border-white/10">
