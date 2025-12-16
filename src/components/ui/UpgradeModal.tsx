@@ -63,7 +63,7 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
               <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <PlanCard
                   title="Premium"
-                  price="$9"
+                  price="₹750"
                   features={[
                     '50 GB Storage',
                     'AI Note Summarization',
@@ -77,7 +77,7 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({ isOpen, onClose }) => {
                 />
                 <PlanCard
                   title="Extra++"
-                  price="$19"
+                  price="₹1200"
                   features={[
                     'All Premium Features',
                     '500 GB Expandable Storage',
