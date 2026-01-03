@@ -530,7 +530,7 @@ const Grades: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         </AnimatePresence>
       </div>
       <footer className="w-full mt-12 py-8 border-t border-white/20 text-white/70 text-center relative z-10">
-        <p>Developed by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span> | © 2025 VSAV GYANTAPA</p>
+        <p>Developed by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span> | © 2026 VSAV GYANTAPA</p>
       </footer>
     </div>
   );
