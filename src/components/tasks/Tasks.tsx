@@ -1216,7 +1216,7 @@ const Tasks: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         </AnimatePresence>
       </div>
     <div className="mt-8 pt-6 border-t border-white/10 text-center relative z-10">
-        <p>Developed by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span> | © 2025 VSAV GYANTAPA</p>
+        <p>Developed by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span> | © 2026 VSAV GYANTAPA</p>
     </div>
 </footer>
     </div>
