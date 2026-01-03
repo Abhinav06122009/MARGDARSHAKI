@@ -407,11 +407,11 @@ const sections: Section[] = [
           <br />
           Email:{" "}
           <a
-            href="mailto:SUPPORT@MARGDARSHAK.TECH"
+            href="mailto:abhinavjha393@gmail.com"
             className="text-blue-600 underline hover:text-blue-800"
             aria-label="Contact VSAV GYANTAPA via email"
           >
-            SUPPORT@MARGDARSHAK.TECH
+            abhinavjha393@gmail.com
           </a>
         </address>
       </>
