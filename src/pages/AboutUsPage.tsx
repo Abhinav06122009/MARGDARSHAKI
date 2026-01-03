@@ -80,7 +80,7 @@ const AboutUsPage = () => {
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm">
-        <p>© 2025 MARGDARSHAK. All rights reserved.</p>
+        <p>© 2026 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
