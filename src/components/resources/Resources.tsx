@@ -1454,7 +1454,7 @@ toast({
     <br />
     Developed &amp; Maintained by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span>
     <br />
-    © 2025 VSAV GYANTAPA. All Rights Reserved
+    © 2026 VSAV GYANTAPA. All Rights Reserved
   </div>
 </footer>
       </div>
