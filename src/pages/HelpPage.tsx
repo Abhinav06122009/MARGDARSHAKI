@@ -178,8 +178,8 @@ const HelpPage = () => {
                   <Mail className="w-4 h-4 mr-2" /> Contact Support
                 </Button>
               </Link>
-              <a href="mailto:support@margdarshak.com">
-                <Button variant="outline" className="border-white/20 hover:bg-white/10 text-white px-8 py-6 rounded-xl w-full sm:w-auto">
+              <a href="mailto:abhinavjha393@gmail.com">
+                <Button variant="outline" className="border-white/20 hover:bg-white/10 text-black px-8 py-6 rounded-xl w-full sm:w-auto">
                   <MessageCircle className="w-4 h-4 mr-2" /> Email Us Directly
                 </Button>
               </a>
@@ -190,7 +190,7 @@ const HelpPage = () => {
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm bg-black/30">
-        <p>© 2025 VSAV GYANTAPA. All rights reserved.</p>
+        <p>© 2026 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
