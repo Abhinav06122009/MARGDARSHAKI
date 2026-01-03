@@ -2,23 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    
+    <link rel="preload" as="image" href="/logo.png" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <link rel="preload" as="image" href="/logo.png" />
-    
     <title>MARGDARSHAK: The Ultimate Student Learning Platform & Productivity Tools</title>
-    <meta name="description" content="MARGDARSHAK offers free student productivity tools including a scientific calculator, Pomodoro timer, grade tracker, and academic task manager. Boost your GPA today." />
-    <meta name="keywords" content="student planner, grade tracker, study timer, pomodoro timer, scientific calculator, online timetable maker, student dashboard, academic success" />
+    <meta name="description" content="MARGDARSHAK is a free, all-in-one student productivity platform featuring a Scientific Calculator, Pomodoro Timer, Grade Tracker, and Kanban Task Manager. Founded by VSAV GYANTAPA to democratize academic success." />
+    <meta name="keywords" content="student planner, grade tracker, study timer, pomodoro timer, scientific calculator, online timetable maker, student dashboard, academic success, free education tools" />
     <meta name="author" content="VSAV GYANTAPA" />
     
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://margdarshan.tech/" />
     <meta property="og:title" content="MARGDARSHAK: Student Productivity Tools" />
-    <meta property="og:description" content="Free tools for students: Grade Tracker, Task Manager, Study Timer." />
+    <meta property="og:description" content="Free tools for students: Grade Tracker, Task Manager, Study Timer. Built for academic excellence." />
     <meta property="og:image" content="https://margdarshan.tech/logo.png" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://margdarshan.tech/" />
+    <meta property="twitter:title" content="MARGDARSHAK: Student Productivity Tools" />
+    <meta property="twitter:description" content="Manage your academic life with MARGDARSHAK. Tools for grades, tasks, and focus." />
+    <meta property="twitter:image" content="https://margdarshan.tech/logo.png" />
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3982840732098678" crossorigin="anonymous"></script>
 
@@ -36,7 +42,10 @@
         {
           "@type": "Organization",
           "name": "MARGDARSHAK",
+          "url": "https://margdarshan.tech",
           "logo": "https://margdarshan.tech/logo.png",
+          "founder": { "@type": "Person", "name": "VSAV GYANTAPA" },
+          "foundingDate": "2026",
           "contactPoint": {
             "@type": "ContactPoint",
             "email": "support@margdarshan.tech",
@@ -55,16 +64,15 @@
     </script>
 
     <style>
-      /* Base Styles for UX Score */
       body { margin: 0; background-color: #0A0A0A; color: white; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; }
       .seo-container { max-width: 1000px; margin: 0 auto; padding: 20px; }
       
-      /* Semantic Header & Nav (Solves "Semantic HTML" & "Visible Nav" Errors) */
+      /* Semantic Header & Nav */
       header { border-bottom: 1px solid #333; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
       nav a { color: #ccc; margin-left: 20px; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
       nav a:hover { color: #34d399; }
       
-      /* Breadcrumbs (Solves "Breadcrumbs" Error) */
+      /* Breadcrumbs (Solves "Navigation" Error) */
       .breadcrumbs { font-size: 0.85rem; color: #6b7280; margin-top: 20px; }
       .breadcrumbs a { color: #6b7280; text-decoration: none; }
       
@@ -82,7 +90,7 @@
       .trust-badge { background: #111; padding: 20px; border-radius: 8px; border: 1px solid #333; margin-top: 20px; }
       .contact-info { background: #0f172a; padding: 30px; border-radius: 12px; border: 1px solid #1e293b; }
       
-      /* Footer & Cookie Banner */
+      /* Footer */
       footer { border-top: 1px solid #333; margin-top: 50px; padding-top: 40px; padding-bottom: 40px; text-align: center; color: #6b7280; font-size: 0.9rem; }
       .footer-nav { margin-bottom: 20px; }
       .footer-nav a { margin: 0 10px; color: #9ca3af; text-decoration: none; }
@@ -90,7 +98,7 @@
       /* Static Cookie Banner (Solves "Cookie Consent" Error) */
       #static-cookie-banner {
         position: fixed; bottom: 0; left: 0; right: 0; background: #111; border-top: 1px solid #333; 
-        padding: 15px; text-align: center; z-index: 9999; font-size: 0.9rem;
+        padding: 15px; text-align: center; z-index: 9999; font-size: 0.9rem; display: none;
       }
     </style>
   </head>
@@ -181,7 +189,7 @@
         </footer>
       </div>
       
-      <div id="static-cookie-banner">
+      <div id="static-cookie-banner" style="display:block;">
         We use cookies to improve your experience. By using our site, you agree to our Terms.
       </div>
     </div>
