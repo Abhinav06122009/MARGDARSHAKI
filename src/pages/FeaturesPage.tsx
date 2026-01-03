@@ -143,17 +143,17 @@ const FeaturesPage = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/calculator">
-              <Button variant="outline" className="h-12 px-8 border-white/20 hover:bg-white/10 text-white">
+              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-white/10 text-white">
                 Scientific Calculator
               </Button>
             </Link>
             <Link to="/resources">
-              <Button variant="outline" className="h-12 px-8 border-white/20 hover:bg-white/10 text-white">
+              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-white/10 text-white">
                 Resource Library
               </Button>
             </Link>
             <Link to="/career">
-              <Button variant="outline" className="h-12 px-8 border-white/20 hover:bg-white/10 text-white">
+              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-white/10 text-white">
                 Career Roadmaps
               </Button>
             </Link>
