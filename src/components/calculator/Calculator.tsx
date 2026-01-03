@@ -785,7 +785,7 @@ const Calculator: React.FC<CalculatorProps> = ({ onBack }) => {
             <img src={logo} alt="Logo" className="w-8 h-8" />
             <span className="font-bold">MARGDARSHAK</span>
         </div>
-        <p>© 2025 VSAV GYANTAPA. All rights reserved.</p>
+        <p>© 2026 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
