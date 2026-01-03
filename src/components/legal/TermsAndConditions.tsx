@@ -65,10 +65,10 @@ const sections: Section[] = [
     content: (
       <>
         <p className="mb-4 text-lg">
-          The Services and their constituent content, compilations, software, interfaces, graphics, trademarks, and logos (the “Materials”) are owned by VSAV or its licensors and are protected by intellectual property laws. 
+          The Services and their constituent content, compilations, software, interfaces, graphics, trademarks, and logos (the “Materials”) are owned by VSAV GYANTAPA or its licensors and are protected by intellectual property laws. 
         </p>
         <p className="text-lg">
-          Subject to full compliance with these Terms, VSAV grants a limited, revocable, non‑exclusive, non‑transferable, non‑sublicensable license to access and use the Services for personal, noncommercial purposes; no other rights are granted by implication, estoppel, or otherwise. 
+          Subject to full compliance with these Terms, VSAV GYANTAPA grants a limited, revocable, non‑exclusive, non‑transferable, non‑sublicensable license to access and use the Services for personal, noncommercial purposes; no other rights are granted by implication, estoppel, or otherwise. 
         </p>
       </>
     ),
@@ -80,10 +80,10 @@ const sections: Section[] = [
     content: (
       <>
         <p className="mb-4 text-lg">
-          Where the User submits, uploads, or transmits content to or through the Services (“UGC”), the User represents entitlement to grant, and hereby grants, to VSAV a worldwide, royalty‑free, transferable, sublicensable license to host, reproduce, display, perform, adapt, modify, and distribute such UGC as necessary to operate, improve, and promote the Services, subject to applicable law. 
+          Where the User submits, uploads, or transmits content to or through the Services (“UGC”), the User represents entitlement to grant, and hereby grants, to VSAV GYANTAPA a worldwide, royalty‑free, transferable, sublicensable license to host, reproduce, display, perform, adapt, modify, and distribute such UGC as necessary to operate, improve, and promote the Services, subject to applicable law. 
         </p>
         <p className="text-lg">
-          No UGC shall be unlawful, defamatory, obscene, infringing, or violative of privacy or publicity rights; VSAV reserves discretion to remove or disable access to UGC that contravenes these strictures. 
+          No UGC shall be unlawful, defamatory, obscene, infringing, or violative of privacy or publicity rights; VSAV GYANTAPA reserves discretion to remove or disable access to UGC that contravenes these strictures. 
         </p>
       </>
     ),
@@ -95,10 +95,10 @@ const sections: Section[] = [
     content: (
       <>
         <p className="mb-4 text-lg">
-          VSAV may, at any time and without liability, modify, suspend, or discontinue any aspect of the Services, including features, content, or availability windows, for maintenance, security hardening, capacity planning, or other operational exigencies. 
+          VSAV GYANTAPA may, at any time and without liability, modify, suspend, or discontinue any aspect of the Services, including features, content, or availability windows, for maintenance, security hardening, capacity planning, or other operational exigencies. 
         </p>
         <p className="text-lg">
-          The User acknowledges the possibility of outages, latency, or hardware/software interferences, and agrees that VSAV shall not be liable for any consequential or incidental detriments attributable to such interruptions. 
+          The User acknowledges the possibility of outages, latency, or hardware/software interferences, and agrees that VSAV GYANTAPA shall not be liable for any consequential or incidental detriments attributable to such interruptions. 
         </p>
       </>
     ),
@@ -113,7 +113,7 @@ const sections: Section[] = [
           THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, OR NON‑INFRINGEMENT, TO THE MAXIMUM EXTENT PERMITTED BY LAW. 
         </p>
         <p className="text-lg">
-          VSAV DOES NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, TIMELY, SECURE, ERROR‑FREE, OR FREE OF HARMFUL COMPONENTS, OR THAT DEFECTS WILL BE CORRECTED. 
+          VSAV GYANTAPA DOES NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, TIMELY, SECURE, ERROR‑FREE, OR FREE OF HARMFUL COMPONENTS, OR THAT DEFECTS WILL BE CORRECTED. 
         </p>
       </>
     ),
@@ -125,7 +125,7 @@ const sections: Section[] = [
     content: (
       <>
         <p className="mb-4 text-lg">
-          TO THE MAXIMUM EXTENT PERMITTED BY LAW, VSAV SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, GOODWILL, DATA, OR BUSINESS INTERRUPTION, ARISING FROM OR RELATING TO THE SERVICES OR THESE TERMS, EVEN IF FORESEEABLE OR IF ADVISED OF THE POSSIBILITY. 
+          TO THE MAXIMUM EXTENT PERMITTED BY LAW, VSAV GYANTAPA SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, GOODWILL, DATA, OR BUSINESS INTERRUPTION, ARISING FROM OR RELATING TO THE SERVICES OR THESE TERMS, EVEN IF FORESEEABLE OR IF ADVISED OF THE POSSIBILITY. 
         </p>
         <p className="text-lg">
           IN JURISDICTIONS WHERE LIMITATIONS OF LIABILITY OR EXCLUSIONS OF CERTAIN DAMAGES ARE RESTRICTED, LIABILITY SHALL BE LIMITED TO THE GREATEST EXTENT PERMITTED BY LAW. 
@@ -168,7 +168,7 @@ const sections: Section[] = [
     content: (
       <>
         <p className="mb-4 text-lg">
-          VSAV may suspend or terminate access, in whole or part, with or without prior notice, for any conduct that violates these Terms, impairs Service integrity, or otherwise presents risk; upon termination, all licenses and rights granted herein shall immediately cease. 
+          VSAV GYANTAPA may suspend or terminate access, in whole or part, with or without prior notice, for any conduct that violates these Terms, impairs Service integrity, or otherwise presents risk; upon termination, all licenses and rights granted herein shall immediately cease. 
         </p>
         <p className="text-lg">
           Sections which by their nature should survive termination shall so survive, including, inter alia, intellectual property, disclaimers, limitations of liability, arbitration, and governing law. 
@@ -183,7 +183,7 @@ const sections: Section[] = [
     content: (
       <>
         <p className="mb-4 text-lg">
-          VSAV may amend these Terms from time to time; updated terms shall be posted with an amended effective date. 
+          VSAV GYANTAPA may amend these Terms from time to time; updated terms shall be posted with an amended effective date. 
         </p>
         <p className="text-lg">
           Continued use of the Services following such changes shall constitute acceptance thereof; where required by law, renewed consent or explicit acknowledgment may be solicited. 
@@ -197,7 +197,7 @@ const sections: Section[] = [
     title: "Governing Law and Venue",
     content: (
       <p className="text-lg">
-        Except where mandatorily overridden by peremptory local law, these Terms shall be governed by the laws applicable to VSAV’s principal establishment, without regard to conflict‑of‑laws principles; venue and jurisdiction shall lie as stipulated in the arbitration and dispute resolution provisions or, absent arbitration, in courts of competent jurisdiction. 
+        Except where mandatorily overridden by peremptory local law, these Terms shall be governed by the laws applicable to VSAV GYANTAPA’S principal establishment, without regard to conflict‑of‑laws principles; venue and jurisdiction shall lie as stipulated in the arbitration and dispute resolution provisions or, absent arbitration, in courts of competent jurisdiction. 
       </p>
     ),
   },
@@ -215,11 +215,11 @@ const sections: Section[] = [
           <br />
           Email:{" "}
           <a
-            href="mailto:SUPPORT@MARGDARSHAK.TECH"
+            href="mailto:abhinavjha393@gmail.com"
             className="text-blue-600 underline hover:text-blue-800"
             aria-label="Contact VSAV GYANTAPA via email"
           >
-            SUPPORT@MARGDARSHAN.TECH
+            abhinavjha393@gmail.com
           </a>
         </address>
       </>
@@ -299,7 +299,7 @@ const TermsAndConditions: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
           <section className="lg:col-span-8">
             <div className="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-xl shadow-xl p-6 mb-8">
               <p className="text-lg text-slate-800">
-                These Terms constitute a binding accord between VSAV and the User concerning the Services and shall be construed to maximize legal efficacy in consonance with applicable law and equitable principles.
+                These Terms constitute a binding accord between VSAV GYANTAPA and the User concerning the Services and shall be construed to maximize legal efficacy in consonance with applicable law and equitable principles.
               </p>
             </div>
 
@@ -361,7 +361,7 @@ const TermsAndConditions: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               <br />
               Developed &amp; Maintained by <span className="font-semibold text-emerald-600">VSAV GYANTAPA</span>
               <br />
-              © 2025 VSAV GYANTAPA. All Rights Reserved
+              © 2026 VSAV GYANTAPA. All Rights Reserved
             </div>
           </div>
           <a
