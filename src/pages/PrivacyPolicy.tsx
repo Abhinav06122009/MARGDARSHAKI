@@ -558,7 +558,7 @@ const PrivacyPolicy: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               Developed &amp; Maintained by{" "}
               <span className="font-semibold text-emerald-600">VSAV GYANTAPA</span>
               <br />
-              © 2025 VSAV GYANTAPA. All Rights Reserved
+              © 2026 VSAV GYANTAPA. All Rights Reserved
             </div>
           </div>
           <a
