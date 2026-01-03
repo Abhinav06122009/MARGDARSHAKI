@@ -13,18 +13,18 @@ import AdUnit from '@/components/AdUnit';
 
 const BLOG_POSTS = [
   {
-    id: 'scientific-study-techniques-2025',
-    title: '5 Scientific Study Techniques That Actually Work in 2025',
+    id: 'scientific-study-techniques-2026',
+    title: '5 Scientific Study Techniques That Actually Work in 2026',
     excerpt: 'Stop rereading your notes. Discover active recall, spaced repetition, and the Feynman technique to cut your study time in half while boosting retention.',
     image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=1000',
-    date: 'Oct 24, 2025',
+    date: 'Oct 24, 2026',
     readTime: '8 min read',
     category: 'Study Hacks',
     author: 'ABHINAV JHA',
     content: `
       <p class="lead text-xl text-gray-300 mb-6">We've all been there: staring at a textbook for hours, highlighting every other sentence, only to forget everything the next day. The problem isn't your brain; it's your method. Traditional studying methods like re-reading and highlighting are scientifically proven to be the least effective ways to learn.</p>
       
-      <p class="mb-6">In 2025, successful students aren't studying harder; they are studying smarter using cognitive psychology. Here are the 5 methods backed by neuroscience that will revolutionize your GPA.</p>
+      <p class="mb-6">In 2026, successful students aren't studying harder; they are studying smarter using cognitive psychology. Here are the 5 methods backed by neuroscience that will revolutionize your GPA.</p>
 
       <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">1. Active Recall: The Gold Standard</h2>
       <p class="mb-4">Most students study passively. They let information "wash over" them. Active recall involves retrieving information from your brain without looking at the answer. It strengthens neural pathways.</p>
@@ -49,7 +49,7 @@ const BLOG_POSTS = [
 
       <h2 class="text-2xl font-bold text-emerald-400 mt-8 mb-4">5. The Pomodoro Technique 2.0</h2>
       <p class="mb-4">Focus is a finite resource. The classic Pomodoro technique (25 minutes work, 5 minutes break) prevents mental fatigue.</p>
-      <p class="mb-4"><strong>The 2025 Update:</strong> Recent studies suggest longer deep work sessions might be better for complex tasks. Try the 50/10 split: 50 minutes of intense, distraction-free work, followed by a 10-minute break where you <em>must</em> move your body (no scrolling social media).</p>
+      <p class="mb-4"><strong>The 2026 Update:</strong> Recent studies suggest longer deep work sessions might be better for complex tasks. Try the 50/10 split: 50 minutes of intense, distraction-free work, followed by a 10-minute break where you <em>must</em> move your body (no scrolling social media).</p>
 
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Conclusion</h3>
       <p class="mb-4">Adopting these techniques requires effort. Active Recall feels harder than highlighting. Interleaving feels more confusing than blocked practice. But that "difficulty" is exactly what you need. Embrace the cognitive load, and your grades will follow.</p>
@@ -60,7 +60,7 @@ const BLOG_POSTS = [
     title: 'The Ultimate Guide to Managing Exam Stress',
     excerpt: 'Is anxiety hurting your grades? Learn actionable psychological strategies to turn panic into focus and perform your best under pressure.',
     image: 'https://images.unsplash.com/photo-1444653614773-995cb7542b30?auto=format&fit=crop&q=80&w=1000',
-    date: 'Oct 20, 2025',
+    date: 'Oct 20, 2026',
     readTime: '6 min read',
     category: 'Mental Health',
     author: 'ABHINAV JHA',
@@ -99,7 +99,7 @@ const BLOG_POSTS = [
     title: 'Digital Notes vs. Paper: What Science Says',
     excerpt: 'Should you type or write? We analyze the cognitive benefits of both methods to help you build the perfect hybrid workflow.',
     image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=1000',
-    date: 'Oct 15, 2025',
+    date: 'Oct 15, 2026',
     readTime: '5 min read',
     category: 'Tech & Gear',
     author: 'ABHINAV JHA',
@@ -129,7 +129,7 @@ const BLOG_POSTS = [
     title: 'How to Create a Study Schedule You Can Actually Stick To',
     excerpt: 'Stop making unrealistic plans. Learn how to use "Time Blocking" and "Buffer Zones" to manage your academic life without burnout.',
     image: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=1000',
-    date: 'Oct 10, 2025',
+    date: 'Oct 10, 2026',
     readTime: '7 min read',
     category: 'Productivity',
     author: 'ABHINAV JHA',
@@ -162,7 +162,7 @@ const BLOG_POSTS = [
     title: 'Why Tracking Your Grades is the Secret to a 4.0 GPA',
     excerpt: 'What gets measured gets managed. Discover how keeping a close eye on your weighted grades can help you prioritize assignments.',
     image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1000',
-    date: 'Oct 05, 2025',
+    date: 'Oct 05, 2026',
     readTime: '4 min read',
     category: 'Academic Success',
     author: 'ABHINAV JHA',
@@ -194,7 +194,7 @@ const BLOG_POSTS = [
     title: 'The Power of Deep Work: Studying Less but Better',
     excerpt: 'Cal Newport’s concept of Deep Work changed the industry. Here is how students can apply it to finish homework in record time.',
     image: 'https://images.unsplash.com/photo-1497493292307-31c376b6e479?auto=format&fit=crop&q=80&w=1000',
-    date: 'Oct 01, 2025',
+    date: 'Oct 01, 2026',
     readTime: '6 min read',
     category: 'Productivity',
     author: 'ABHINAV JHA',
@@ -224,7 +224,7 @@ const BLOG_POSTS = [
     title: 'How to Stop Procrastinating: The 2-Minute Rule',
     excerpt: 'Struggling to start? This simple psychological trick will help you overcome the friction of starting difficult assignments.',
     image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 28, 2025',
+    date: 'Sep 28, 2026',
     readTime: '3 min read',
     category: 'Psychology',
     author: 'ABHINAV JHA',
@@ -251,7 +251,7 @@ const BLOG_POSTS = [
     title: 'Why "Night Owls" Often Struggle (and How to Fix It)',
     excerpt: 'Sleep is when memory consolidation happens. If you are cutting sleep to study, you are actually learning less.',
     image: 'https://images.unsplash.com/photo-1541781777621-af2ea27520ce?auto=format&fit=crop&q=80&w=1000',
-    date: 'Sep 20, 2025',
+    date: 'Sep 20, 2026',
     readTime: '6 min read',
     category: 'Health',
     author: 'ABHINAV JHA',
@@ -395,7 +395,7 @@ const BlogList = () => {
           <img src={logo} alt="Logo" className="h-6 w-6 grayscale" />
           <span className="font-bold">MARGDARSHAK</span>
         </div>
-        <p>© 2025 VSAV GYANTAPA. All rights reserved.</p>
+        <p>© 2026 VSAV GYANTAPA. All rights reserved.</p>
       </footer>
     </div>
   );
