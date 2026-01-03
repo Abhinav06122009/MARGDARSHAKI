@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Session } from '@supabase/supabase-js';
 
 // --- PAGE IMPORTS ---
-import Index from "@/pages/Index"; // Login
+import Index from "@/pages/Index"; 
 import NotFound from "@/pages/NotFound";
 import LandingPage from '@/pages/LandingPage';
 import ResetPasswordPage from '@/pages/reset-password';
@@ -21,9 +21,9 @@ import FeaturesPage from '@/pages/FeaturesPage';
 import TestimonialsPage from '@/pages/TestimonialsPage';
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
-import BlogPage from "@/pages/BlogPage"; // Restore Blog
-import HelpPage from "@/pages/HelpPage"; // Restore Help
-import AdminMessages from "@/pages/AdminMessages"; // Restore Admin
+import BlogPage from "@/pages/BlogPage"; 
+import HelpPage from "@/pages/HelpPage"; 
+import AdminMessages from "@/pages/AdminMessages"; 
 
 // --- COMPONENT IMPORTS ---
 import Dashboard from "@/components/dashboard/Dashboard";
@@ -42,13 +42,12 @@ import Resources from "@/components/resources/Resources";
 import Settings from "@/components/settings/Settings";
 import { Button } from '@/components/ui/button';
 import AdSenseScript from '@/components/AdSenseScript';
-import CookieConsent from '@/components/CookieConsent'; // IMPORT COOKIE CONSENT
+import CookieConsent from '@/components/CookieConsent';
 import { CursorProvider } from '@/lib/CursorContext';
 
 // --- SEO COMPONENT ---
 const PageHelmet = ({ title, description }: { title: string, description: string }) => {
   const location = useLocation();
-  // Canonical tag prevents "Duplicate Content" errors
   const canonicalUrl = `https://margdarshan.tech${location.pathname === '/' ? '' : location.pathname}`;
 
   return (
@@ -225,7 +224,10 @@ const AppContent = () => {
       <AdSenseScript />
       <AnimatedRoute>
         <Routes>
-          {/* ================= PUBLIC ROUTES (AdSense & Bots Must See These) ================= */}
+          {/* ==================================================================================
+              PUBLIC ROUTES (ADSENSE SAFE ZONE)
+              These routes are accessible to Google Bots and do not require login.
+             ================================================================================== */}
           <Route path="/" element={<><PageHelmet title={helmetData.landing.title} description={helmetData.landing.description} /><LandingPage /></>} />
           <Route path="/auth" element={<><PageHelmet title={helmetData.auth.title} description={helmetData.auth.description} /><Index /></>} />
           
@@ -239,27 +241,30 @@ const AppContent = () => {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           
+          {/* BLOG & TOOLS (CRITICAL: MUST BE PUBLIC) */}
           <Route path="/blog/*" element={<BlogPage />} />
-
-          {/* Tools MUST be public for AdSense */}
           <Route path="/calculator" element={<><PageHelmet title={helmetData.calculator.title} description={helmetData.calculator.description} /><Calculator /></>} />
           <Route path="/timer" element={<><PageHelmet title={helmetData.timer.title} description={helmetData.timer.description} /><StudyTimer /></>} />
 
-          {/* ================= PROTECTED ROUTES (Dashboard) ================= */}
+          {/* ==================================================================================
+              PRIVATE ROUTES (USER DASHBOARD)
+              Google Bots are blocked from these. Only logged-in users can access.
+             ================================================================================== */}
           <Route path="/admin/messages" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.admin.title} description={helmetData.admin.description} /><AdminMessages /></ProtectedLayout></ProtectedRoute>} />
 
           <Route path="/dashboard" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.dashboard.title} description={helmetData.dashboard.description} /><Dashboard onNavigate={handleNavigate} /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/progress" element={<ProtectedRoute><ProtectedLayout><ProgressTracker /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/grades" element={<ProtectedRoute><ProtectedLayout><Grades /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/attendance" element={<ProtectedRoute><ProtectedLayout><Attendance /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/tasks" element={<ProtectedRoute><ProtectedLayout><Tasks /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/notes" element={<ProtectedRoute><ProtectedLayout><Notes /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/calendar" element={<ProtectedRoute><ProtectedLayout><Calendar /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/timetable" element={<ProtectedRoute><ProtectedLayout><Timetable /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/courses" element={<ProtectedRoute><ProtectedLayout><CourseManagement /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/syllabus" element={<ProtectedRoute><ProtectedLayout><Syllabus /></ProtectedLayout></ProtectedRoute>} />
-          <Route path="/resources" element={<ProtectedRoute><ProtectedLayout><Resources /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/progress" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.progress.title} description={helmetData.progress.description} /><ProgressTracker /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/grades" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.grades.title} description={helmetData.grades.description} /><Grades /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/attendance" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.attendance.title} description={helmetData.attendance.description} /><Attendance /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/tasks" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.tasks.title} description={helmetData.tasks.description} /><Tasks /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/notes" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.notes.title} description={helmetData.notes.description} /><Notes /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/calendar" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.calendar.title} description={helmetData.calendar.description} /><Calendar /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/timetable" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.timetable.title} description={helmetData.timetable.description} /><Timetable /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/courses" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.courses.title} description={helmetData.courses.description} /><CourseManagement /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/syllabus" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.syllabus.title} description={helmetData.syllabus.description} /><Syllabus /></ProtectedLayout></ProtectedRoute>} />
+          <Route path="/resources" element={<ProtectedRoute><ProtectedLayout><PageHelmet title={helmetData.resources.title} description={helmetData.resources.description} /><Resources /></ProtectedLayout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><ProtectedLayout><Settings /></ProtectedLayout></ProtectedRoute>} />
+          
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="*" element={<><PageHelmet title="404 Not Found" description="Page not found" /><NotFound /></>} />
         </Routes>
@@ -279,7 +284,7 @@ const App = () => {
                 <AppContent />
                 <Toaster />
                 <Sonner />
-                <CookieConsent /> {/* <<< THIS FIXES PRIVACY SCORE >>> */}
+                <CookieConsent /> {/* COOKIE CONSENT ENABLED */}
               </AuthProvider>
             </BrowserRouter>
           </CursorProvider>
