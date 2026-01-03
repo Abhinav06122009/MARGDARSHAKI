@@ -137,23 +137,23 @@ const FeaturesPage = () => {
 
         {/* Additional Tools Section (AdSense Value) */}
         <div className="bg-gradient-to-br from-gray-900 to-black border border-white/10 rounded-3xl p-12 text-center mb-20">
-          <h2 className="text-3xl font-bold text-white mb-6">Beyond the Basics</h2>
+          <h2 className="text-3xl font-bold text-black mb-6">Beyond the Basics</h2>
           <p className="text-gray-400 max-w-2xl mx-auto mb-10">
             We also offer a suite of free public tools designed to help every student, regardless of whether they have an account.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/calculator">
-              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-black/10 text-white">
+              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-white/10 text-black">
                 Scientific Calculator
               </Button>
             </Link>
             <Link to="/resources">
-              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-black/10 text-white">
+              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-white/10 text-black">
                 Resource Library
               </Button>
             </Link>
             <Link to="/career">
-              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-black/10 text-white">
+              <Button variant="outline" className="h-12 px-8 border-black/20 hover:bg-white/10 text-black">
                 Career Roadmaps
               </Button>
             </Link>
