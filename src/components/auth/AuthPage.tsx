@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Eye, EyeOff, Mail, Lock, User, GraduationCap, Sparkles, BookOpen, Brain, Shield, Check, Phone, ArrowLeft, AlertTriangle, Fingerprint, Smartphone, Globe, Clock, KeyRound, Bot, Cpu } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, GraduationCap, Sparkles, BookOpen, Brain, Shield, Check, Phone, ArrowLeft, AlertTriangle, Smartphone, Globe, Clock, KeyRound, Bot, Cpu } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AnimatedText, StaggeredText } from '@/components/ui/animated-text';
 import { AnimatedButton } from '@/components/ui/animated-button';
@@ -447,7 +447,7 @@ const securityFeatures = {
         console.error(`Failed to log security event '${event}':`, error.message);
       }
     } catch (e: unknown) {
-      console.error('An unexpected error occurred while trying to log a security event:', e.message);
+      console.error('An unexpected error occurred while trying to log a security event:', (e as Error).message);
     }
   },
 
@@ -486,7 +486,7 @@ const createSecureUserProfile = async (user: User, userData?: UserData) => {
         .insert({
           id: user.id,
           email: user.email,
-          full_name: userData?.full_name || user.user_metadata?.full_name || user.email.split('@')[0],
+          full_name: userData?.full_name || user.user_metadata?.full_name || user.email?.split('@')[0],
           user_type: userData?.user_type || 'student',
           phone_number: userData?.phone_number || null,
           country_code: userData?.country_code || null,
@@ -505,7 +505,7 @@ const createSecureUserProfile = async (user: User, userData?: UserData) => {
         userType: userData?.user_type
       });
     } else if (existingProfile) { // Profile exists, check for anomalies and update fingerprint
-      const anomalies = advancedSecurity.checkForAnomalies(fingerprint, existingProfile.security_settings?.device_fingerprints?.[0]);
+      const anomalies = advancedSecurity.checkForAnomalies(fingerprint as DeviceFingerprint, existingProfile.security_settings?.device_fingerprints?.[0]);
       if (anomalies.length > 0) {
         securityFeatures.logSecurityEvent('login_anomaly_detected', { userId: user.id, anomalies });
       }
@@ -694,46 +694,6 @@ const secureAuth: { [key: string]: (...args: any[]) => Promise<any> } = {
   }
 };
 
-// Add signInWithBiometrics to the secureAuth object
-secureAuth.signInWithBiometrics = async () => {
-  if (!navigator.credentials || !navigator.credentials.get) {
-    throw new Error('Biometric authentication is not supported on this browser.');
-  }
-
-  try {
-    securityFeatures.logSecurityEvent('biometric_signin_attempt', {});
-
-    // In a real-world scenario, you would first fetch a challenge 
-    // from your backend. For this implementation, we'll simulate it.
-    const challenge = new Uint8Array(32);
-    window.crypto.getRandomValues(challenge);
-
-    const credential = await navigator.credentials.get({
-      publicKey: {
-        challenge,
-        timeout: 60000,
-        // In a real app, you'd specify allowed credential IDs for the user
-        // allowCredentials: [], 
-        userVerification: 'preferred',
-      },
-    });
-
-    if (!credential) {
-      throw new Error('Biometric authentication failed or was canceled.');
-    }
-
-    // Here, you would send the `credential` object to your backend for verification.
-    // If verification is successful, the backend returns a session.
-    // We will simulate a successful login for now.
-    securityFeatures.logSecurityEvent('biometric_signin_success', { credentialId: credential.id });
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      securityFeatures.logSecurityEvent('biometric_signin_failed', { error: error.message });
-      throw error;
-    }
-  }
-};
-
 // --- UI COMPONENTS ---
 
 const GoogleLogo = () => ( <svg viewBox="0 0 24 24" className="w-5 h-5"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> );
@@ -788,7 +748,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
   const [authStep, setAuthStep] = useState<'credentials' | 'mfa' | 'success'>('credentials');
   const [mfaPhoneNumber, setMfaPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
-  const [deviceTrustScore, setDeviceTrustScore] = useState(100);  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
+  const [deviceTrustScore, setDeviceTrustScore] = useState(100);
   const { isBehaviorNormal } = advancedSecurity.useBehavioralAnalysis();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -824,12 +784,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
 
   useEffect(() => {
     setMounted(true);
-    const checkBiometricSupport = async () => {
-      if (window.PublicKeyCredential && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()) {
-        setIsBiometricSupported(true);
-      }
-    };
-    checkBiometricSupport();
     const verifySecuritySetup = async () => {
       try {
         const fingerprint = await securityFeatures.generateDeviceFingerprint();
@@ -997,7 +951,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
 
   const handleGoogleSignIn = async () => { setLoading(true); try { await secureAuth.signInWithGoogle(); toast({ title: "🔄 Redirecting to Google", description: "Securely redirecting..." }); } catch (error: unknown) { if (error instanceof Error) { toast({ title: "❌ Google Sign-In Failed", description: error.message, variant: "destructive" }); } } finally { setLoading(false); } };
   const handleGitHubSignIn = async () => { setLoading(true); try { await secureAuth.signInWithGitHub(); toast({ title: "🔄 Redirecting to GitHub", description: "Securely redirecting..." }); } catch (error: unknown) { if (error instanceof Error) { toast({ title: "❌ GitHub Sign-In Failed", description: error.message, variant: "destructive" }); } } finally { setLoading(false); } };
-  const handleBiometricSignIn = async () => { setLoading(true); try { await secureAuth.signInWithBiometrics(); toast({ title: "Biometric Scan Successful", description: "Verifying your identity..." }); onLogin(); } catch (error: unknown) { if (error instanceof Error) { toast({ title: "Biometric Sign-In Failed", icon: <Fingerprint className="w-5 h-5 text-red-400" />, description: error.message, variant: "destructive" }); } } finally { setLoading(false); } };
   const handleMagicLink = async () => { if (!email.trim()) { toast({ title: "Validation Error", description: "Please enter your email address.", variant: "destructive" }); return; } setLoading(true); try { await secureAuth.signInWithMagicLink(email); toast({ title: "✨ Magic Link Sent!", description: "Check your email for a secure sign-in link." }); } catch (error: unknown) { if (error instanceof Error) { toast({ title: "❌ Magic Link Failed", description: error.message, variant: "destructive" }); } } finally { setLoading(false); } };
   const handleForgotPassword = async (e: React.FormEvent) => { e.preventDefault(); if (!forgotPasswordEmail.trim()) { toast({ title: "Validation Error", description: "Email is required", variant: "destructive" }); return; } setLoading(true); try { await secureAuth.resetPassword(forgotPasswordEmail); toast({ title: "📧 Password Reset Email Sent", description: "Check your email for reset instructions." }); setShowForgotPassword(false); setForgotPasswordEmail(''); } catch (error: unknown) { if (error instanceof Error) { toast({ title: "❌ Reset Failed", description: error.message, variant: "destructive" }); } } finally { setLoading(false); } };
   const handlePasswordReset = async (e: React.FormEvent) => { e.preventDefault(); const strength = securityFeatures.checkPasswordStrength(password); if (!password.trim() || strength.score < 4) { toast({ title: "Security Error", description: "Password must meet all security requirements.", variant: "destructive" }); return; } if (password !== confirmPassword) { toast({ title: "Validation Error", description: "Passwords do not match", variant: "destructive" }); return; } setLoading(true); try { await secureAuth.updatePassword(password); toast({ title: "✅ Password Updated!", description: "You can now sign in with your new secure password." }); setIsPasswordReset(false); setPassword(''); setConfirmPassword(''); window.history.replaceState({}, document.title, window.location.pathname); } catch (error: unknown) { if (error instanceof Error) { toast({ title: "❌ Update Failed", description: error.message, variant: "destructive" }); } } finally { setLoading(false); } };
@@ -1234,11 +1187,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
               </div>
             )}
             {!isLogin && (
-              <FloatingLabelInput id="confirmPassword" label="Confirm Password" type={showConfirmPassword ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} icon={<Lock />} error={errors.confirmPassword} required autoComplete="new-password" className="animate-slide-down">
-                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center z-10">{showConfirmPassword ? <EyeOff className="h-5 w-5 text-white/50" /> : <Eye className="h-5 w-5 text-white/50" />}</button>
-              </FloatingLabelInput>
-            )}
-            {!isLogin && (
               <div className="animate-slide-down">
                 <label className="block text-white/80 text-sm font-medium mb-2">I am a...</label>
                 <div className="grid grid-cols-2 gap-3">
@@ -1257,14 +1205,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
             </AnimatedButton>
             <div className="relative my-6"><div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/20"></div></div><div className="relative flex justify-center text-sm"><span className="px-4 bg-black text-white/50 font-medium">OR CONTINUE WITH</span></div></div>
             <div className="space-y-3 animate-slide-up">
-              {isLogin && isBiometricSupported && (
-                <AnimatedButton type="button" onClick={handleBiometricSignIn} variant="ghost" className="w-full p-1 bg-black/20 border-2 border-white/10 rounded-xl group transform hover:-translate-y-1 transition-all duration-300 hover:border-transparent hover:[background:linear-gradient(to_right,theme(colors.purple.700),theme(colors.cyan.700))] disabled:opacity-50" disabled={loading}>
-                  <div className="w-full h-full bg-black/80 rounded-lg flex items-center justify-center space-x-3 py-3 px-4">
-                  <Fingerprint className="w-5 h-5 text-cyan-400" />
-                  <span className="text-white font-medium">Sign in with Biometrics</span>
-                  </div>
-                </AnimatedButton>
-              )}
               <AnimatedButton type="button" onClick={handleMagicLink} variant="ghost" className="w-full p-1 bg-black/20 border-2 border-white/10 rounded-xl group transform hover:-translate-y-1 transition-all duration-300 hover:border-transparent hover:[background:linear-gradient(to_right,theme(colors.yellow.500),theme(colors.amber.500))] disabled:opacity-50" disabled={loading}>
                 <div className="w-full h-full bg-black/80 rounded-lg flex items-center justify-center space-x-3 py-3 px-4">
                   <Sparkles className="w-5 h-5 text-yellow-400" />
@@ -1290,7 +1230,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLogin }) => {
               <p className="text-xs text-white/40 mt-2">Note: CSRF, XSS, and Security Headers (CSP, HSTS) are enforced at the server and CDN level for comprehensive protection.</p>
             </div>
             <div className="mt-8 pt-6 border-t border-white/10 text-center">
-              <p>Developed by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span> | © 2025 VSAV GYANTAPA</p>
+              <p>Developed by <span className="font-semibold text-emerald-400">VSAV GYANTAPA</span> | © 2026 VSAV GYANTAPA</p>
             </div>
           </footer>
         </AnimatedCard>
