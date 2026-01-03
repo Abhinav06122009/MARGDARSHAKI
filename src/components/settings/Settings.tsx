@@ -328,7 +328,7 @@ const Settings: React.FC<SettingsProps> = ({ onBack }) => {
                 <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
                 Secure Database • User Isolated • Live Sync • Real-Data
               </div>
-              <div className="text-xs mt-1">© 2025 VSAV GYANTAPA - All Rights Reserved</div>
+              <div className="text-xs mt-1">© 2026 VSAV GYANTAPA - All Rights Reserved</div>
             </div>
           </footer>
       </div>
